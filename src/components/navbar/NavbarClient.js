@@ -3,15 +3,65 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Dropdown from "./Dropdown";
 import DropdownMobile from "./DropdownMobile.jsx";
+import {Hamburger} from "@/ui/Hamburger";
 
 export default function NavbarClient({ menu }) {
     const [searchOn, setSearchOn] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = () => setSearchOn(true);
+
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        const mql = window.matchMedia("(min-width: 1024px)");
+
+        const handleMql = (e) => {
+            if (e.matches) setIsOpen(false);
+        };
+
+        if (mql.addEventListener) mql.addEventListener("change", handleMql);
+        else mql.addListener(handleMql); // Safari/legacy
+
+        // jeżeli już jesteśmy na desktopie — zamknij od razu
+        if (mql.matches) setIsOpen(false);
+
+        return () => {
+            if (mql.removeEventListener) mql.removeEventListener("change", handleMql);
+            else mql.removeListener(handleMql);
+        };
+    }, []);
+
+    // 2) Zamykanie przy scrollu (gdy menu jest otwarte)
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        if (!isOpen) return;
+
+        let ticking = false;
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                setIsOpen(false);
+                ticking = false;
+            });
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [isOpen]);
+
+    // 3) Zamykanie przy dowolnym resize (nie tylko po przekroczeniu breakpointu)
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        if (!isOpen) return;
+
+        const onResize = () => setIsOpen(false);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, [isOpen]);
 
     return (
         <>
@@ -59,7 +109,7 @@ export default function NavbarClient({ menu }) {
                             aria-controls="mobile-menu"
                             aria-label="Otwórz menu"
                         >
-                            <span className="block w-5 h-0.5 bg-white rounded" />
+                            <Hamburger isOpen={isOpen}/>
                         </button>
                     </div>
                 </div>
