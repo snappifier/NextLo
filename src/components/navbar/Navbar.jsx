@@ -11,11 +11,8 @@ import {useEffect, useState} from "react";
 // import {HamburgerMenu} from "../animations/HamburgerMenu.jsx";
 import DropdownMobile from "./DropdownMobile.jsx";
 import {strapiFetch} from "@/app/lib/strapi";
+import {getMenu} from "@/app/lib/strapi.js"
 
-async function getMenu() {
-    const json = await strapiFetch('/api/menu?populate[Kategoria][populate]=*');
-    return json.data;
-}
 
 export default async function Navbar() {
     const [searchOn, setSearchOn] = useState(false);
@@ -58,7 +55,7 @@ export default async function Navbar() {
         setIsOpen(false)
     }
 
-    //idk czy to dziala
+    // idk czy to dziala
     // useEffect(() => {
     //     const mql = window.matchMedia('(min-width:1024px)');
     //     mql.onchange = (e) => e.matches && setIsOpen(false);

@@ -18,3 +18,4 @@ export function getStrapiMedia(media) {
     if (!url) return null;
     return url.startsWith('http') ? url : STRAPI_URL + url;
 }
+
