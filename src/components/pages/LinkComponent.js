@@ -10,6 +10,7 @@ const LinkComponent = ({linkArray}) => {
     return (<div className="w-full flex flex-col">
         {linkArray.map((link) => (
             <Link
+                key={link.id}
                 href={link["Plik"]?.url ? getStrapiMedia(link["Plik"].url) : "#"}
                 target="_blank"
                 className="block w-full"

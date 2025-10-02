@@ -1,7 +1,5 @@
-// app/[slug]/page.js
 import { notFound } from "next/navigation";
-import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
-import Link from "next/link";
+import {strapiFetch} from "@/app/lib/strapi";
 import Content from "@/components/pages/Content";
 import LinkComponent from "@/components/pages/LinkComponent";
 import MediaComponent from "@/components/pages/MediaComponent";
@@ -23,7 +21,6 @@ async function getPageData(slug) {
     }
 }
 
-
 export default async function Page({ params }) {
     const { slug } = await params;
     const data = await getPageData(slug);
@@ -35,18 +32,17 @@ export default async function Page({ params }) {
 
 
     return (
-        <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center  min-h-[80vh]">
+        <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%]">
                 <Header text={data["Naglowek"]} />
                 <div className="w-full h-max flex flex-col gap-4 sm:gap-6 text-wrap">
                     {sections.map((section) => {
-                        console.log(section)
                         const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];
                         const media = Array.isArray(section["Media"]) ? section["Media"] : [];
                         const content = Array.isArray(section["Paragraf"]) ? section["Paragraf"] : [];
 
                         return (
-                            <div className="w-full h-max flex flex-col gap-5">
+                            <div key={section.id} className="w-full h-max flex flex-col gap-5">
                                 <Content text={content} />
                                 <LinkComponent linkArray={links} />
                                 <MediaComponent media={media} col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>

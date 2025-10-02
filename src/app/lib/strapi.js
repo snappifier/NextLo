@@ -12,10 +12,9 @@ export async function strapiFetch(path, opts = {}) {
     return res.json();
 }
 
-export function getStrapiMedia(media) {
-    if (!media) return null;
-    const url = media?.data?.attributes?.url ?? media?.attributes?.url ?? media?.url;
+export function getStrapiMedia(url) {
+
     if (!url) return null;
-    return url.startsWith('http') ? url : STRAPI_URL + url;
+    return STRAPI_URL + url;
 }
 
