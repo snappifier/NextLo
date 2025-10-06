@@ -19,7 +19,7 @@ export default function Banner() {
                     </div>
                     </div>
                 </div>
-                <div className="relative w-[94%] sm:w-[90%] lg:w-[80%] md:h-[58vh] drop-shadow-md/20 mt-4 aspect-auto">
+                <div className="hidden md:block relative w-[94%] sm:w-[90%] lg:w-[80%] md:h-[58vh] drop-shadow-md/20 mt-4 aspect-auto">
                     <Image
                         src={zdj1}
                         alt="Widok na budynek liceum"
