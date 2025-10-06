@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import {useInViewOnce} from "@/app/lib/useInViewOnce";
 import {getStrapiMedia} from "@/app/lib/strapi";
 import Image from "next/image";
-import zamoyski from "/public/jan-zamoyski.jpg"
+import zamoyski from "/src/images/jan-zamoyski.jpg"
 
 export default function Wstep({data}) {
     const { ref, inView } = useInViewOnce();
