@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import Dropdown from "./Dropdown";
 import DropdownMobile from "./DropdownMobile.jsx";
 import {Hamburger} from "@/ui/Hamburger";
+import InlineSearch from "@/components/navbar/InlineSearch";
 
 export default function NavbarClient({ menu }) {
     const [searchOn, setSearchOn] = useState(false);
@@ -26,7 +27,7 @@ export default function NavbarClient({ menu }) {
         if (mql.addEventListener) mql.addEventListener("change", handleMql);
         else mql.addListener(handleMql); // Safari/legacy
 
-        // jeżeli już jesteśmy na desktopie — zamknij od razu
+
         if (mql.matches) setIsOpen(false);
 
         return () => {
@@ -35,7 +36,7 @@ export default function NavbarClient({ menu }) {
         };
     }, []);
 
-    // 2) Zamykanie przy scrollu (gdy menu jest otwarte)
+    //  Zamykanie przy scrollu (gdy menu jest otwarte)
     useEffect(() => {
         if (typeof window === "undefined") return;
         if (!isOpen) return;
@@ -54,7 +55,7 @@ export default function NavbarClient({ menu }) {
         return () => window.removeEventListener("scroll", onScroll);
     }, [isOpen]);
 
-    // 3) Zamykanie przy dowolnym resize (nie tylko po przekroczeniu breakpointu)
+    //  Zamykanie przy resize
     useEffect(() => {
         if (typeof window === "undefined") return;
         if (!isOpen) return;
@@ -84,25 +85,9 @@ export default function NavbarClient({ menu }) {
                     </div>
 
                     <div className="flex items-center">
-                        <button
-                            type="button"
-                            className="group hover:bg-sky-800 h-10 w-10 flex justify-center items-center rounded-md cursor-pointer"
-                            onClick={handleClick}
-                            aria-label="Szukaj"
-                        >
-                            <motion.svg
-                                className="transform transition-transform duration-150 group-hover:scale-110"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                            >
-                                <g fill="none" stroke="#fdfdfd" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
-                                    <path d="m21 21l-4.34-4.34" />
-                                    <circle cx="11" cy="11" r="8" />
-                                </g>
-                            </motion.svg>
-                        </button>
+
+	                        <InlineSearch />
+
 
                         <button
                             type="button"

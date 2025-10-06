@@ -21,6 +21,7 @@ export default async function Home() {
                     <Banner />
                 </div>
 
+
                 {home["Kolejnosc"]?.map((data, index) => {
                     const componentType = data["__component"];
                     const key = `${componentType}-${data.id ?? index}`;

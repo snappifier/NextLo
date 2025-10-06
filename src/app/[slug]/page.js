@@ -1,56 +1,103 @@
 import { notFound } from "next/navigation";
-import {strapiFetch} from "@/app/lib/strapi";
+import { strapiFetch } from "@/app/lib/strapi";
 import Content from "@/components/pages/Content";
 import LinkComponent from "@/components/pages/LinkComponent";
 import MediaComponent from "@/components/pages/MediaComponent";
 import Header from "@/components/pages/Header";
 
-async function getPageData(slug) {
-    if (!slug) return null;
-    const slugValue = Array.isArray(slug) ? slug.join("/") : slug;
+export const dynamic = "force-dynamic";
 
-    const url = `/api/${slugValue}?populate[Sekcja][populate]=*`;
+const attrs = (x) => (x?.attributes ?? x ?? {});
 
-    try {
-        const json = await strapiFetch(url);
-        const result = Array.isArray(json.data) ? json.data[0] : json.data;
-        return result ?? null;
-    } catch (err) {
-        if (err.message && err.message.includes("404")) return null;
-        throw err;
-    }
+const slugify = (s = "") =>
+	s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase().trim()
+		.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+async function getMenuItems() {
+	const json = await strapiFetch("/api/menu?populate[Kategoria][populate]=Podstrona");
+	const root = attrs(json?.data);
+	const cats = root?.Kategoria || [];
+	const out = [];
+	for (const cat of cats) {
+		for (const p of (cat?.Podstrona || [])) {
+			const a = attrs(p);
+			out.push({
+				title: a.Tytul || "",
+				link: a.Link || "",
+				desc: a.Opis || "",
+			});
+		}
+	}
+	return out;
+}
+
+async function fetchSingleById(idBase) {
+	const candidates = [
+		`/api/${idBase}?populate[Sekcja][populate]=*`,
+		`/api/${idBase}-szablon?populate[Sekcja][populate]=*`,
+	];
+	for (const url of candidates) {
+		try {
+			const json = await strapiFetch(url);
+			const row = Array.isArray(json?.data) ? json.data[0] : json?.data;
+			if (row) return attrs(row);
+		} catch (e) {
+			if (!String(e?.message || "").includes("404")) throw e;
+		}
+	}
+	return null;
+}
+
+async function getPageData(slugParam) {
+	const segments = Array.isArray(slugParam) ? slugParam : [slugParam];
+	const path = "/" + segments.join("/");
+	const last = segments[segments.length - 1];
+
+	const items = await getMenuItems();
+	const item = items.find(x => (x.link || "").replace(/\/+$/,"") === path);
+
+	const bases = Array.from(new Set([ last, slugify(item?.title || "") ].filter(Boolean)));
+
+	for (const base of bases) {
+		const data = await fetchSingleById(base);
+		if (data) return data;
+	}
+	return null;
 }
 
 export default async function Page({ params }) {
-    const { slug } = await params;
-    const data = await getPageData(slug);
+	const { slug } = params;
+	const data = await getPageData(slug);
+	if (!data) return notFound();
 
-    if (!data) {
-        return notFound();
-    }
-    const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
+	const sections = Array.isArray(data.Sekcja) ? data.Sekcja : [];
 
-
-    return (
-        <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-            <div className="w-[92%] sm:w-[90%] lg:w-[80%]">
-                <Header text={data["Naglowek"]} />
-                <div className="w-full h-max flex flex-col gap-4 sm:gap-6 text-wrap">
-                    {sections.map((section) => {
-                        const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];
-                        const media = Array.isArray(section["Media"]) ? section["Media"] : [];
-                        const content = Array.isArray(section["Paragraf"]) ? section["Paragraf"] : [];
-
-                        return (
-                            <div key={section.id} className="w-full h-max flex flex-col gap-5">
-                                <Content text={content} />
-                                <LinkComponent linkArray={links} />
-                                <MediaComponent media={media} col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
+			<div className="w-[92%] sm:w-[90%] lg:w-[80%]">
+				<Header text={data.Naglowek || data.Tytul || data.title || "Bez tytułu"} />
+				{sections.length ? (
+					<div className="w-full h-max flex flex-col gap-4 sm:gap-6 text-wrap">
+						{sections.map((section) => {
+							const links = Array.isArray(section.Linki) ? section.Linki : [];
+							const media = Array.isArray(section.Media) ? section.Media : [];
+							const content = Array.isArray(section.Paragraf) ? section.Paragraf : [];
+							return (
+								<div key={section.id} className="w-full h-max flex flex-col gap-5">
+									<Content text={content} />
+									<LinkComponent linkArray={links} />
+									<MediaComponent media={media} col={section?.IloscKolumn ? section.IloscKolumn : 1} />
+								</div>
+							);
+						})}
+					</div>
+				) : (
+					<pre className="rounded-lg bg-gray-50 p-3 text-xs overflow-auto">
+            {JSON.stringify(data, null, 2)}
+          </pre>
+				)}
+			</div>
+		</div>
+	);
 }

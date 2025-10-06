@@ -1,5 +1,3 @@
-// src/lib/strapi.js
-
 export const STRAPI_URL = "https://strapi-production-cbefe.up.railway.app";
 
 export async function strapiFetch(path, opts = {}) {
