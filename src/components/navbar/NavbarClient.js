@@ -67,7 +67,7 @@ export default function NavbarClient({ menu }) {
         <>
             {/* {searchOn && <Search onClose={() => setSearchOn(false)} />} */}
             <header
-                className={`fixed top-0 pt-4 sm:pt-5 lg:pt-8 w-full flex flex-col items-center justify-start z-[100] gap-1 ${
+                className={`fixed top-0 pt-4 sm:pt-5 lg:pt-8 w-full flex flex-col items-center justify-start z-[100] gap-1 font-[poppins] ${
                     isOpen ? "h-screen backdrop-blur-md bg-black/70 transition-colors duration-400" : ""
                 }`}
             >

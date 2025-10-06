@@ -3,10 +3,8 @@
 import {useState} from "react";
 import {motion} from "motion/react";
 import Link from "next/link";
-// import {Link} from "react-router-dom";
-// import godlo from "../../assets/godlo_polski.avif";
-// import logo from "../../assets/logo.png";
-// import images from "../../features/strapiImages.jsx";
+import godlo from "src/images/godlo.webp"
+import Image from "next/image";
 
 const PHONE_NUMBER = "+48 84 639 28 01";
 const EMAIL = "zam.1lo@2com.pl";
@@ -123,7 +121,7 @@ const Footer = () => {
                         <motion.img alt="logo" className="select-none h-15 w-15   drop-shadow-lg/20" whileHover={{scale: 1.1}} whileTap={{scale: 1}}/>
                         <p className=" text-center text-gray-200 font-[poppins] text-xs sm:text-xs lg:text-md max-w-2/3 font-light whitespace-normal break-words hyphens-auto">I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
 
-                        <img alt="Godło" className=" select-none h-15 w-auto object-contain" />
+                        <Image src={godlo} alt="Godło" className=" select-none h-15 w-auto object-contain" />
                     </div>
                 </div>
 
@@ -142,10 +140,6 @@ const Footer = () => {
                         </Link>
                     ))}
                 </nav>
-
-
-
-
 
                 <div className="mt-16 flex justify-center gap-x-10">
                     {navigation.social.map((item) => {

@@ -1,6 +1,7 @@
 "use client"
 import { motion } from "motion/react";
 import {useInViewOnce} from "@/app/lib/useInViewOnce";
+import {getStrapiMedia} from "@/app/lib/strapi";
 
 export default function Wstep({data}) {
     const { ref, inView } = useInViewOnce();
@@ -16,8 +17,6 @@ export default function Wstep({data}) {
         hidden: { opacity: 0, y: 16 },
         show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
     };
-
-    console.log(data["Zdjecie"])
 
     return (
         <div className="font-[poppins] flex relative w-full justify-center">
@@ -55,7 +54,7 @@ export default function Wstep({data}) {
                     className="h-full w-max flex items-center justify-center rounded-2xl"
                 >
                     <img
-                        src={zdjSrc}
+                        src={getStrapiMedia(data["Zdjecie"].url)}
                         alt="Jan Zamoyski"
                         loading="lazy"
                         decoding="async"

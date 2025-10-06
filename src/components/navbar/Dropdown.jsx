@@ -32,7 +32,7 @@ export default function Dropdown({ menu }) {
                         </NavigationMenu.Trigger>
 
                         <NavigationMenu.Content className={contentClassName} role="menu">
-                            <ul className={(gridTable[index] ?? gridTable[0]) + " list-none"}>
+                            <ul className={(gridTable[index] ?? gridTable[0]) + " list-none font-[poppins]"}>
                                 {(cat?.Podstrona ?? []).map((page, i) => (
                                     <li
                                         key={page?.Link ?? page?.id ?? `${index}-${i}`}
