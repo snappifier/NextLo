@@ -3,9 +3,9 @@ import {motion} from "motion/react";
 
 const easeSoft = [0.22, 1, 0.36, 1];
 
-const Profil = ({ key, item, d, tint }) => {
+const Profil = ({ item, id, d, tint }) => {
     return (<motion.div
-        key={key}
+        key={id}
         initial="rest"
         animate="rest"
         whileHover="hover"
