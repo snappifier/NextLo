@@ -1,7 +1,8 @@
-// app/components/NavbarClient.jsx
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import logo from "src/images/logo.webp"
 import { AnimatePresence, motion } from "motion/react";
 import {useEffect, useState} from "react";
 import Dropdown from "./Dropdown";
@@ -73,7 +74,9 @@ export default function NavbarClient({ menu }) {
             >
                 <div className="text-white w-[94%] sm:w-[90%] lg:w-[80%] h-15 bg-[#3077BA] lg:bg-[#3077BA]/80 rounded-lg flex items-center justify-between px-5 sm:px-10 shadow-lg">
                     <Link href="/" className="z-[60]">
-                        {/* tu wstaw logo */}
+	                    <motion.div className="flex items-center justify-between w-13 h-13" whileHover={{scale: 1.1}} whileTap={{scale: 1}} >
+                        <Image src={logo} alt="Logo szkoły" className="w-full h-full" />
+	                    </motion.div>
                     </Link>
 
                     <div className="hidden lg:flex items-center">
