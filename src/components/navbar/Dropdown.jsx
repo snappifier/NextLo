@@ -1,4 +1,3 @@
-// app/components/Dropdown.jsx
 "use client";
 
 import { NavigationMenu } from "@base-ui-components/react/navigation-menu";
@@ -127,4 +126,4 @@ const contentClassName =
     "md:w-[calc(80vw_-_40px)] lg:w-[calc(70vw_-_40px)] xl:w-[calc(50vw_-_40px)] h-full p-6 xs:w-max xs:min-w-[400px] transition-[opacity,transform,translate] duration-[var(--duration)] ease-[var(--easing)] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%] data-[starting-style]:data-[activation-direction=right]:translate-x-[50%] data-[ending-style]:data-[activation-direction=left]:translate-x-[50%] data-[ending-style]:data-[activation-direction=right]:translate-x-[-50%]";
 
 const linkCardClassName =
-    "block rounded-md p-2 xs:p-3 no-underline text-inherit hover:bg-gray-100 focus-visible:relative focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800";
+    "block rounded-md p-2 xs:p-3 no-underline text-inherit hover:bg-gray-100 focus-visible:relative h-full focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800";
