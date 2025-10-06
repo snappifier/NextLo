@@ -3,6 +3,7 @@ import Wstep from "@/components/home/Wstep";
 import getRandomInt from "@/app/lib/getRandomInt";
 import Banner from "@/components/home/Banner";
 import Profile from "@/components/home/Profile";
+import Profill from "@/components/home/Profile/Profil2"
 
 async function getHome() {
     const json = await strapiFetch("/api/strona-glowna-szablon?populate[Kolejnosc][populate]=*");
@@ -30,6 +31,7 @@ export default async function Home() {
                             {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
                             {/* {componentType === "home.aktualnosci" && <AktualnosciNew />} */}
                             {/* {componentType === "home.osiagniecia" && <Shields />} */}
+	                        {/*{componentType === "home.profile" && <Profill data={data} />}*/}
                         </div>
                     );
                 })}

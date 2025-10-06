@@ -1,6 +1,6 @@
-"use client"
-import { motion } from "motion/react";
+
 import Profil from "@/components/home/Profile/Profil";
+import Profill from "@/components/home/Profile/Profil2";
 
 
 const KIERUNKI = [
@@ -39,13 +39,14 @@ const Profile = ({data, id}) => {
                 <h2 className="text-3xl sm:text-4xl font-light tracking-tight">Nasze profile</h2>
 
                 {/* 1 kol (mobile) → 2 kol (md) → 3 kol (xl); niższe rzędy (bardziej kompaktowo) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 auto-rows-[11rem] sm:auto-rows-[12.5rem] lg:auto-rows-[14rem]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 auto-rows-[11rem] sm:auto-rows-[12.5rem] lg:auto-rows-[14rem]">
                     {data["Profile"].map((item, i) => {
                         const { tint, icon } = PALETTE[i % PALETTE.length];
                         const raw = item.IconPath;
                         const d = extractD(raw);
                         return (
-                            <Profil key={item.id || i} item={item} d={d} tint={tint} />
+		                        <Profill key={item.id || i} item={item} d={d} tint={tint} />
+
                         );
                     })}
                 </div>
