@@ -2,6 +2,8 @@
 import { motion } from "motion/react";
 import {useInViewOnce} from "@/app/lib/useInViewOnce";
 import {getStrapiMedia} from "@/app/lib/strapi";
+import Image from "next/image";
+import zamoyski from "/public/jan-zamoyski.jpg"
 
 export default function Wstep({data}) {
     const { ref, inView } = useInViewOnce();
@@ -53,8 +55,8 @@ export default function Wstep({data}) {
                     variants={item}
                     className="h-full w-max flex items-center justify-center rounded-2xl"
                 >
-                    <img
-                        src={getStrapiMedia(data["Zdjecie"].url)}
+                    <Image
+                        src={zamoyski}
                         alt="Jan Zamoyski"
                         loading="lazy"
                         decoding="async"
