@@ -57,7 +57,7 @@ export default function Wstep({data}) {
                 >
                     <Image
                         src={zamoyski}
-                        alt="Jan Zamoyski"
+                        alt="Jan Zamoyski "
                         loading="lazy"
                         decoding="async"
                         className="w-full h-auto max-h-[420px] md:max-h-[480px] object-contain rounded-2xl"
