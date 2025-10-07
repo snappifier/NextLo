@@ -2,6 +2,7 @@ import "./globals.css";
 import {Meow_Script, Poppins} from 'next/font/google'
 import NavbarNew from "../components/navbar/NavbarNew.js";
 import Footer from "../components/footer/Footer.jsx";
+import Script from "next/script";
 
 const poppins = Poppins({
     subsets: ['latin'],
@@ -25,10 +26,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pl" className={poppins.className + " " + meow_script.className}>
-      <body>
+      <body className="font-[poppins]">
       <NavbarNew/>
         {children}
       <Footer />
+      <Script src={"https://website-widgets.pages.dev/dist/sienna.min.js"} strategy="afterInteractive" defer></Script>
       </body>
     </html>
   );
