@@ -8,7 +8,6 @@ import Link from "next/link";
 export default function MobileSearch({ className = "" }) {
 	const [open, setOpen] = useState(false);
 
-	// --- search state
 	const [value, setValue] = useState("");
 	const [results, setResults] = useState([]);
 	const [total, setTotal] = useState(0);
@@ -23,13 +22,13 @@ export default function MobileSearch({ className = "" }) {
 		? { duration: 0.15, ease: "linear" }
 		: { type: "spring", stiffness: 300, damping: 26, mass: 0.8 };
 
-	// fokus przy otwarciu, blur przy zamknięciu
+
 	useEffect(() => {
 		if (open) inputRef.current?.focus?.({ preventScroll: true });
 		else inputRef.current?.blur?.();
 	}, [open]);
 
-	// po zamknięciu: wyczyść input i stan wyników
+
 	useEffect(() => {
 		if (!open) {
 			setValue("");
@@ -39,7 +38,6 @@ export default function MobileSearch({ className = "" }) {
 		}
 	}, [open]);
 
-	// zamykanie po tapnięciu poza i przy scrollu
 	useEffect(() => {
 		const onOutside = (e) => {
 			if (!rootRef.current?.contains(e.target)) setOpen(false);
@@ -99,7 +97,6 @@ export default function MobileSearch({ className = "" }) {
 			role="search"
 			aria-expanded={open}
 		>
-			{/* input jest zawsze w DOM (display: block), tylko wygaszamy go animacją */}
 			<motion.input
 				ref={inputRef}
 				type="search"
@@ -118,7 +115,6 @@ export default function MobileSearch({ className = "" }) {
 				transition={{ opacity: { duration: 0.12 }, x: { duration: 0.15 } }}
 			/>
 
-			{/* ikona lupy — TAP = otwórz + natychmiastowy fokus (klawiatura) */}
 			<button
 				type="button"
 				className={`mr-[8px] shrink-0 ${
@@ -143,7 +139,6 @@ export default function MobileSearch({ className = "" }) {
 				</svg>
 			</button>
 
-			{/* dropdown wyników — tylko gdy jest treść */}
 			{showDropdown && (
 				<div className="absolute left-0 top-12 right-0 rounded-lg border bg-white shadow-lg z-50">
 					{loading && <div className="p-3 text-sm text-gray-500">Szukam…</div>}
