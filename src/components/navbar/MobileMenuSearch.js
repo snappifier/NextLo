@@ -29,7 +29,7 @@ export default function MobileSearch({ className = "" }) {
 		else inputRef.current?.blur?.();
 	}, [open]);
 
-	// po zamknięciu: wyczyść input (i wyniki „przy okazji”)
+	// po zamknięciu: wyczyść input i stan wyników
 	useEffect(() => {
 		if (!open) {
 			setValue("");
@@ -39,7 +39,7 @@ export default function MobileSearch({ className = "" }) {
 		}
 	}, [open]);
 
-	// zamykanie po tapnięciu poza i przy scrollu (tylko to)
+	// zamykanie po tapnięciu poza i przy scrollu
 	useEffect(() => {
 		const onOutside = (e) => {
 			if (!rootRef.current?.contains(e.target)) setOpen(false);
@@ -85,15 +85,22 @@ export default function MobileSearch({ className = "" }) {
 
 	useEffect(() => { run(value); }, [value, run]);
 
+	// pokazuj dropdown tylko, gdy jest treść (unikamy pustego białego paska)
+	const showDropdown =
+		open && (loading || error || (value && results.length > 0));
+
 	return (
 		<motion.div
 			ref={rootRef}
-			className={`absolute size-11 rounded-full flex items-center justify-end gap-0 right-0 ${open ? "bg-white" : ""} transition-colors duration-200 ${className}`}
+			className={`absolute size-11 rounded-full flex items-center justify-end gap-0 right-0 ${
+				open ? "bg-white" : ""
+			} transition-colors duration-200 ${className}`}
 			initial={false}
 			animate={open ? { width: "250px" } : {}}
 			role="search"
 			aria-expanded={open}
 		>
+			{/* input jest zawsze w DOM (display: block), tylko wygaszamy go animacją */}
 			<motion.input
 				ref={inputRef}
 				type="search"
@@ -102,23 +109,30 @@ export default function MobileSearch({ className = "" }) {
 				onChange={(e) => setValue(e.target.value)}
 				className="w-full rounded-md px-3 py-2 outline-none text-slate-700"
 				aria-label="Szukaj"
-				animate={open ? { display: "block" } : { display: "none" }}
+				style={{ display: "block" }}
+				initial={false}
+				animate={{
+					opacity: open ? 1 : 0,
+					x: open ? 0 : -6,
+					pointerEvents: open ? "auto" : "none",
+				}}
+				transition={{ opacity: { duration: 0.12 }, x: { duration: 0.15 } }}
 			/>
 
-			{/* ikona lupy — TAP = otwórz + od razu klawiatura */}
+			{/* ikona lupy — TAP = otwórz + natychmiastowy fokus (klawiatura) */}
 			<button
 				type="button"
-				className={`mr-[8px] shrink-0 ${open ? "text-slate-700" : "text-white"} transition-colors duration-200`}
+				className={`mr-[8px] shrink-0 ${
+					open ? "text-slate-700" : "text-white"
+				} transition-colors duration-200`}
 				aria-label={open ? "Szukaj" : "Otwórz wyszukiwanie"}
 				onPointerDown={(e) => {
+					// synchronijny fokus w tym samym "gest event loop" — ważne dla iOS
 					e.preventDefault();
 					e.stopPropagation();
 					if (!open) {
 						setOpen(true);
-						// poczekaj jedną klatkę, aż input stanie się widoczny, wtedy fokus (mobilne Safari)
-						requestAnimationFrame(() => {
-							inputRef.current?.focus?.({ preventScroll: true });
-						});
+						inputRef.current?.focus?.({ preventScroll: true });
 					}
 				}}
 			>
@@ -130,13 +144,12 @@ export default function MobileSearch({ className = "" }) {
 				</svg>
 			</button>
 
-			{/* dropdown wyników — pokazuj tylko gdy pasek otwarty */}
-			{open && (
+			{/* dropdown wyników — tylko gdy jest treść */}
+			{showDropdown && (
 				<div className="absolute left-0 top-12 right-0 rounded-lg border bg-white shadow-lg z-50">
 					{loading && <div className="p-3 text-sm text-gray-500">Szukam…</div>}
-					{!loading && error && <div className="p-3 text-sm text-red-600">{error}</div>}
-					{!loading && !error && value && results.length === 0 && (
-						<div className="p-3 text-sm text-gray-500">Brak wyników.</div>
+					{!loading && error && (
+						<div className="p-3 text-sm text-red-600">{error}</div>
 					)}
 					{!loading && !error && results.length > 0 && (
 						<ul className="max-h-80 overflow-auto divide-y">
@@ -145,21 +158,20 @@ export default function MobileSearch({ className = "" }) {
 									<Link
 										href={it.path || "/"}
 										className="block"
-										onClick={() => {
-											// nawigacja: zamknij pasek -> input sam się wyczyści przez efekt
-											setOpen(false);
-										}}
+										onClick={() => setOpen(false)} // zamknij; input wyczyści się w efekcie
 									>
 										<div className="font-medium text-black">{it.title}</div>
 										{it.excerpt && (
-											<div className="text-xs text-gray-600 line-clamp-2">{it.excerpt}</div>
+											<div className="text-xs text-gray-600 line-clamp-2">
+												{it.excerpt}
+											</div>
 										)}
 									</Link>
 								</li>
 							))}
 						</ul>
 					)}
-					{!loading && !error && total > results.length && (
+					{!loading && !error && total > results.length && results.length > 0 && (
 						<div className="p-2 text-right text-xs text-gray-500">
 							{results.length} z {total}.
 						</div>
