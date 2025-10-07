@@ -8,7 +8,7 @@ export default function Profill() {
 	const [hovered, setHovered] = useState(false);
 
 	return (
-		<motion.div className="relative w-120 h-55 bg-zinc-100 rounded-xl overflow-hidden"
+		<motion.div className="relative w-90 h-55 bg-zinc-100 rounded-xl overflow-hidden"
 		            onPointerEnter={() => setHovered(true)}
 		            onPointerLeave={() => setHovered(false)}
 		            onFocus={() => setHovered(true)}
