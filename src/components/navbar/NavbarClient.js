@@ -86,8 +86,8 @@ export default function NavbarClient({menu}) {
 						<Dropdown menu={menu}/>
 					</div>
 
-					<div className="relative inset-0 flex items-center">
-						<div className="relative hidden items-center inset-0 lg:flex">
+					<div className="flex items-center size-11aa">
+						<div className="relative w-full h-full hidden items-center justify-center inset-0 lg:flex">
 							<InlineSearch/>
 						</div>
 
