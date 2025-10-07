@@ -1,4 +1,3 @@
-// app/components/DropdownMobile.jsx
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -38,7 +37,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.1, ease: "easeOut" }}
             exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.05, ease: "easeOut" } }}
-            className="relative w-[94%] sm:w-[90%] lg:w-[80%] min-h-[70vh] h-max bg-[#3077BA] rounded-lg flex flex-col items-center justify-start gap-5 pt-8 shadow-lg pb-16"
+            className="relative w-[94%] sm:w-[90%] lg:w-[80%]  h-max bg-[#3077BA] rounded-lg flex flex-col items-center justify-start gap-5 pt-8 shadow-lg pb-16"
         >
             {/* Pasek tytułu + Back */}
             <div className="flex items-center justify-between w-[80%]">
@@ -95,7 +94,8 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                             show: { opacity: 1, transition: { staggerChildren: 0.06 } },
                             exit: { opacity: 0, transition: { staggerChildren: 0.04, staggerDirection: -1 } },
                         }}
-                        className="w-full flex flex-col items-center gap-4 pb-6 pt-10"
+                        // className="w-full flex flex-col items-center gap-4 pb-6 pt-10"
+                        className="relative grid grid-cols-2 grid-rows-2 w-full px-20 gap-5 h-max drop-shadow-lg/10"
                     >
                         {categories.length ? (
                             categories.map((cat, index) => (
@@ -109,20 +109,22 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                                         exit: { opacity: 0, y: 16, scale: 0.98 },
                                     }}
                                     transition={{ duration: 0.18, ease: "easeOut", delay: index * 0.03 }}
-                                    whileHover={{ scale: 1.02 }}
+                                    whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.98 }}
-                                    className="flex items-center justify-between w-[80%] min-h-14 bg-white rounded-md font-[poppins] text-lg text-slate-700 px-5 gap-5 shadow-md"
+                                    className="bg-[#3077BA]/85 h-30 w-full drop-shadow-lg/30 rounded-xl flex flex-col justify-center items-center text-white text-md font-medium cursor-pointer text-wrap"
                                 >
-                                    <span className="text-left">{cat?.NazwaKategorii || "Kategoria"}</span>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        className="opacity-60"
-                                    >
-                                        <path fill="currentColor" d="m10 17l5-5l-5-5v10Z" />
-                                    </svg>
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M21 17v-6.9L12 15L1 9l11-6l11 6v8zm-9 4l-7-3.8v-5l7 3.8l7-3.8v5z"/></svg>
+
+	                                <span className="text-left">{cat?.NazwaKategorii || "Kategoria"}</span>
+                                    {/*<svg*/}
+                                    {/*    xmlns="http://www.w3.org/2000/svg"*/}
+                                    {/*    width="25"*/}
+                                    {/*    height="25"*/}
+                                    {/*    viewBox="0 0 24 24"*/}
+                                    {/*    className="opacity-60"*/}
+                                    {/*>*/}
+                                    {/*    <path fill="#fff" d="m10 17l5-5l-5-5v10Z" />*/}
+                                    {/*</svg>*/}
                                 </motion.button>
                             ))
                         ) : (

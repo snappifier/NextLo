@@ -9,6 +9,7 @@ import Dropdown from "./Dropdown";
 import DropdownMobile from "./DropdownMobile.jsx";
 import {Hamburger} from "@/ui/Hamburger";
 import InlineSearch from "@/components/navbar/InlineSearch";
+import MobileMenuSearch from "@/components/navbar/MobileMenuSearch";
 
 export default function NavbarClient({menu}) {
 	const [searchOn, setSearchOn] = useState(false);
@@ -82,15 +83,15 @@ export default function NavbarClient({menu}) {
 						</motion.div>
 					</Link>
 
-					<div className="hidden lg:flex items-center">
+					<div className="hidden lg:flex">
 						<Dropdown menu={menu}/>
 					</div>
-
-					<div className="flex items-center size-11aa">
+					<div className="flex items-center size-11">
 						<div className="relative w-full h-full hidden items-center justify-center inset-0 lg:flex">
 							<InlineSearch/>
-						</div>
 
+						</div>
+						<div className="relative inset-0 flex items-center justify-center lg:hidden"><MobileMenuSearch /></div>
 						<button
 							type="button"
 							className="group hover:bg-sky-800 h-10 w-10 flex justify-center items-center rounded-md cursor-pointer text-white lg:hidden"
@@ -99,6 +100,7 @@ export default function NavbarClient({menu}) {
 							aria-controls="mobile-menu"
 							aria-label="Otwórz menu"
 						>
+
 							<Hamburger isOpen={isOpen}/>
 						</button>
 					</div>
