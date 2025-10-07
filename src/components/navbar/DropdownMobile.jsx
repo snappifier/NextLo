@@ -111,7 +111,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                                     transition={{ duration: 0.18, ease: "easeOut", delay: index * 0.03 }}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.98 }}
-                                    className="bg-[#3077BA]/85 h-30 w-full drop-shadow-lg/30 rounded-xl flex flex-col justify-center items-center text-white text-md font-medium cursor-pointer text-wrap"
+                                    className="bg-sky-700 h-30 w-full drop-shadow-lg/30 rounded-xl flex flex-col justify-center items-center text-white text-md font-medium cursor-pointer text-wrap"
                                 >
 	                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M21 17v-6.9L12 15L1 9l11-6l11 6v8zm-9 4l-7-3.8v-5l7 3.8l7-3.8v5z"/></svg>
 

@@ -85,7 +85,6 @@ export default function MobileSearch({ className = "" }) {
 
 	useEffect(() => { run(value); }, [value, run]);
 
-	// pokazuj dropdown tylko, gdy jest treść (unikamy pustego białego paska)
 	const showDropdown =
 		open && (loading || error || (value && results.length > 0));
 
