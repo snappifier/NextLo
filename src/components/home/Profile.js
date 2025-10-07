@@ -34,9 +34,12 @@ export function extractD(pathString) {
 
 const Profile = ({data, id}) => {
     return (
-        <div className="font-[poppins] w-full h-max flex justify-center items-center mt-10">
-            <div className="h-max w-[94%] sm:w-[90%] lg:w-[80%] flex flex-col gap-6">
-                <h2 className="text-3xl sm:text-4xl font-light tracking-tight">Nasze profile</h2>
+        <div className="font-[poppins] mt-5 z-10 w-full h-max flex justify-center items-center px-10 pt-8 pb-8 bg-white rounded-2xl shadow-lg/20">
+            <div className="h-max w-full flex flex-col gap-6">
+                <div className="flex flex-col w-max">
+                    <p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">NASZE PROFILE</p>
+                    <p className="text-base md:text-lg font-extralight text-slate-700">Oto nasze profile przygotowane dla ciebie</p>
+                </div>
 
                 {/* 1 kol (mobile) → 2 kol (md) → 3 kol (xl); niższe rzędy (bardziej kompaktowo) */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 auto-rows-[11rem] sm:auto-rows-[12.5rem] lg:auto-rows-[14rem]">
