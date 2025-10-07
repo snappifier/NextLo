@@ -25,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pl" className={poppins.className + " antialiased" + meow_script.className}>
+    <html lang="pl" className={poppins.className + " bg-[#f0f0f0] antialiased " + meow_script.className}>
       <body className="font-[poppins]">
       <NavbarNew/>
         {children}

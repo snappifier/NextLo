@@ -12,30 +12,27 @@ async function getHome() {
 
 export default async function Home() {
     const home = await getHome();
-    console.log(home);
 
     return (
-        <div className="relative w-full min-h-screen">
-            <div className="w-full h-max flex flex-col gap-5 items-center z-10">
+        <div className="relative w-full min-h-screen flex justify-center items-center">
+            <div className="w-[94%] sm:w-[90%] lg:w-[80%] h-max flex flex-col gap-5 items-center z-10">
                 <div className="w-full bg-transparent">
                     <Banner />
                 </div>
+                    {home["Kolejnosc"]?.map((data, index) => {
+                        const componentType = data["__component"];
+                        const key = `${componentType}-${data.id ?? index}`;
 
-
-                {home["Kolejnosc"]?.map((data, index) => {
-                    const componentType = data["__component"];
-                    const key = `${componentType}-${data.id ?? index}`;
-
-                    return (
-                        <div key={key} className="w-full bg-transparent">
-                            {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
-                            {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
-                            {/* {componentType === "home.aktualnosci" && <AktualnosciNew />} */}
-                            {/* {componentType === "home.osiagniecia" && <Shields />} */}
-	                        {/*{componentType === "home.profile" && <Profill data={data} />}*/}
-                        </div>
-                    );
-                })}
+                        return (
+                            <div key={key} className="w-full h-max">
+                                {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
+                                {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
+                                {/* {componentType === "home.aktualnosci" && <AktualnosciNew />} */}
+                                {/* {componentType === "home.osiagniecia" && <Shields />} */}
+                                {/*{componentType === "home.profile" && <Profill data={data} />}*/}
+                            </div>
+                        );
+                    })}
             </div>
         </div>
     );
