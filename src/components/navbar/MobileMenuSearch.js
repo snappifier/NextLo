@@ -92,7 +92,7 @@ export default function MobileSearch({ className = "" }) {
 	return (
 		<motion.div
 			ref={rootRef}
-			className={`absolute size-11 rounded-full flex items-center justify-end gap-0 right-0 ${
+			className={`absolute size-11 max-w-35 sm:max-w-max rounded-full flex items-center justify-end gap-0 right-0 ${
 				open ? "bg-white" : ""
 			} transition-colors duration-200 ${className}`}
 			initial={false}

@@ -95,7 +95,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                             exit: { opacity: 0, transition: { staggerChildren: 0.04, staggerDirection: -1 } },
                         }}
                         // className="w-full flex flex-col items-center gap-4 pb-6 pt-10"
-                        className="relative grid grid-cols-2 grid-rows-2 w-full px-20 gap-5 h-max drop-shadow-lg/10"
+                        className="relative grid grid-cols-2 grid-rows-2 w-full px-5 sm:px-10 md:px-20 gap-5 h-max drop-shadow-lg/10"
                     >
                         {categories.length ? (
                             categories.map((cat, index) => (
