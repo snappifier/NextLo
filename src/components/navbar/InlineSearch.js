@@ -1,6 +1,7 @@
 'use client';
 import { useDebouncedCallback } from 'use-debounce';
 import { useEffect, useRef, useState } from 'react';
+import {motion} from "motion/react"
 import Link from 'next/link';
 
 export default function InlineSearch() {
@@ -10,6 +11,9 @@ export default function InlineSearch() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	const [open, setOpen] = useState(false);
+
+	const [searching, setSearching] = useState(false);
+	const [hovered, setHovered] = useState(false);
 
 	const rootRef = useRef(null);
 
@@ -52,9 +56,16 @@ export default function InlineSearch() {
 		};
 	}, [open]);
 
+
 	return (
-		<div ref={rootRef} className="relative w-full max-w-xl">
-			<input
+		<motion.div ref={rootRef} className="absolute border-1 border-white w-10 h-10 rounded-full flex items-center justify-center right-5"
+		            // onFocus={() => setHovered(true)}
+		            // onPointerEnter={() => setHovered(true)}
+		            animate={hovered ? {width: '250px'} : {} }
+		            onHoverStart={() => {setHovered(true)}}
+		>
+			<motion.input
+
 				type="search"
 				value={value}
 				onChange={(e) => {
@@ -62,10 +73,11 @@ export default function InlineSearch() {
 					setValue(q);
 					setOpen(!!q);       // otwórz gdy coś wpisane
 				}}
-				onFocus={() => value && setOpen(true)}
+				onFocus={() => value && setOpen(true) && setHovered(true)}
 				placeholder="Szukaj…"
-				className="w-full rounded-md border px-3 py-2 outline-none"
+				className="w-full rounded-md border px-3 py-2 outline-none hidden"
 				aria-label="Szukaj"
+				animate={hovered ? {display: 'block'} : {}}
 			/>
 
 			{open && (
@@ -100,6 +112,6 @@ export default function InlineSearch() {
 					)}
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 }
