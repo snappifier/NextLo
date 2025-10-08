@@ -42,7 +42,7 @@ const Profile = ({data, id}) => {
                 </div>
 
                 {/* 1 kol (mobile) → 2 kol (md) → 3 kol (xl); niższe rzędy (bardziej kompaktowo) */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 auto-rows-[11rem] sm:auto-rows-[12.5rem] lg:auto-rows-[14rem]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-6 ">
                     {data["Profile"].map((item, i) => {
                         const { tint, icon } = PALETTE[i % PALETTE.length];
                         const raw = item.IconPath;
