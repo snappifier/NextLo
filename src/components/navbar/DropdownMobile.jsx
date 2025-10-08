@@ -5,10 +5,10 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 export default function DropdownMobile({ menu, setIsOpen }) {
-    // Strapi v4: `menu` to `json.data.attributes`
+
     const categories = Array.isArray(menu?.Kategoria) ? menu.Kategoria : [];
 
-    // index kategorii -> [{ Link, Tytul }]
+
     const categoryData = useMemo(() => {
         return categories.map((cat) => {
             const pages = Array.isArray(cat?.Podstrona) ? cat.Podstrona : [];
@@ -39,7 +39,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
             exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.05, ease: "easeOut" } }}
             className="relative w-[94%] sm:w-[90%] lg:w-[80%]  h-max bg-[#3077BA] rounded-lg flex flex-col items-center justify-start gap-5 pt-8 shadow-lg pb-16"
         >
-            {/* Pasek tytułu + Back */}
+
             <div className="flex items-center justify-between w-[80%]">
                 <div className="font-[poppins] font-light text-2xl text-white select-none">
                     <AnimatePresence mode="wait">
@@ -83,7 +83,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 
             <AnimatePresence mode="wait">
                 {showMain ? (
-                    // Lista kategorii z Strapi (NazwaKategorii)
+
                     <motion.div
                         key="main-list"
                         initial="hidden"
@@ -94,7 +94,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                             show: { opacity: 1, transition: { staggerChildren: 0.06 } },
                             exit: { opacity: 0, transition: { staggerChildren: 0.04, staggerDirection: -1 } },
                         }}
-                        // className="w-full flex flex-col items-center gap-4 pb-6 pt-10"
+
                         className="relative grid grid-cols-2 grid-rows-2 w-full px-5 sm:px-10 md:px-20 gap-5 h-max drop-shadow-lg/10"
                     >
                         {categories.length ? (
@@ -116,15 +116,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 	                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M21 17v-6.9L12 15L1 9l11-6l11 6v8zm-9 4l-7-3.8v-5l7 3.8l7-3.8v5z"/></svg>
 
 	                                <span className="text-left">{cat?.NazwaKategorii || "Kategoria"}</span>
-                                    {/*<svg*/}
-                                    {/*    xmlns="http://www.w3.org/2000/svg"*/}
-                                    {/*    width="25"*/}
-                                    {/*    height="25"*/}
-                                    {/*    viewBox="0 0 24 24"*/}
-                                    {/*    className="opacity-60"*/}
-                                    {/*>*/}
-                                    {/*    <path fill="#fff" d="m10 17l5-5l-5-5v10Z" />*/}
-                                    {/*</svg>*/}
+
                                 </motion.button>
                             ))
                         ) : (
@@ -169,7 +161,7 @@ function CategoryGrid({ items, onNavigate }) {
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                {/* KAFELKI BEZ OPISU — tylko tytuł */}
+
                                 <div className="font-[poppins] text-base text-slate-800">
                                     {el?.Tytul ?? ""}
                                 </div>
