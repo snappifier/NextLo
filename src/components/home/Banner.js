@@ -1,5 +1,5 @@
 import logo from "src/images/logo.webp"
-import zdj1 from "src/images/zdj1.webp"
+import budynek from "src/images/budynek.jpg"
 import godlo from "src/images/godlo.webp"
 import Image from "next/image";
 import ButtonsBanner from "@/components/home/banner/buttonsBaner";
@@ -16,7 +16,7 @@ export default function Banner() {
 			    </div>
                 <div className="hidden md:block relative w-full md:h-[58vh] drop-shadow-md/20 mt-4 aspect-auto">
                     <Image
-                        src={zdj1}
+                        src={budynek}
                         alt="Widok na budynek liceum"
                         fill
                         className="object-cover rounded-2xl brightness-70"
