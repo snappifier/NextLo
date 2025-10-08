@@ -1,5 +1,5 @@
-import logo from "src/images/logolo.png"
-import budynek from "src/images/zdj1.webp"
+import logo from "src/images/logolo.webp"
+import budynek from "src/images/budynek.webp"
 import godlo from "src/images/godlo.webp"
 import Image from "next/image";
 import ButtonsBanner from "@/components/home/banner/buttonsBaner";
