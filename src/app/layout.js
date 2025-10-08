@@ -4,19 +4,19 @@ import NavbarNew from "../components/navbar/NavbarNew.js";
 import Footer from "../components/footer/Footer.jsx";
 import Script from "next/script";
 
-const poppins = Poppins({
-    subsets: ['latin'],
-    weight: ['100','200','300','400','500','600','700','800','900'],
-    style: 'normal',
-    display: 'swap',
-});
-
 const meow_script = Meow_Script({
     subsets: ['latin'],
     weight: ['400'],
     style: 'normal',
     display: 'swap',
 })
+
+const poppins = Poppins({
+	subsets: ['latin'],
+	weight: ['100','200','300','400','500','600','700','800','900'],
+	style: 'normal',
+	display: 'swap',
+});
 
 export const metadata = {
   title: "1LO ZAMOŚĆ",
@@ -25,8 +25,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pl" className={poppins.className + " bg-[#f0f0f0] antialiased " + meow_script.className}>
-      <body className="font-[poppins]">
+    <html lang="pl" className={meow_script.className + " bg-[#f0f0f0] antialiased " + poppins.className}>
+      <body className="">
       <NavbarNew/>
         {children}
       <Footer />

@@ -22,7 +22,8 @@ export default function Profill({item}) {
 				</div>
 			</div>
 
-		<motion.div className={`absolute inset-0 w-full h-full rounded-xl text-wrap overflow-hidden flex flex-col justify-start px-6 pt-16 ${hovered ? "bg-sky-600/20 " : ""}`}
+		<motion.div className={`absolute inset-0 w-full h-full rounded-xl text-wrap overflow-hidden flex flex-col justify-start px-6 pt-16 ${hovered ? "bg-[color:var(--c)]/20" : ""} `}
+		            style={{ '--c': currentColor}}
 		            initial={{y: 85}}                                //tym zmieniasz pozycje początkową nagłówka(im więcej tym niżej)
 		            animate={hovered ? {y: 0, backdropFilter: `blur(12px)`} : {}}
 		            transition={{ duration: 0.2, ease: "easeOut" }}
