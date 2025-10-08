@@ -23,7 +23,7 @@ export default function Profill({item}) {
 
 	const currentColor = item["Kolor"];
 	return (
-		<motion.div className="relative w-full h-70 max-w-xl min-w-85 bg-zinc-100  rounded-xl overflow-hidden select-none flex flex-col justify-between items-center"
+		<motion.div className="relative w-full h-70 max-w-xl min-w-85 bg-zinc-100  rounded-xl overflow-hidden select-none flex flex-col justify-between items-center shadow-md"
 		            onPointerEnter={() => isLg && setHovered(true)}
 		            onPointerLeave={() => isLg && setHovered(false)}
 		            onFocus={() => isLg && setHovered(true)}
