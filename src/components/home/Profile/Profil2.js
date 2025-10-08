@@ -24,11 +24,12 @@ export default function Profill({item}) {
 	const currentColor = item["Kolor"];
 	return (
 		<motion.div className="relative w-full h-70 max-w-xl min-w-85 bg-zinc-100  rounded-xl overflow-hidden select-none flex flex-col justify-between items-center shadow-md"
-		            onPointerEnter={() => isLg && setHovered(true)}
-		            onPointerLeave={() => isLg && setHovered(false)}
+		            onPointerEnter={() => {setArrow(true); if (isLg) setHovered(true);}}
+		            onPointerLeave={() => {setArrow(false);if (isLg) setHovered(false);}}
 		            onFocus={() => isLg && setHovered(true)}
 		            onBlur={() => isLg && setHovered(false)}
 		>
+			<Link href={"/rekrutacja"} className="w-full h-full flex flex-col justify-between items-center">
 			<div className="w-full h-max flex p-5 items-start justify-between">
                       <span
 	                      className="inline-flex items-center rounded-full bg-white px-5 py-2 text-[11px] sm:text-xs md:text-sm font-semibold text-zinc-500">
@@ -56,11 +57,10 @@ export default function Profill({item}) {
 				          transition={{duration: 0.3}}
 				>{item["Opis"]}</motion.p>
 			</motion.div>
-			<Link href={"/rekrutacja"} className="w-[80%] mb-5 z-100">
+			{/*<Link href={"/rekrutacja"} className="w-[80%] mb-5 z-100">*/}
 
-			<motion.button className="w-full bg-white p-2 rounded-md cursor-pointer flex items-center justify-center gap-1 drop-shadow-md"
-			               onPointerEnter={() => isLg && setArrow(true)}
-			               onPointerLeave={() => isLg && setArrow(false)}
+			<motion.button className="w-[80%] mb-5 z-100 bg-white p-2 rounded-md cursor-pointer flex items-center justify-center gap-1 drop-shadow-md"
+
 			               onFocus={() => isLg && setArrow(true)}
 			               onBlur={() => isLg && setArrow(false)}
 			               whileTap={{scale: 0.95}}
@@ -74,8 +74,8 @@ export default function Profill({item}) {
 
 			</motion.button>
 
-
 			</Link>
 		</motion.div>
+
 	)
 }
