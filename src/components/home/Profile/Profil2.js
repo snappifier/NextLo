@@ -64,6 +64,8 @@ export default function Profill({item}) {
 			               onFocus={() => isLg && setArrow(true)}
 			               onBlur={() => isLg && setArrow(false)}
 			               whileTap={{scale: 0.95}}
+			               onTapStart={() => {setArrow(true)}}
+			               onTapCancel={() => {setArrow(false)}}
 			>
 				<p>Dowiedz się więcej</p>
 				<motion.svg
