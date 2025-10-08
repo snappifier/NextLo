@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logo from "src/images/logo.webp"
+import logo from "src/images/logolo.png"
 import {AnimatePresence, motion} from "motion/react";
 import {useEffect, useState} from "react";
 import Dropdown from "./Dropdown";
