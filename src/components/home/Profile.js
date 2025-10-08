@@ -34,15 +34,15 @@ export function extractD(pathString) {
 
 const Profile = ({data, id}) => {
     return (
-        <div className="font-[poppins] mt-5 z-10 w-full h-max flex justify-center items-center px-10 pt-8 pb-8 bg-white rounded-2xl shadow-lg/20">
-            <div className="h-max w-full flex flex-col gap-6">
-                <div className="flex flex-col w-max">
+        <div className="font-[poppins] mt-5 z-10 w-full h-max flex justify-center items-center  pt-8 pb-8 bg-white rounded-2xl shadow-lg/20">
+            <div className="h-max w-full flex flex-col gap-6  text-wrap ">
+                <div className="px-10 w-full flex flex-col  text-wrap">
                     <p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">NASZE PROFILE</p>
-                    <p className="text-base md:text-lg font-extralight text-slate-700">Oto nasze profile przygotowane dla ciebie</p>
+                    <p className="w-full hyphens-auto break-words md:text-lg font-extralight text-slate-700">Oto nasze profile przygotowane dla ciebie</p>
                 </div>
 
                 {/* 1 kol (mobile) → 2 kol (md) → 3 kol (xl); niższe rzędy (bardziej kompaktowo) */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-6 ">
+                <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-6 px-1">
                     {data["Profile"].map((item, i) => {
                         const { tint, icon } = PALETTE[i % PALETTE.length];
                         const raw = item.IconPath;
