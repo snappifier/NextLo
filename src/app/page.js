@@ -3,6 +3,7 @@ import Wstep from "@/components/home/Wstep";
 import getRandomInt from "@/app/lib/getRandomInt";
 import Banner from "@/components/home/Banner";
 import Profile from "@/components/home/Profile";
+import Tarcze from "@/components/home/Tarcze"
 import Profill from "@/components/home/Profile/Profil2"
 
 async function getHome() {
@@ -30,10 +31,13 @@ export default async function Home() {
                                 {/* {componentType === "home.aktualnosci" && <AktualnosciNew />} */}
                                 {/* {componentType === "home.osiagniecia" && <Shields />} */}
                                 {/*{componentType === "home.profile" && <Profill data={data} />}*/}
+	                              {/*{componentType === "home.tarcze" && <Tarcze data={data} />}*/}
                             </div>
                         );
                     })}
+	            <Tarcze />
             </div>
+
         </div>
     );
 }
