@@ -32,7 +32,6 @@ export default function Wspolprace() {
 										width={128}
 										height={128}
 										className="w-full h-full object-contain"
-										placeholder="blur"
 									/>
 								</div>
 							</Link>

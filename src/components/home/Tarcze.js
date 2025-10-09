@@ -105,7 +105,6 @@ export default function Tarcze() {
 									width={144}
 									height={144}
 									className="w-full h-full object-contain drop-shadow-md"
-									placeholder="empty"
 								/>
 							</motion.div>
 						</Link>
