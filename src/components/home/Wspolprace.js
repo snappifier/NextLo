@@ -4,14 +4,14 @@ import Ticker from "framer-motion-ticker"
 import Image from "next/image"
 import Link from "next/link"
 
-import umcsPolitologia from "../../images/umcs-politologia.png"
-import umcsSocjologia from "../../images/umcs-socjologia.png"
+import umcs1 from "../../images/umcs-politologia.png"
+import umcs2 from "../../images/umcs-socjologia.png"
 import sgh from "../../images/sgh.png"
 
 const partnerImages = [
-umcsPolitologia,
-	umcsSocjologia,
-	sgh
+	umcs1,
+	umcs2,
+	sgh,
 ]
 
 export default function Wspolprace() {
