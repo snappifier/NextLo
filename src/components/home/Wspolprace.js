@@ -16,7 +16,7 @@ const partnerImages = [
 
 export default function Wspolprace() {
 	return (
-				<div className="w-full bg-[#3077BA] py-2 my-4">
+				<div className="w-full bg-[#3077BA] drop-shadow-lg py-2 my-4">
 					<Ticker duration={15}>
 						{partnerImages.map((src, index) => (
 							<Link
@@ -28,10 +28,10 @@ export default function Wspolprace() {
 								<div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex-shrink-0 drop-shadow-md cursor-pointer mx-4">
 									<Image
 										src={src}
-										alt={`Tarcza ${2019 + index}`}
+										alt={`wspolpraca ${index + 1}`}
 										width={128}
 										height={128}
-										className="w-full h-full object-contain"
+										className="w-full h-full object-contain drop-shadow-md"
 									/>
 								</div>
 							</Link>
