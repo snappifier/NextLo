@@ -13,7 +13,7 @@ import perspektywy2022 from "../../images/perspektywy2022.png"
 import perspektywy2023 from "../../images/perspektywy2023.png"
 import perspektywy2024 from "../../images/perspektywy2024.png"
 import perspektywy2025 from "../../images/perspektywy2025.png"
-
+import Wspolprace from "@/components/home/Wspolprace";
 
 const shieldImages = [
 	perspektywy2019,
@@ -111,7 +111,7 @@ export default function Tarcze() {
 						</Link>
 					))}
 				</div>
-				{/*<Wspolprace />*/}
+				<Wspolprace />
 			</div>
 		</div>
 	)
