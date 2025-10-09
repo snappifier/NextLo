@@ -124,7 +124,7 @@ const Footer = () => {
 					<div className="max-w-[80%] w-full h-max flex items-center justify-center gap-5 py-2">
 						<Image src={logo} alt="logo" className="select-none h-15 w-15   drop-shadow-lg/20"/>
 						<p
-							className=" text-center text-gray-200 font-[poppins] text-xs sm:text-xs lg:text-md max-w-2/3 font-light whitespace-normal break-words hyphens-auto">I
+							className=" text-center text-gray-50 font-[poppins] text-xs sm:text-xs lg:text-md max-w-2/3 font-light whitespace-normal break-words hyphens-auto">I
 							Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
 
 						<Image src={godlo} alt="Godło" className=" select-none h-15 w-auto object-contain"/>

@@ -14,6 +14,7 @@ import perspektywy2023 from "../../images/perspektywy2023.png"
 import perspektywy2024 from "../../images/perspektywy2024.png"
 import perspektywy2025 from "../../images/perspektywy2025.png"
 
+
 const shieldImages = [
 	perspektywy2019,
 	perspektywy2020,
@@ -103,13 +104,14 @@ export default function Tarcze() {
 									alt={`Tarcza ${2025 - (displayedImages.length - 1 - index)}`}
 									width={144}
 									height={144}
-									className="w-full h-full object-contain"
-									placeholder="blur"
+									className="w-full h-full object-contain drop-shadow-md"
+									placeholder="empty"
 								/>
 							</motion.div>
 						</Link>
 					))}
 				</div>
+				{/*<Wspolprace />*/}
 			</div>
 		</div>
 	)
