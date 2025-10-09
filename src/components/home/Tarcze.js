@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-// Bezpośrednie importy
+
 import perspektywy2019 from "../../images/perspektywy2019.png"
 import perspektywy2020 from "../../images/perspektywy2020.png"
 import perspektywy2021 from "../../images/perspektywy2021.png"
@@ -28,7 +28,7 @@ export default function Tarcze() {
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [displayedImages, setDisplayedImages] = useState(shieldImages)
 
-	// Automatyczne przewijanie
+
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentIndex(prev => (prev + 1) % displayedImages.length)
@@ -37,27 +37,27 @@ export default function Tarcze() {
 		return () => clearInterval(interval)
 	}, [displayedImages.length])
 
-	// Filtrowanie obrazów w zależności od szerokości ekranu
+
 	useEffect(() => {
 		const handleResize = () => {
 			const width = window.innerWidth
 
 			if (width < 580) {
-				// Telefon - 3 najnowsze tarcze (ostatnie 3)
+
 				setDisplayedImages(shieldImages.slice(-3))
 			} else if (width < 880) {
-				// Tablet - 5 najnowszych tarcz (ostatnie 5)
+
 				setDisplayedImages(shieldImages.slice(-5))
 			} else {
-				// Desktop - wszystkie tarcze
+
 				setDisplayedImages(shieldImages)
 			}
 		}
 
-		// Uruchom na starcie
+
 		handleResize()
 
-		// Dodaj listener do zmiany rozmiaru
+
 		window.addEventListener('resize', handleResize)
 
 		// Cleanup
