@@ -42,10 +42,10 @@ export default function Tarcze() {
 		const handleResize = () => {
 			const width = window.innerWidth
 
-			if (width < 768) {
+			if (width < 580) {
 				// Telefon - 3 najnowsze tarcze (ostatnie 3)
 				setDisplayedImages(shieldImages.slice(-3))
-			} else if (width < 1024) {
+			} else if (width < 880) {
 				// Tablet - 5 najnowszych tarcz (ostatnie 5)
 				setDisplayedImages(shieldImages.slice(-5))
 			} else {
@@ -96,7 +96,7 @@ export default function Tarcze() {
 									damping: 20
 								}}
 								whileHover={{ scale: 1.25 }}
-								className="w-20 h-20 md:w-28 md:h-28 lg:w-20 lg:h-20 xl:w-25 xl:h-25 2xl:w-30 2xl:h-30 object-contain drop-shadow-lg cursor-pointer"
+								className="w-20 h-20 md:w-20 md:h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 2xl:w-30 2xl:h-30 object-contain drop-shadow-lg cursor-pointer"
 							>
 								<Image
 									src={src}
