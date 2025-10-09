@@ -65,7 +65,7 @@ export default function Tarcze() {
 	}, [])
 
 	return (
-		<div className="font-[poppins] mt-5 z-10 w-full flex pt-8 pb-8 bg-white rounded-2xl shadow-lg/20 overflow-hidden">
+		<div className="font-[poppins] mb-8 z-10 w-full flex pt-8 pb-8 bg-white rounded-2xl shadow-lg/20 overflow-hidden">
 			<div className="w-full flex flex-col gap-6 items-center md:items-start">
 				<div className="px-10 w-full flex flex-col">
 					<p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">
