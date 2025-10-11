@@ -1,1 +1,81 @@
 @import "tailwindcss";
+
+/* globals.css */
+.rich-content.ck-content {
+    /* podstawy: czcionka, odstępy – możesz użyć prose (plugin typography) */
+    line-height: 1.45;
+    color: #0f172a; /* slate-900 */
+}
+
+/* Linki (twoje preferowane kolory) */
+.rich-content.ck-content a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+.rich-content.ck-content a:hover { color: #1e40af; }
+
+/* Obrazy i figure z CKEditor */
+.rich-content.ck-content figure {
+    margin: 1.25rem 0;
+    text-align: center;
+}
+.rich-content.ck-content figure.image {
+    display: block;
+    margin: 1rem auto;
+}
+.rich-content.ck-content figure img,
+.rich-content.ck-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* figcaption (podpisy) */
+.rich-content.ck-content figcaption {
+    font-size: 0.875rem;
+    color: #6b7280; /* slate-500 */
+    margin-top: 0.5rem;
+}
+
+/* Tabele */
+.rich-content.ck-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+.rich-content.ck-content th,
+.rich-content.ck-content td {
+    border: 1px solid #e6e6e6;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+/* Blockquote */
+.rich-content.ck-content blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1rem;
+    color: #374151;
+    margin: 1rem 0;
+    background: rgba(229,231,235,0.4);
+}
+
+/* Iframe / video / audio responsywne */
+.rich-content.ck-content iframe,
+.rich-content.ck-content video,
+.rich-content.ck-content audio {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Przydatne dla CKEditor classes (np. image_resizer, align-left/right/center) */
+.rich-content.ck-content .align-left { float: left; margin-right: 1rem; max-width: 50%; }
+.rich-content.ck-content .align-right { float: right; margin-left: 1rem; max-width: 50%; }
+.rich-content.ck-content .align-center { margin-left: auto; margin-right: auto; display: block; }
+
+/* Clearfix po floatach */
+.rich-content.ck-content::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import janZamoyski from "src/images/janZamoyski.jpg"
+import {getStrapiMedia} from "@/app/lib/strapi";
 
 export default function Wstep({data}) {
     return (
@@ -27,18 +27,20 @@ export default function Wstep({data}) {
                     </div>
                 </div>
 
-                {data?.["Zdjecie"] && <div
-                    className="h-full w-max flex items-center justify-center rounded-2xl"
-                >
-                    <Image
-                        src={janZamoyski}
-                        alt="Jan Zamoyski "
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-auto max-h-[480px] md:max-h-[480px] object-contain rounded-2xl"
-                        sizes="(max-width: 768px) 90vw, (max-width: 1280px) 45vw, 40vw"
-                    />
-                </div>}
+                {data?.["Zdjecie"] && (
+                    // RODZIC musi być relative i mieć określony rozmiar
+                    <div className="relative w-full max-w-[420px] h-[440px] aspect-auto md:h-[480px] flex-shrink-0 rounded-2xl overflow-hidden">
+                        <Image
+                            src={getStrapiMedia(data["Zdjecie"].url)}
+                            alt={data["Naglowek"] || "Zdjęcie"}
+                            fill
+                            loading="lazy"
+                            decoding="async"
+                            className="object-cover object-top"
+                            priority={false}
+                        />
+                    </div>
+                )}
             </section>
         </div>
     );

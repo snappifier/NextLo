@@ -1,11 +1,13 @@
 "use client"
 import logo from "src/images/logolo.webp"
-import budynek from "src/images/budynek.webp"
 import godlo from "src/images/godlo.webp"
 import Image from "next/image";
 import ButtonsBanner from "@/components/home/banner/buttonsBaner";
+import {getStrapiMedia} from "@/app/lib/strapi";
 
-export default function Banner() {
+export default function Banner({baner}) {
+	const zdjecieBanner = baner?.["ZdjecieBaner"] ? getStrapiMedia(baner["ZdjecieBaner"].url) : ""
+
 	return (<>
 			<div className="relative w-full h-max md:h-max flex flex-col pt-[6rem] lg:pt-[7rem] items-center font-[poppins]">
 				<div className="relative w-full h-max flex items-center">
@@ -23,7 +25,7 @@ export default function Banner() {
 				</div>
 				<div className=" relative w-full h-[20vh] sm:h-[30vh] md:h-[58vh] 2xl:h-[65vh] drop-shadow-md/20 mt-4 aspect-auto">
 					<Image
-						src={budynek}
+						src={zdjecieBanner}
 						alt="Widok na budynek liceum"
 						fill
 						className="object-cover rounded-2xl brightness-70"
@@ -31,7 +33,7 @@ export default function Banner() {
 					/>
 				</div>
 				<div className="flex w-full h-full justify-center items-center py-5 rounded-b-2xl">
-					<ButtonsBanner/>
+					{baner?.["Przyciski"] ? <ButtonsBanner przyciski={baner["Przyciski"]}/> : null}
 				</div>
 
 			</div>

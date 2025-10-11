@@ -1,8 +1,8 @@
 import "./globals.css";
 import {Meow_Script, Poppins} from 'next/font/google'
 import NavbarNew from "../components/navbar/NavbarNew.js";
-import Footer from "../components/footer/Footer.jsx";
 import Script from "next/script";
+import FooterServer from "@/components/footer/FooterServer";
 
 const meow_script = Meow_Script({
     subsets: ['latin'],
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       <body className="">
       <NavbarNew/>
         {children}
-      <Footer />
+      <FooterServer />
       <Script src={"https://website-widgets.pages.dev/dist/sienna.min.js"} strategy="afterInteractive" defer></Script>
       </body>
     </html>

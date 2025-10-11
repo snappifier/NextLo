@@ -1,6 +1,3 @@
-// components/MediaComponent.jsx
-// Dodaj "use client" tylko jeśli chcesz logować w przeglądarce lub używać hooków stanu/efektów.
-// "use client";
 import Image from "next/image";
 import {getStrapiMedia} from "@/app/lib/strapi";
 
@@ -25,7 +22,7 @@ export default function MediaComponent({media = [], col = 1}) {
 
 				const id = item?.id ?? item?.attributes?.id ?? Math.random();
 				return (
-					<div key={id} className="relative w-auto h-60 overflow-hidden">
+					<div key={id} className="relative w-auto min-h-60 h-100 overflow-hidden">
 						<Image
 							src={src}
 							alt={`Zdjęcie-${id}`}

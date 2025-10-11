@@ -1,7 +1,7 @@
 "use client"
 import {NewsCard} from "@/components/home/Aktualnosci/NewsCard";
-import {strapiFetch} from "@/app/lib/strapi";
 import {useMemo} from "react";
+import Link from "next/link";
 
 
 export const Aktualnosci = ({posts}) => {
@@ -29,7 +29,7 @@ export const Aktualnosci = ({posts}) => {
                             </div>
                         </div>
 
-                        <div className="w-full h-auto flex items-stretch">
+                        <div className="w-full h-auto flex gap-5 flex-col items-stretch">
                             <div className="
                                   w-full grid gap-4 max-w-7xl
                                   grid-cols-1
@@ -45,6 +45,11 @@ export const Aktualnosci = ({posts}) => {
                                         </div>
                                     );
                                 })}
+                            </div>
+                            <div className="flex font-[poppins] w-full h-max boder-2">
+                                <Link href={"/"}>
+                                    <p className="font-normal text-slate-700 hover:text-slate-900 hover:cursor-pointer">Zobacz więcej</p>
+                                </Link>
                             </div>
                         </div>
                     </div>

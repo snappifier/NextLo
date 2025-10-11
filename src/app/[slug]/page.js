@@ -66,19 +66,14 @@ async function getPageData(slugParam) {
 	return null;
 }
 
-export default async function Page({ params }) {
-	const { slug } = params;
-	const data = await getPageData(slug);
-	if (!data) return notFound();
-
+const Automatyczny = ({data}) => {
 	const sections = Array.isArray(data.Sekcja) ? data.Sekcja : [];
-
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-			<div className="w-[92%] sm:w-[90%] lg:w-[80%]">
-				<Header text={data.Naglowek || data.Tytul || data.title || "Bez tytułu"} />
+			<div className="w-[92%] sm:w-[90%] lg:w-[80%] flex justify-center">
 				{sections.length ? (
-					<div className="w-full h-max flex flex-col gap-4 sm:gap-6 text-wrap">
+					<div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-6 text-wrap">
+						<Header text={data.Naglowek} />
 						{sections.map((section) => {
 							const links = Array.isArray(section.Linki) ? section.Linki : [];
 							const media = Array.isArray(section.Media) ? section.Media : [];
@@ -100,4 +95,11 @@ export default async function Page({ params }) {
 			</div>
 		</div>
 	);
+}
+
+export default async function Page({ params }) {
+	const { slug } = params;
+	const data = await getPageData(slug);
+	if (!data) return notFound();
+	console.log(data)
 }
