@@ -101,5 +101,6 @@ export default async function Page({ params }) {
 	const { slug } = params;
 	const data = await getPageData(slug);
 	if (!data) return notFound();
-	console.log(data)
+
+	return (<Automatyczny data={data}/>)
 }
