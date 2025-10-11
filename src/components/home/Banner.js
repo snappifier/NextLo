@@ -1,3 +1,4 @@
+"use client"
 import logo from "src/images/logolo.webp"
 import budynek from "src/images/budynek.webp"
 import godlo from "src/images/godlo.webp"
@@ -11,9 +12,11 @@ export default function Banner() {
 					<div className="w-full h-max flex items-center gap-2 lg:gap-10 py-1 justify-between">
 						<Image src={logo} alt="logo"
 						       className="object-contain select-none max-h-15 max-w-15 md:max-h-20 md:max-w-20 lg:max-h-25 lg:max-w-25 drop-shadow-md/20 "/>
-						<p
-							className=" text-center text-black/80  font-[poppins] text-sm sm:text-lg md:text-lg lg:text-xl xl:text-2xl font-medium break-words hyphens-auto">I
-							Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
+						<div className="px-2 w-full h-full">
+							<p
+								className="max-w-[70%] text-left text-black/90  font-[poppins] text-sm sm:text-lg md:text-lg lg:text-xl/8 xl:text-3xl/10  font-light break-words hyphens-auto">I
+								Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
+						</div>
 						<Image src={godlo} priority alt="Godło"
 						       className="object-contain select-none max-h-15 max-w-13 md:max-h-20 md:max-w-17 lg:max-h-25 lg:max-w-22  "/>
 					</div>

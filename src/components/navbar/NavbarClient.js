@@ -75,11 +75,11 @@ export default function NavbarClient({menu}) {
 				}`}
 			>
 				<div
-					className="text-white w-[94%] sm:w-[90%] lg:w-[80%] h-15 bg-[#3077BA] lg:bg-[#3077BA]/80 rounded-lg flex items-center justify-between px-5 sm:px-10 shadow-lg">
+					className="text-white w-[94%] sm:w-[90%] lg:w-[80%] h-15 bg-[#3077BA] lg:bg-[#3077BA]/90 rounded-lg flex items-center justify-between px-3 sm:px-5 shadow-lg">
 					<Link href="/" className="z-[60]">
 						<motion.div className="flex items-center justify-between w-13 h-13" whileHover={{scale: 1.1}}
 						            whileTap={{scale: 1}}>
-							<Image src={logo} alt="Logo szkoły" className="w-full h-full"/>
+							<Image src={logo} alt="Logo szkoły" className="w-auto h-[85%]"/>
 						</motion.div>
 					</Link>
 

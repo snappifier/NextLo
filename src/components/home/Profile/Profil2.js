@@ -100,7 +100,7 @@ export default function Profile({item}) {
 				</motion.div>
 
 				<motion.div
-					className="w-[80%] mb-5 z-100 bg-white p-2 rounded-md cursor-pointer flex items-center justify-center gap-1 drop-shadow-md"
+					className="w-[90%] mb-5 z-100 bg-white p-2 rounded-md cursor-pointer flex items-center justify-center gap-1 drop-shadow-md"
 					onFocus={() => isLg && setArrow(true)}
 					onBlur={() => isLg && setArrow(false)}
 					animate={isClicked ? {scale: 0.95} : {}}
