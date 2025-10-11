@@ -2,13 +2,12 @@ import Image from "next/image";
 import janZamoyski from "src/images/janZamoyski.jpg"
 
 export default function Wstep({data}) {
-
     return (
         <div className="font-[poppins] flex relative w-full justify-center ">
             <section
                 className="
           px-6 py-6 md:px-10 md:py-8
-          flex flex-col md:flex-row items-stretch gap-8 md:gap-10
+          flex flex-col md:flex-row items-stretch gap-6 md:gap-10
           bg-white rounded-2xl shadow-lg/20
         "
             >
@@ -36,7 +35,7 @@ export default function Wstep({data}) {
                         alt="Jan Zamoyski "
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-auto max-h-[420px] md:max-h-[480px] object-contain rounded-2xl"
+                        className="w-full h-auto max-h-[480px] md:max-h-[480px] object-contain rounded-2xl"
                         sizes="(max-width: 768px) 90vw, (max-width: 1280px) 45vw, 40vw"
                     />
                 </div>}

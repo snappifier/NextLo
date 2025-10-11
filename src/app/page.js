@@ -1,10 +1,9 @@
 import { strapiFetch } from "@/app/lib/strapi";
 import Wstep from "@/components/home/Wstep";
-import getRandomInt from "@/app/lib/getRandomInt";
 import Banner from "@/components/home/Banner";
 import Profile from "@/components/home/Profile";
 import Tarcze from "@/components/home/Tarcze"
-import Profill from "@/components/home/Profile/Profil2"
+import AktualnosciServer from "@/components/home/AktualnosciServer";
 
 async function getHome() {
     const json = await strapiFetch("/api/strona-glowna-szablon?populate[Kolejnosc][populate]=*");
@@ -28,7 +27,7 @@ export default async function Home() {
                             <div key={key} className="w-full h-max">
                                 {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
                                 {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
-                                {/* {componentType === "home.aktualnosci" && <AktualnosciNew />} */}
+                                {componentType === "home.aktualnosci" && <AktualnosciServer />}
                                 {/* {componentType === "home.osiagniecia" && <Shields />} */}
                                 {/*{componentType === "home.profile" && <Profill data={data} />}*/}
 	                              {/*{componentType === "home.tarcze" && <Tarcze data={data} />}*/}
