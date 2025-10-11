@@ -4,6 +4,7 @@ import Content from "@/components/pages/Content";
 import LinkComponent from "@/components/pages/LinkComponent";
 import MediaComponent from "@/components/pages/MediaComponent";
 import Header from "@/components/pages/Header";
+import Kafelki from "@/components/pages/Kafelki";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ async function getMenuItems() {
 			out.push({
 				title: a.Tytul || "",
 				link: a.Link || "",
+				type: a.Szablon || "",
 				desc: a.Opis || "",
 			});
 		}
@@ -32,11 +34,16 @@ async function getMenuItems() {
 	return out;
 }
 
-async function fetchSingleById(idBase) {
+async function fetchSingleById(idBase, type) {
+	// jeśli nazwa wskazuje na kafelki — użyj innego populate
+
+	const populateField = type === "Kafelki" ? "Kadra][populate][Szablon][populate][Kafeleki" : "Sekcja";
+
 	const candidates = [
-		`/api/${idBase}?populate[Sekcja][populate]=*`,
-		`/api/${idBase}-szablon?populate[Sekcja][populate]=*`,
+		`/api/${idBase}?populate[${populateField}][populate]=*`,
+		`/api/${idBase}-szablon?populate[${populateField}][populate]=*`,
 	];
+
 	for (const url of candidates) {
 		try {
 			const json = await strapiFetch(url);
@@ -49,6 +56,7 @@ async function fetchSingleById(idBase) {
 	return null;
 }
 
+
 async function getPageData(slugParam) {
 	const segments = Array.isArray(slugParam) ? slugParam : [slugParam];
 	const path = "/" + segments.join("/");
@@ -60,8 +68,8 @@ async function getPageData(slugParam) {
 	const bases = Array.from(new Set([ last, slugify(item?.title || "") ].filter(Boolean)));
 
 	for (const base of bases) {
-		const data = await fetchSingleById(base);
-		if (data) return data;
+		const data = await fetchSingleById(base, item.type);
+		if (data) return [data, item.type];
 	}
 	return null;
 }
@@ -98,9 +106,17 @@ const Automatyczny = ({data}) => {
 }
 
 export default async function Page({ params }) {
-	const { slug } = params;
-	const data = await getPageData(slug);
-	if (!data) return notFound();
+	const resolvedParams = await params;
+	let { slug } = resolvedParams;
+	const result = await getPageData(slug);
+	if (!result) return notFound();
+	const [data, typ] = result;
 
-	return (<Automatyczny data={data}/>)
+
+	if(typ === "Automatyczny"){
+		return <Automatyczny data={data} />
+	}
+	if (typ === "Kafelki"){
+		return <Kafelki dataKafelki={data} />
+	}
 }

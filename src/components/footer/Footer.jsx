@@ -110,7 +110,7 @@ const Footer = ({footer}) => {
 	};
 
 	return (
-		<footer className="bg-[#3077BA]  w-full h-max font-[poppins] overflow-x-clip">
+		<footer className="bg-[#3077BA] w-full h-max font-[poppins] overflow-x-clip">
 			<div className="mx-auto max-w-[98%] overflow-visible  py-6 sm:py-6 lg:px-8 flex flex-col">
 
 				<div className="w-full h-max flex items-center justify-center py-2">
