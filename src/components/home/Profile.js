@@ -11,7 +11,7 @@ const Profile = ({data}) => {
     return (
         <div className="font-[poppins] mt-5 z-10 w-full h-max flex px-6 py-6 md:px-10 md:py-8 bg-white rounded-2xl shadow-lg/20">
             <div className="h-max w-full flex flex-col gap-6 text-wrap md:items-start ">
-                <div className="flex flex-col w-max">
+                <div className="flex flex-col w-max text-wrap">
                     <p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">NASZE PROFILE</p>
                     <p className="text-base md:text-lg font-extralight text-slate-700">Oto nasze profile przygotowane dla ciebie</p>
                 </div>
