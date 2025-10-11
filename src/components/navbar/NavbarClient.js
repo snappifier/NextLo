@@ -26,7 +26,7 @@ export default function NavbarClient({menu}) {
 		};
 
 		if (mql.addEventListener) mql.addEventListener("change", handleMql);
-		else mql.addListener(handleMql); // Safari/legacy
+		else mql.addListener(handleMql);
 
 
 		if (mql.matches) setIsOpen(false);
@@ -37,7 +37,7 @@ export default function NavbarClient({menu}) {
 		};
 	}, []);
 
-	//  Zamykanie przy scrollu (gdy menu jest otwarte)
+
 	useEffect(() => {
 		if (typeof window === "undefined") return;
 		if (!isOpen) return;
