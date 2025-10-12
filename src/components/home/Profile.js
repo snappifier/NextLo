@@ -1,12 +1,5 @@
 import Profill from "@/components/home/Profile/Profil2";
 
-
-export function extractD(pathString) {
-    if (typeof pathString !== "string") return null;
-    const m = pathString.match(/<path\b[^>]*\sd=(["'])(.*?)\1/i);
-    return m ? m[2] : null;
-}
-
 const Profile = ({data}) => {
     return (
         <div className="font-[poppins] mt-5 z-10 w-full h-max flex px-6 py-6 md:px-10 md:py-8 bg-white rounded-2xl shadow-lg/20">

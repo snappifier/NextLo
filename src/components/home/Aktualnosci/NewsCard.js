@@ -13,10 +13,10 @@ const Arrow = () => (
     </svg>
 );
 
-const clampText = (txt, n = 215) =>
+export const clampText = (txt, n = 215) =>
     typeof txt === "string" && txt.length > n ? txt.substring(0, n) + "…" : txt;
 
-const formatPLDate = (d) => new Date(d).toLocaleDateString("pl-PL");
+export const formatPLDate = (d) => new Date(d).toLocaleDateString("pl-PL");
 
 export function NewsCard({ news, onClick, featured = false }) {
     const imgSrc = news?.["ZdjecieProfile"] ? getStrapiMedia(news["ZdjecieProfile"].url) : "";
