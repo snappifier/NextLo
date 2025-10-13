@@ -4,11 +4,20 @@ import Banner from "@/components/home/Banner";
 import Profile from "@/components/home/Profile";
 import Tarcze from "@/components/home/Tarcze"
 import AktualnosciServer from "@/components/home/AktualnosciServer";
+import { Suspense } from "react";
+
+// Caching na 5 minut (300 sekund)
+export const revalidate = 300;
 
 async function getHome() {
     const json = await strapiFetch("/api/strona-glowna-szablon?populate[Baner][populate]=*&populate[Kolejnosc][populate]=*");
     return json?.data ?? {};
 }
+
+// Loading komponent dla sekcji Aktualności
+const AktualnosciLoading = () => (
+    <div className="w-full h-64 bg-gradient-to-b from-slate-100 to-slate-50 rounded-2xl animate-pulse" />
+);
 
 export default async function Home() {
     const home = await getHome();
@@ -19,25 +28,24 @@ export default async function Home() {
                 <div className="w-full bg-transparent">
                     <Banner baner={home["Baner"]}/>
                 </div>
-                    {home["Kolejnosc"]?.map((data, index) => {
-                        const componentType = data["__component"];
-                        const key = `${componentType}-${data.id ?? index}`;
+                {home["Kolejnosc"]?.map((data, index) => {
+                    const componentType = data["__component"];
+                    const key = `${componentType}-${data.id ?? index}`;
 
-                        return (
-                            <div key={key} className="w-full h-max">
-                                {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
-                                {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
-                                {componentType === "home.aktualnosci" && <AktualnosciServer />}
-                                {/* {componentType === "home.osiagniecia" && <Shields />} */}
-                                {/*{componentType === "home.profile" && <Profill data={data} />}*/}
-	                              {/*{componentType === "home.tarcze" && <Tarcze data={data} />}*/}
-                            </div>
-                        );
-                    })}
-	            <Tarcze />
+                    return (
+                        <div key={key} className="w-full h-max">
+                            {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
+                            {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
+                            {componentType === "home.aktualnosci" && (
+                                <Suspense fallback={<AktualnosciLoading />}>
+                                    <AktualnosciServer />
+                                </Suspense>
+                            )}
+                        </div>
+                    );
+                })}
+                <Tarcze />
             </div>
-
         </div>
     );
 }
-

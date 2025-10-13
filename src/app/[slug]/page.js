@@ -5,8 +5,10 @@ import LinkComponent from "@/components/pages/LinkComponent";
 import MediaComponent from "@/components/pages/MediaComponent";
 import Header from "@/components/pages/Header";
 import Kafelki from "@/components/pages/Kafelki";
+import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+// Włącz caching — revaliduj co 60 sekund
+export const revalidate = 60;
 
 const attrs = (x) => (x?.attributes ?? x ?? {});
 
@@ -15,7 +17,17 @@ const slugify = (s = "") =>
 		.toLowerCase().trim()
 		.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
+// Cache dla menu — revaliduj raz na minutę
+let menuCache = null;
+let menuCacheTime = 0;
+
 async function getMenuItems() {
+	const now = Date.now();
+	// Jeśli cache jest świeży (< 60s), zwróć go
+	if (menuCache && (now - menuCacheTime) < 60000) {
+		return menuCache;
+	}
+
 	const json = await strapiFetch("/api/menu?populate[Kategoria][populate]=Podstrona");
 	const root = attrs(json?.data);
 	const cats = root?.["Kategoria"] || [];
@@ -31,12 +43,13 @@ async function getMenuItems() {
 			});
 		}
 	}
+
+	menuCache = out;
+	menuCacheTime = now;
 	return out;
 }
 
 async function fetchSingleById(idBase, type) {
-	// jeśli nazwa wskazuje na kafelki — użyj innego populate
-
 	const populateField = type === "Kafelki" ? "Kadra][populate][Szablon][populate][Kafeleki" : "Sekcja";
 
 	const candidates = [
@@ -56,7 +69,6 @@ async function fetchSingleById(idBase, type) {
 	return null;
 }
 
-
 async function getPageData(slugParam) {
 	const segments = Array.isArray(slugParam) ? slugParam : [slugParam];
 	const path = "/" + segments.join("/");
@@ -74,7 +86,7 @@ async function getPageData(slugParam) {
 	return null;
 }
 
-const Automatyczny = ({data}) => {
+const AutomatycznyContent = ({data}) => {
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
@@ -97,13 +109,25 @@ const Automatyczny = ({data}) => {
 					</div>
 				) : (
 					<pre className="rounded-lg bg-gray-50 p-3 text-xs overflow-auto">
-            {JSON.stringify(data, null, 2)}
-          </pre>
+                   {JSON.stringify(data, null, 2)}
+                </pre>
 				)}
 			</div>
 		</div>
 	);
 }
+
+const LoadingFallback = () => (
+	<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
+		<div className="w-[92%] sm:w-[90%] lg:w-[80%] flex justify-center">
+			<div className="animate-pulse space-y-4">
+				<div className="h-8 bg-slate-200 rounded w-64"></div>
+				<div className="h-4 bg-slate-100 rounded w-full"></div>
+				<div className="h-4 bg-slate-100 rounded w-full"></div>
+			</div>
+		</div>
+	</div>
+);
 
 export default async function Page({ params }) {
 	const resolvedParams = await params;
@@ -112,11 +136,10 @@ export default async function Page({ params }) {
 	if (!result) return notFound();
 	const [data, typ] = result;
 
-
-	if(typ === "Automatyczny"){
-		return <Automatyczny data={data} />
-	}
-	if (typ === "Kafelki"){
-		return <Kafelki dataKafelki={data} />
-	}
+	return (
+		<Suspense fallback={<LoadingFallback />}>
+			{typ === "Automatyczny" && <AutomatycznyContent data={data} />}
+			{typ === "Kafelki" && <Kafelki dataKafelki={data} />}
+		</Suspense>
+	);
 }

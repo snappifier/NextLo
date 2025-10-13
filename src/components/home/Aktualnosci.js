@@ -47,7 +47,7 @@ export const Aktualnosci = ({posts}) => {
                                 })}
                             </div>
                             <div className="flex font-[poppins] w-full h-max boder-2">
-                                <Link href={"/"}>
+                                <Link href={"/aktualnosci"}>
                                     <p className="font-normal text-slate-700 hover:text-slate-900 hover:cursor-pointer">Zobacz więcej</p>
                                 </Link>
                             </div>

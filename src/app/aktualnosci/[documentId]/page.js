@@ -1,18 +1,10 @@
 import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Arrow, { formatPLDate } from "@/components/home/Aktualnosci/NewsCard";
-import Banner from "@/components/home/Banner";
-import Wstep from "@/components/home/Wstep";
-import Profile from "@/components/home/Profile";
-import AktualnosciServer from "@/components/home/AktualnosciServer";
-import Tarcze from "@/components/home/Tarcze";
 import Header from "@/components/pages/Header";
-import Content from "@/components/pages/Content";
-import LinkComponent from "@/components/pages/LinkComponent";
-import MediaComponent from "@/components/pages/MediaComponent";
 import Image from "next/image";
 
+export const revalidate = 3600; // Cache na 1 godzinę
 
 async function getPostById(documentId) {
     try {
@@ -20,45 +12,85 @@ async function getPostById(documentId) {
         return json?.data ?? null;
     } catch (error) {
         console.error('Błąd pobierania posta:', error);
-        console.log(slug)
         return null;
     }
 }
 
+export async function generateMetadata({ params }) {
+    const { documentId } = await params;
+    const post = await getPostById(documentId);
+
+    if (!post) return { title: 'Post nie znaleziony' };
+
+    return {
+        title: post["Tytul"] || 'Aktualność',
+        description: post["Opis"]?.slice(0, 160) || '',
+    };
+}
 
 export default async function PostDetail({ params }) {
     const { documentId } = await params;
     const post = await getPostById(documentId);
-    const src = post?.["ZdjecieProfile"] ? getStrapiMedia(post["ZdjecieProfile"].url) : null;
-    console.log(post)
 
     if (!post) {
         notFound();
     }
 
-    return <div className="w-full pt-36 md:pt-30 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-        <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex justify-center">
-            <div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-4 text-wrap">
-                <div className="w-max h-max text-md">
-                    <Link href={`/aktualnosci`}>
-                        <p className="text-slate-500 hover:text-slate-800 hover:cursor-pointer">Wróć do aktualności</p>
+    const srcMain = post?.["ZdjecieGlowne"] ? getStrapiMedia(post["ZdjecieGlowne"].url) : null;
+    const photos = post?.["Zdjecia"] ?? [];
+
+    return (
+        <div className="w-full pt-36 md:pt-30 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
+            <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col md:flex-row gap-4 sm:gap-10">
+                {/* Lewa kolumna - sticky */}
+                <div className="md:sticky top-36 h-max md:max-w-[50%] flex flex-col gap-4">
+                    <Link href="/aktualnosci" className="w-max text-md">
+                        <p className="text-slate-500 hover:text-slate-800 hover:cursor-pointer transition-colors">
+                            Wróć do aktualności
+                        </p>
                     </Link>
-                </div>
-                <Header text={post["Tytul"]} />
-                <div className="w-full h-max flex flex-col gap-10">
-                    <div key={post.id} className="relative w-auto min-h-60 h-100 overflow-hidden">
-                        <Image
-                            src={src}
-                            alt={`Zdjęcie-${post.id}`}
-                            fill
-                            className="h-full object-contain"
-                        />
-                    </div>
-                    <div className="w-full flex text-wrap">
+                    <Header text={post["Tytul"]} />
+                    <div className="w-full text-wrap text-justify text-slate-700">
                         {post["Opis"]}
                     </div>
                 </div>
+
+                {/* Prawa kolumna - obrazy */}
+                <div className="w-full h-max flex flex-col gap-5">
+                    {/* Główne zdjęcie */}
+                    {srcMain && (
+                        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100">
+                            <Image
+                                src={srcMain}
+                                alt={post["Tytul"] || 'Główne zdjęcie'}
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                    )}
+
+                    {/* Galeria zdjęć */}
+                    {photos.length > 0 && (
+                        <div className="w-full h-max grid grid-cols-2 md:grid-cols-3 gap-2">
+                            {photos.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100"
+                                >
+                                    <Image
+                                        src={getStrapiMedia(item.url)}
+                                        alt="Zdjęcie z artykułu"
+                                        fill
+                                        className="object-cover"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
-    </div>
+    );
 }

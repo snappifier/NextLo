@@ -2,7 +2,7 @@ import {strapiFetch} from "@/app/lib/strapi";
 import {Aktualnosci} from "@/components/home/Aktualnosci";
 
 async function getPosts() {
-    const json = await strapiFetch("/api/posts?populate=*");
+    const json = await strapiFetch("/api/posts?sort=Data:DESC&pagination[pageSize]=5&populate=*");
     return json?.data ?? {};
 }
 
