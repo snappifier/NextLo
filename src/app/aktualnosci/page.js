@@ -69,7 +69,6 @@ export default function Page() {
         const author = attributes?.Autor || '';
         const documentId = news.documentId;
         const id = news.id;
-        console.log(documentId)
 
         return (
             <Link
