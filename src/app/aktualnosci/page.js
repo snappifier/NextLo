@@ -72,7 +72,8 @@ export default function Page() {
         console.log(documentId)
 
         return (
-            <div
+            <Link
+                href={`/aktualnosci/${documentId}`}
                 key={id}
                 className="bg-white border-slate-300 border rounded-xl overflow-hidden drop-shadow-md hover:drop-shadow-lg transition-shadow"
             >
@@ -85,16 +86,15 @@ export default function Page() {
                     </div>
                     <div className="text-sm w-full h-full font-light flex flex-col justify-between gap-2 text-slate-700">
                         <p className="line-clamp-3">{clampText(body, 215)}</p>
-                        <Link
-                            href={`/aktualnosci/${documentId}`}
+                        <div
                             className="inline-flex items-center gap-2 text-sm text-sky-700 hover:text-sky-800 transition-colors"
                         >
                             Czytaj dalej
                             <Arrow />
-                        </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         );
     };
 

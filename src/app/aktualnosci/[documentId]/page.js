@@ -43,7 +43,7 @@ export default async function PostDetail({ params }) {
         <div className="w-full pt-36 md:pt-30 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col md:flex-row gap-4 sm:gap-10">
                 {/* Lewa kolumna - sticky */}
-                <div className="md:sticky top-36 h-max md:w-[50%] flex flex-col gap-4">
+                <div className="h-max md:min-w-[50%] md:max-w-[60%] flex flex-col gap-4">
                     <Link href="/aktualnosci" className="w-max text-md">
                         <p className="text-slate-500 hover:text-slate-800 hover:cursor-pointer transition-colors">
                             Wróć do aktualności
@@ -55,9 +55,7 @@ export default async function PostDetail({ params }) {
                     </div>
                 </div>
 
-                {/* Prawa kolumna - obrazy */}
-                <div className="w-full h-max flex flex-col gap-5">
-                    {/* Główne zdjęcie */}
+                <div className="w-full h-max flex flex-col gap-5 mt-10">
                     {srcMain && (
                         <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100">
                             <Image
