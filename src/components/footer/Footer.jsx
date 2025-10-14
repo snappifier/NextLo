@@ -41,7 +41,7 @@ const Footer = ({footer}) => {
 			},
 			{
 				name: "TikTok",
-				href: footer["TikTok"],
+				href: footer["Tiktok"],
 				icon: (props) => (
 					<svg fill="currentColor" viewBox="0 0 24 24" {...props}>
 						<path
