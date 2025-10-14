@@ -7,8 +7,8 @@ import Header from "@/components/pages/Header";
 import Kafelki from "@/components/pages/Kafelki";
 import { Suspense } from "react";
 
-// Włącz caching — revaliduj co 60 sekund
-export const revalidate = 60;
+
+export const revalidate = 1800;
 
 const attrs = (x) => (x?.attributes ?? x ?? {});
 
@@ -90,7 +90,7 @@ const AutomatycznyContent = ({data}) => {
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-			<div className="w-[92%] sm:w-[90%] lg:w-[80%] flex justify-center">
+			<div className="w-[92%] sm:w-[90%] lg:w-[80%] flex ">
 				{sections.length ? (
 					<div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-6 text-wrap">
 						<Header text={data["Naglowek"]} />

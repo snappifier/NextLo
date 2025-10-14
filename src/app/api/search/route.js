@@ -5,6 +5,9 @@ export const dynamic = 'force-dynamic';
 
 const attrs = (x) => (x?.attributes ?? x ?? {});
 
+const searchCache = new Map();
+const CACHE_TTL = 5 * 60 * 1000;
+
 export async function GET(req) {
 	const { searchParams } = new URL(req.url);
 	const q = (searchParams.get('q') || '').trim().toLowerCase();
@@ -15,14 +18,20 @@ export async function GET(req) {
 		const root = attrs(menu?.data);
 		const cats = root?.Kategoria || [];
 
+		const cacheKey = `search_${q}`;
+		const cached = searchCache.get(cacheKey);
+		if (cached && Date.now() - cached.time < CACHE_TTL) {
+			return NextResponse.json(cached.data);
+		}
+
 		const all = [];
 		for (const cat of cats) {
 			const pages = cat?.Podstrona || cat?.podstrona || [];
 			for (const p of pages) {
 				const ap = attrs(p);
-				const title   = ap.Tytul ?? ap.Tytuł ?? ap.tytul ?? ap.tytuł ?? '';
-				const excerpt = ap.Opis  ?? ap.opis  ?? '';
-				const path    = ap.Link  ?? ap.link  ?? '';
+				const title   = ap["Tytul"] ?? '';
+				const excerpt = ap["Opis"]  ?? '';
+				const path    = ap["Link"]  ?? '';
 				const id      = ap.id ?? `${title}::${path}`;
 				all.push({ id, title, excerpt, path });
 			}
@@ -47,11 +56,9 @@ export async function GET(req) {
 			return (as === -1 ? 999 : as) - (bs === -1 ? 999 : bs);
 		});
 
-		return NextResponse.json({
-			items: filtered.slice(0, 10),
-			total: filtered.length,
-			...(debug ? { _debug: { cats: cats.length, all: all.length } } : {})
-		});
+		const result = { items: filtered.slice(0, 10), total: filtered.length };
+		searchCache.set(cacheKey, { data: result, time: Date.now() });
+		return NextResponse.json(result);
 	} catch (e) {
 		console.error('API /search error:', e);
 		return NextResponse.json({ items: [], total: 0, error: 'search_failed' }, { status: 500 });

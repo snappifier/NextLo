@@ -1,12 +1,11 @@
 import {strapiFetch} from "@/app/lib/strapi";
-import Wstep from "@/components/home/Wstep";
-import Banner from "@/components/home/Banner";
-import Profile from "@/components/home/Profile";
-import Tarcze from "@/components/home/Tarcze"
-import AktualnosciServer from "@/components/home/AktualnosciServer";
+import Banner from "@/components/home/banner/Banner";
+import Profile from "@/components/home/Profile/Profile";
 import { Suspense } from "react";
+import AktualnosciServer from "@/components/home/Aktualnosci/AktualnosciServer";
+import Wstep from "@/components/home/Wstep";
+import Tarcze from "@/components/home/Wspolprace/Tarcze";
 
-// Caching na 5 minut (300 sekund)
 export const revalidate = 300;
 
 async function getHome() {
@@ -32,6 +31,8 @@ export default async function Home() {
                     const componentType = data["__component"];
                     const key = `${componentType}-${data.id ?? index}`;
 
+                    console.log(data)
+
                     return (
                         <div key={key} className="w-full h-max">
                             {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
@@ -41,10 +42,11 @@ export default async function Home() {
                                     <AktualnosciServer />
                                 </Suspense>
                             )}
+                            {componentType === "home.osiagniecia" && <Tarcze/>}
                         </div>
                     );
                 })}
-                <Tarcze />
+
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import {strapiFetch} from "@/app/lib/strapi";
-import {Aktualnosci} from "@/components/home/Aktualnosci";
+import {Aktualnosci} from "@/components/home/Aktualnosci/Aktualnosci";
 
 async function getPosts() {
     const json = await strapiFetch("/api/posts?sort=Data:DESC&pagination[pageSize]=5&populate=*");
