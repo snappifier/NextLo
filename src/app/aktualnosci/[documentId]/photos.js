@@ -9,7 +9,7 @@ export default function Photos({media, post}) {
 	return (
 		<>
 			<motion.div
-				whileHover={{scale: 1.02}}
+				whileHover={{scale: 1.05}}
 				className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100 cursor-pointer"
 				onClick={() => setOpened(true)}
 			>
