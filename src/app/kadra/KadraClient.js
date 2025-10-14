@@ -200,6 +200,8 @@ const TopChips = ({ items, activeId, onJump }) => {
     );
 };
 
+
+
 const Kadra = ({ kadra }) => {
     const [validKadra, setValidKadra] = useState([]);
 

@@ -53,9 +53,13 @@ export default async function PostDetail({ params }) {
 					<div className="w-full text-wrap break-words text-justify text-slate-700">
 						{post["Opis"]}
 					</div>
+					<div className="flex flex-col w-max font-extralight text-sm">
+						<p>Autor: {post["Autor"]}</p>
+						<p>Data: {post["Data"]}</p>
+					</div>
 				</div>
 
-				<div className="w-full h-max flex flex-col gap-5 md:mt-34">
+				<div className="w-full h-max flex flex-col gap-5 md:mt-32">
 					{/* Główne zdjęcie */}
 					{srcMain && (
 						<Photos media={srcMain} post={post["Tytul"] || "Główne zdjęcie"} />
