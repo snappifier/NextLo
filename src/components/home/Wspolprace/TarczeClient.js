@@ -47,11 +47,11 @@ export default function TarczeClient({data}) {
             const width = window.innerWidth
 
             if (width < 640) {
-                setDisplayedImages(shieldImages.slice(-2))
-            } else if (width < 768) {
                 setDisplayedImages(shieldImages.slice(-3))
-            } else if (width < 1024) {
+            } else if (width < 768) {
                 setDisplayedImages(shieldImages.slice(-4))
+            } else if (width < 1024) {
+                setDisplayedImages(shieldImages.slice(-5))
             } else {
                 setDisplayedImages(shieldImages)
             }
@@ -68,7 +68,7 @@ export default function TarczeClient({data}) {
         <div className="font-[poppins] mb-8 z-10 w-full flex pt-6 pb-6 bg-white rounded-2xl shadow-lg/20 overflow-hidden">
             <div className="w-full flex flex-col gap-4 items-center md:items-start">
                 <div className="px-6 md:px-10 w-full flex flex-col">
-                    <p className="text-base md:text-lg lg:text-xl font-semibold text-slate-900">
+                    <p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">
                         OSIĄGNIĘCIA I WSPÓŁPRACE
                     </p>
                     <p className="text-sm md:text-base font-light text-slate-600">
