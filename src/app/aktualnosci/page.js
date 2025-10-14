@@ -5,7 +5,7 @@ import Link from "next/link";
 import Arrow, { clampText, formatPLDate } from "@/components/home/Aktualnosci/NewsCard";
 import { strapiFetch } from "@/app/lib/strapi";
 
-const MAX_POSTS = 3;
+const MAX_POSTS = 1;
 
 export default function Page() {
     const [page, setPage] = useState(1);

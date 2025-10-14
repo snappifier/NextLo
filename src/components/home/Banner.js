@@ -23,7 +23,7 @@ export default function Banner({baner}) {
 						       className="object-contain select-none max-h-15 max-w-13 md:max-h-20 md:max-w-17 lg:max-h-25 lg:max-w-22  "/>
 					</div>
 				</div>
-				<div className=" relative w-full h-[20vh] sm:h-[30vh] md:h-[58vh] 2xl:h-[65vh] drop-shadow-md/20 mt-4 aspect-auto">
+				<div className=" relative w-full h-[20vh] sm:h-[30vh] md:h-[58vh] 2xl:h-[65vh] drop-shadow-md/20 mt-4 aspect-auto select-none">
 					<Image
 						src={zdjecieBanner}
 						alt="Widok na budynek liceum"
