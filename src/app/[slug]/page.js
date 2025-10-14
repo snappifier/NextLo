@@ -97,12 +97,18 @@ const AutomatycznyContent = ({data}) => {
 						{sections.map((section) => {
 							const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];
 							const media = Array.isArray(section["Media"]) ? section["Media"] : [];
-							const content = Array.isArray(section["Paragraf"]) ? section["Paragraf"] : [];
+							const content = section?.["Paragraf"] ? section["Paragraf"] : [];
+
+							const hasContent = content && content.length > 0;
+							const hasLinks = links.length > 0;
+							const hasMedia = media.length > 0;
+
 							return (
 								<div key={section.id} className="w-full h-max flex flex-col gap-5">
-									<Content text={content} />
-									<LinkComponent linkArray={links} />
-									<MediaComponent media={media} col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1} />
+									{hasContent && <Content text={content}/>}
+									{hasLinks && <LinkComponent linkArray={links}/>}
+									{hasMedia && <MediaComponent media={media}
+																 col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
 								</div>
 							);
 						})}

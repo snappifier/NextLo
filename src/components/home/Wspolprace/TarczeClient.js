@@ -83,7 +83,7 @@ export default function TarczeClient({data}) {
                             href="https://2025.licea.perspektywy.pl/rankingi/ranking-lubelski"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-shrink-0"
+                            className="flex-shrink-0 select-none"
                         >
                             <motion.div
                                 initial={{ scale: 1, opacity: 0.6 }}
@@ -106,7 +106,7 @@ export default function TarczeClient({data}) {
                                     height={100}
                                     className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain drop-shadow-md hover:drop-shadow-lg transition-shadow"
                                     priority={index === 0}
-                                    quality={70}
+                                    quality={90}
                                 />
                             </motion.div>
                         </Link>

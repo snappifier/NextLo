@@ -178,7 +178,7 @@ const Kafelki = ({dataKafelki}) => {
     // >>> ZMIANA: rozdzielanie do wielu grup
     const groups = useMemo(() => {
         const acc = {};
-        for (const p of dataKafelki["Kadra"]["Szablon"]) {
+        for (const p of dataKafelki["Sekcja"]["Szablon"]) {
             const keys = getGroupKeys(p);
             for (const k of keys) {
                 (acc[k] ??= []).push(p);
@@ -282,7 +282,7 @@ const Kafelki = ({dataKafelki}) => {
                 <main>
                     <div className="w-full flex flex-col mb-4 sm:mb-6">
                         <p className="text-3xl sm:text-4xl lg:text-5xl font-extralight w-max">
-                            {dataKafelki["Kadra"]["Tytul"]}
+                            {dataKafelki["Sekcja"]["Tytul"]}
                         </p>
                     </div>
 
