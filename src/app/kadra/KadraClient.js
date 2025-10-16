@@ -83,7 +83,7 @@ const Card = ({ profil }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="p-3 sm:p-4">
-                <h4 className="text-slate-900 text-base sm:text-[15px] font-[poppins] font-medium leading-tight truncate">
+                <h4 className="text-slate-900 text-base sm:text-[15px] font-[poppins] font-medium leading-tight ">
                     {profil["Tytul"] && `${profil["Tytul"]} `}
                     {profil["ImieNazwisko"]}
                 </h4>
