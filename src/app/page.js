@@ -9,7 +9,15 @@ import Tarcze from "@/components/home/Wspolprace/Tarcze";
 export const revalidate = 300;
 
 async function getHome() {
-    const json = await strapiFetch("/api/strona-glowna-szablon?populate[Baner][populate]=*&populate[Kolejnosc][populate]=*");
+    const json = await strapiFetch({
+        endpoint: "/api/strona-glowna-szablon",
+        query: {
+            populate: {
+                Baner: { populate: "*" },
+                Kolejnosc: { populate: "*" },
+            },
+        },
+    });
     return json?.data ?? {};
 }
 

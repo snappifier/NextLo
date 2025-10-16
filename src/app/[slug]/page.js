@@ -28,7 +28,15 @@ async function getMenuItems() {
 		return menuCache;
 	}
 
-	const json = await strapiFetch("/api/menu?populate[Kategoria][populate]=Podstrona");
+	const json = await strapiFetch({
+		endpoint: "/api/menu",
+		query: {
+			populate: {
+				Kategoria: { populate: "Podstrona" },
+			},
+		},
+	});
+
 	const root = attrs(json?.data);
 	const cats = root?.["Kategoria"] || [];
 	const out = [];
@@ -50,20 +58,40 @@ async function getMenuItems() {
 }
 
 async function fetchSingleById(idBase, type) {
-	const populateField = type === "Kafelki" ? "Kadra][populate][Szablon][populate][Kafeleki" : "Sekcja";
+	// zbuduj obiekt populate w zależności od typu
+	let populateObj;
+	if (type === "Kafelki") {
+		// odpowiada: populate[Kadra][populate][Szablon][populate][Kafeleki]
+		populateObj = {
+			Kadra: {
+				populate: {
+					Szablon: {
+						populate: "Kafeleki",
+					},
+				},
+			},
+		};
+	} else {
+		// odpowiada: populate[Sekcja][populate]=*
+		populateObj = {
+			Sekcja: { populate: "*" },
+		};
+	}
 
 	const candidates = [
-		`/api/${idBase}?populate[${populateField}][populate]=*`,
-		`/api/${idBase}-szablon?populate[${populateField}][populate]=*`,
+		{ endpoint: `/api/${idBase}`, query: { populate: populateObj } },
+		{ endpoint: `/api/${idBase}-szablon`, query: { populate: populateObj } },
 	];
 
-	for (const url of candidates) {
+	for (const candidate of candidates) {
 		try {
-			const json = await strapiFetch(url);
+			const json = await strapiFetch(candidate);
 			const row = Array.isArray(json?.data) ? json.data[0] : json?.data;
 			if (row) return attrs(row);
 		} catch (e) {
+			// jeśli błąd nie jest 404 — rzuć dalej
 			if (!String(e?.message || "").includes("404")) throw e;
+			// w przypadku 404 — spróbuj następnego kandydata
 		}
 	}
 	return null;
@@ -75,7 +103,7 @@ async function getPageData(slugParam) {
 	const last = segments[segments.length - 1];
 
 	const items = await getMenuItems();
-	const item = items.find(x => (x.link || "").replace(/\/+$/,"") === path);
+	const item = items.find(x => (x.link || "").replace(/\/+$/, "") === path);
 
 	const bases = Array.from(new Set([ last, slugify(item?.title || "") ].filter(Boolean)));
 

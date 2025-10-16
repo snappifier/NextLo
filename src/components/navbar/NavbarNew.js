@@ -3,7 +3,14 @@ import { strapiFetch } from "@/app/lib/strapi";
 import NavbarClient from "./NavbarClient";
 
 async function getMenu() {
-    const json = await strapiFetch("/api/menu?populate[Kategoria][populate]=*");
+    const json = await strapiFetch({
+        endpoint: "/api/menu",
+        query: {
+            populate: {
+                Kategoria: { populate: "*" },
+            },
+        },
+    });
     return json?.data ?? {};
 }
 
