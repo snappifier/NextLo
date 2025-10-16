@@ -2,6 +2,7 @@ import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
 import {notFound} from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import Photo from "@/app/galeria/[slug]/[id]/photo";
 
 async function getWydarzenieById(id) {
     const json = await strapiFetch({
@@ -84,13 +85,14 @@ export default async function Page({ params }) {
                 {wydarzenie?.Zdjecia && wydarzenie.Zdjecia.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
                         {wydarzenie.Zdjecia.map((zdjecie) => (
-                            <div key={zdjecie.id} className="relative aspect-square overflow-hidden rounded-lg hover:scale-105 transition-transform duration-300">
-                                <img
-                                    src={getStrapiMedia(zdjecie.url)}
-                                    alt={wydarzenie.TytulWydarzenia}
-                                    className="w-full h-full object-cover "
-                                />
-                            </div>
+                            // <div key={zdjecie.id} className="relative aspect-square overflow-hidden rounded-lg hover:scale-105 transition-transform duration-300">
+                            //     <img
+                            //         src={getStrapiMedia(zdjecie.url)}
+                            //         alt={wydarzenie.TytulWydarzenia}
+                            //         className="w-full h-full object-cover "
+                            //     />
+                            // </div>
+	                        <Photo key={zdjecie.id} url={getStrapiMedia(zdjecie.url)} alttext={wydarzenie.TytulWydarzenia} />
                         ))}
                     </div>
                 )}
