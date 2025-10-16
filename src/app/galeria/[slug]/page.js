@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
+import ButtonAnimation from "@/app/galeria/ButtonAnimation";
 
 async function getZakladkaByYear(year) {
     const json = await strapiFetch({
@@ -54,7 +55,15 @@ export default async function Page({ params }) {
         <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%]">
                 {wydarzenia.length === 0 ? (
+									<div>
+		                <Link
+			                href={`/galeria`}
+			                className="text-blue-600 hover:underline inline-flex items-center gap-2 pb-7"
+		                >
+			                ← Powrót
+		                </Link>
                     <p>Brak wydarzeń dla tego rocznika.</p>
+									</div>
                 ) : (
                     <div className="flex flex-col gap-8">
                         <Link
@@ -63,23 +72,32 @@ export default async function Page({ params }) {
                         >
                             ← Powrót
                         </Link>
-                        <aside className="w-full md:w-1/3">
-                            <ul className="space-y-3">
+	                    <div className="flex flex-col items-center">
+		                    <div className="w-full  h-max flex flex-col items-center justify-start gap-2">
                                 {wydarzenia.map((ev) => {
                                     const id = ev.id
                                     return (
-                                        <div className="">
-                                            <li key={ev.id} className="hover:underline">
-                                                <Link href={`/galeria/${year}/${id}`}>
-                                                    {ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}
-                                                </Link>
-                                            </li>
-                                        </div>
+																			<Link key={id} className="w-full md:w-4/5 lg:w-3/5 xl:w-2/5" href={`/galeria/${year}/${id}`}>
+																				{/*{ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}*/}
+																				<ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}/>
+																			</Link>
+
+
                                     );
                                 })}
-                            </ul>
-                        </aside>
+
+	                      </div>
+	                    </div>
                     </div>
+
+
+
+
+
+
+
+
+
                 )}
             </div>
         </div>
