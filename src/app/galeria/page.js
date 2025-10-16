@@ -1,4 +1,4 @@
-import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
+import {strapiFetch} from "@/app/lib/strapi";
 import Link from "next/link";
 import ButtonAnimation from "@/app/galeria/ButtonAnimation";
 
@@ -14,7 +14,6 @@ async function getGalerry() {
 
 export default async function Page(){
     const data = await getGalerry();
-    console.log(data)
     const pages = data["Zakladki"];
     return <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
         <div className="w-[92%] sm:w-[90%] lg:w-[80%] ">

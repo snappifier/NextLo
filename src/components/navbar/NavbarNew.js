@@ -1,4 +1,3 @@
-
 import { strapiFetch } from "@/app/lib/strapi";
 import NavbarClient from "./NavbarClient";
 

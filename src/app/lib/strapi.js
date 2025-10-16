@@ -1,32 +1,16 @@
-// lib/strapi.js
 import qs from "qs";
 
 export const STRAPI_URL = "https://strapi-production-cbefe.up.railway.app";
 
-/**
- * strapiFetch - uniwersalny fetch do Strapi
- *
- * @param {string|object} path - jeśli string -> traktowany jako ścieżka np. "/api/articles"
- *                               jeśli object -> traktowany jako { endpoint: "/api/articles", query: {...} }
- * @param {object} opts - opcje fetch + dodatkowe pola:
- *                        - token: string (opcjonalnie) -> doda Authorization: Bearer <token>
- *                        - headers: dodatkowe nagłówki
- *                        - fetchOptions: pozostałe opcje przekazywane do fetch (method, body, itd.)
- *
- * Przykłady:
- *  await strapiFetch("/api/articles"); // bez query
- *  await strapiFetch({ endpoint: "/api/articles", query: { populate: "*", filters: {...} }});
- */
 export async function strapiFetch(path, opts = {}) {
-    // rozpakowanie opcji
-    const { token, headers = {}, fetchOptions = {} } = opts;
+    const { token, headers = {}, fetchOptions = {}, ...restOpts } = opts;
 
     let endpoint;
     let queryObj;
 
     if (typeof path === "string") {
         endpoint = path;
-        queryObj = opts.query;
+        queryObj = restOpts.query;
     } else if (typeof path === "object" && path !== null) {
         endpoint = path.endpoint;
         queryObj = path.query;
@@ -34,19 +18,16 @@ export async function strapiFetch(path, opts = {}) {
         throw new Error("strapiFetch: nieprawidłowy argument 'path'");
     }
 
-    // zbuduj query string jeśli istnieje obiekt query
     let qsString = "";
     if (queryObj && Object.keys(queryObj).length > 0) {
         qsString = qs.stringify(queryObj, {
-            encodeValuesOnly: true, // ważne dla bracket-syntax Strapi
-            arrayFormat: "brackets"  // wygodne dla tablic
+            encodeValuesOnly: true,
+            arrayFormat: "brackets"
         });
         qsString = `?${qsString}`;
     }
 
-    // upewnij się, że endpoint ma poprzedzające '/'
     const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-
     const url = `${STRAPI_URL}${cleanEndpoint}${qsString}`;
 
     const finalHeaders = {
@@ -57,11 +38,16 @@ export async function strapiFetch(path, opts = {}) {
     if (token) {
         finalHeaders["Authorization"] = `Bearer ${token}`;
     } else if (process.env.STRAPI_API_TOKEN) {
-        // jeśli nie podano tokenu w opcji, sprawdź env var (przydatne na serwerze)
         finalHeaders["Authorization"] = `Bearer ${process.env.STRAPI_API_TOKEN}`;
     }
 
+    // ✅ KLUCZOWA ZMIANA - dodaj cache do fetch
     const res = await fetch(url, {
+        // Domyślnie Next.js cache'uje, chyba że `cache: 'no-store'` przekazane w opts
+        next: {
+            revalidate: fetchOptions.revalidate ?? 3600, // 1h domyślnie
+            tags: fetchOptions.tags ?? [endpoint.split('/')[2] || 'strapi'] // np. 'posts', 'menu'
+        },
         ...fetchOptions,
         headers: finalHeaders,
     });
@@ -71,21 +57,12 @@ export async function strapiFetch(path, opts = {}) {
         throw new Error(`Strapi fetch error ${res.status}: ${text}`);
     }
 
-    // zwracamy JSON (Strapi v4 formatuje body w .data/.meta)
     return res.json();
 }
 
-/**
- * getStrapiMedia - normalize media url
- * Jeśli url jest absolutny -> zwraca go bez zmian
- * Jeśli url jest ścieżką (np. "/uploads/..") -> dokleja STRAPI_URL
- */
 export function getStrapiMedia(url) {
     if (!url) return null;
-    // jeśli to już pełny url (http/https) -> zwróć
     if (/^https?:\/\//i.test(url)) return url;
-    // jeśli url zaczyna się od '//' -> dodaj protokół (użyj https)
     if (/^\/\//.test(url)) return `https:${url}`;
-    // w przeciwnym razie doklej bazowy STRAPI_URL
     return STRAPI_URL.replace(/\/$/, "") + (url.startsWith("/") ? url : `/${url}`);
 }

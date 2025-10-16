@@ -11,6 +11,5 @@ export default async function Tarcze() {
 
 	const osiagniecia = data["Kolejnosc"][0]
 
-	console.log(osiagniecia)
 	return <TarczeClient data={osiagniecia} />
 }

@@ -65,8 +65,6 @@ export default async function Page({ params }) {
 
     const { wydarzenie, tytulZakladki } = result;
 
-    console.log(wydarzenie);
-
     return (
         <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col gap-5">

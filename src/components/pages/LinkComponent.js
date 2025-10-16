@@ -3,10 +3,8 @@
 import Link from "next/link";
 import {getStrapiMedia} from "@/app/lib/strapi";
 import {motion} from "motion/react";
-import MediaComponent from "@/components/pages/MediaComponent";
 
 const LinkComponent = ({linkArray}) => {
-    console.log(linkArray)
     return (<div className="w-full flex flex-col">
         {linkArray.map((link) => (
             <Link

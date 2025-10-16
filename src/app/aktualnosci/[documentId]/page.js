@@ -4,7 +4,7 @@ import Link from "next/link";
 import Header from "@/components/pages/Header";
 import Photos from "@/app/aktualnosci/[documentId]/photos";
 
-export const revalidate = 3600; // Cache na 1 godzinę
+export const revalidate = 7200;
 
 async function getPostById(documentId) {
 	try {

@@ -1,5 +1,3 @@
-"use client"
-import { motion } from "motion/react";
 import { getStrapiMedia } from "@/app/lib/strapi";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,12 +22,10 @@ export function NewsCard({ news, onClick, featured = false }) {
     const documentId = news.documentId;
 
     return (
-        <Link href={`/aktualnosci/${documentId}`} >
-            <motion.button
+        <Link href={`/aktualnosci/${documentId}`} prefetch={true} >
+            <button
                 type="button"
-                whileHover={{ y: -6 }}
-                whileTap={{ scale: 0.985 }}
-                className={`group relative w-full h-full text-left cursor-pointer rounded-xl overflow-hidden bg-white ring-1 ring-slate-200 shadow-[0_2px_10px_-3px_rgba(14,14,14,0.25)] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 motion-safe:hover:shadow-[0_14px_30px_-10px_rgba(14,14,14,0.35)] ${featured ? "row-span-2" : ""}`}
+                className={`group transition-transform hover:-translate-y-1.5 active:scale-[0.985] relative w-full h-full text-left cursor-pointer rounded-xl overflow-hidden bg-white ring-1 ring-slate-200 shadow-[0_2px_10px_-3px_rgba(14,14,14,0.25)] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 motion-safe:hover:shadow-[0_14px_30px_-10px_rgba(14,14,14,0.35)] ${featured ? "row-span-2" : ""}`}
                 aria-label={news["Tytul"]}
                 onClick={onClick}
             >
@@ -54,6 +50,10 @@ export function NewsCard({ news, onClick, featured = false }) {
                                     fill
                                     className="md:block hidden object-cover object-center"
                                     sizes="(min-width: 768px) 50vw, 100vw"
+                                    loading="lazy" // ✅ lazy load
+                                    quality={80}
+                                    placeholder="blur"
+                                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="
                                 />
                             ) : null}
                         </div>
@@ -93,7 +93,7 @@ export function NewsCard({ news, onClick, featured = false }) {
                         </div>
                     </div>
                 )}
-            </motion.button>
+            </button>
         </Link>
     );
 }

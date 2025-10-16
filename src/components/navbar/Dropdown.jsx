@@ -3,9 +3,16 @@
 import { NavigationMenu } from "@base-ui-components/react/navigation-menu";
 import NextLink from "next/link";
 import React from "react";
+import { useRouter } from "next/navigation"
 
 export default function Dropdown({ menu }) {
+    const router = useRouter();
     const categories = menu?.Kategoria ?? [];
+
+    // ✅ Prefetch na hover
+    const handleMouseEnter = (href) => {
+        router.prefetch(href);
+    };
     return (
         <NavigationMenu.Root className="font-[poppins] min-w-max rounded-lg bg-transparent p-1 text-white">
             <NavigationMenu.List
@@ -39,6 +46,7 @@ export default function Dropdown({ menu }) {
                                     >
                                         <LinkCard
                                             href={page?.Link || "#"}
+                                            onMouseEnter={() => handleMouseEnter(page?.Link)}
                                             className={linkCardClassName}
                                             role="menuitem"
                                         >
@@ -68,7 +76,7 @@ export default function Dropdown({ menu }) {
                         ["--easing"]: "cubic-bezier(0.22, 1, 0.36, 1)",
                     }}
                 >
-                    <NavigationMenu.Popup className="relative h-[var(--popup-height)] origin-[var(--transform-origin)] rounded-lg bg-white text-gray-900 shadow-lg outline outline-1 outline-gray-200 transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 w-[var(--popup-width)] xs:w-[var(--popup-width)]">
+                    <NavigationMenu.Popup className="relative h-[var(--popup-height)] origin-[var(--transform-origin)] rounded-lg bg-white text-gray-900 shadow-lg outline-1 outline-gray-200 transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 w-[var(--popup-width)] xs:w-[var(--popup-width)]">
                         <NavigationMenu.Arrow className="flex transition-[left] duration-[var(--duration)] ease-[var(--easing)]">
                             <ArrowSvg />
                         </NavigationMenu.Arrow>

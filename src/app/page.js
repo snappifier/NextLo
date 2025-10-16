@@ -4,9 +4,14 @@ import Profile from "@/components/home/Profile/Profile";
 import { Suspense } from "react";
 import AktualnosciServer from "@/components/home/Aktualnosci/AktualnosciServer";
 import Wstep from "@/components/home/Wstep";
-import Tarcze from "@/components/home/Wspolprace/Tarcze";
+import dynamic from 'next/dynamic';
 
-export const revalidate = 300;
+const Tarcze = dynamic(() => import('@/components/home/Wspolprace/Tarcze'), {
+    loading: () => <div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />,
+    ssr: true // ✅ Pozostaw SSR dla SEO
+});
+
+export const revalidate = 3600;
 
 async function getHome() {
     const json = await strapiFetch({
@@ -35,26 +40,32 @@ export default async function Home() {
                 <div className="w-full bg-transparent">
                     <Banner baner={home["Baner"]}/>
                 </div>
+
                 {home["Kolejnosc"]?.map((data, index) => {
                     const componentType = data["__component"];
                     const key = `${componentType}-${data.id ?? index}`;
 
-                    console.log(data)
-
                     return (
                         <div key={key} className="w-full h-max">
                             {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
+
                             {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
+
                             {componentType === "home.aktualnosci" && (
                                 <Suspense fallback={<AktualnosciLoading />}>
                                     <AktualnosciServer />
                                 </Suspense>
                             )}
-                            {componentType === "home.osiagniecia" && <Tarcze/>}
+
+                            {/* ✅ DODAJ Suspense dla Tarcze też: */}
+                            {componentType === "home.osiagniecia" && (
+                                <Suspense fallback={<div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />}>
+                                    <Tarcze/>
+                                </Suspense>
+                            )}
                         </div>
                     );
                 })}
-
             </div>
         </div>
     );

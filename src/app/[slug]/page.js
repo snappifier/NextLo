@@ -8,7 +8,7 @@ import Kafelki from "@/components/pages/Kafelki";
 import { Suspense } from "react";
 
 
-export const revalidate = 1800;
+export const revalidate = 86400;
 
 const attrs = (x) => (x?.attributes ?? x ?? {});
 
@@ -17,17 +17,7 @@ const slugify = (s = "") =>
 		.toLowerCase().trim()
 		.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-// Cache dla menu — revaliduj raz na minutę
-let menuCache = null;
-let menuCacheTime = 0;
-
 async function getMenuItems() {
-	const now = Date.now();
-	// Jeśli cache jest świeży (< 60s), zwróć go
-	if (menuCache && (now - menuCacheTime) < 60000) {
-		return menuCache;
-	}
-
 	const json = await strapiFetch({
 		endpoint: "/api/menu",
 		query: {
@@ -51,9 +41,6 @@ async function getMenuItems() {
 			});
 		}
 	}
-
-	menuCache = out;
-	menuCacheTime = now;
 	return out;
 }
 
