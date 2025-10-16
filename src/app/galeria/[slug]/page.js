@@ -73,7 +73,7 @@ export default async function Page({ params }) {
                             ← Powrót
                         </Link>
 	                    <div className="flex flex-col items-center">
-		                    <div className="w-full  h-max flex flex-col items-center justify-start gap-2">
+		                    <div className="w-full  h-max flex flex-col-reverse items-center justify-start gap-2">
                                 {wydarzenia.map((ev) => {
                                     const id = ev.id
                                     return (
