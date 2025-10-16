@@ -21,13 +21,10 @@ export default async function Page(){
                 {pages.map((item) => {
                     const slug = item["Tytul"];
                     return <Link key={item.id} className="w-full md:w-4/5 lg:w-3/5 xl:w-2/5" href={`/galeria/${slug}`}>
-	                    {/*<div className="w-max h-max bg-blue-600 rounded-md flex items-center justify-center gap-2 text-white">*/}
-                      {/*  <p className="px-6 py-2">{item["Tytul"]}</p>*/}
-	                    {/*</div>*/}
+
 	                    <ButtonAnimation title={item["Tytul"]}/>
                     </Link>
                 })}
-                {/*<GalleryAutoMasonry items={srcGallery} />*/}
             </div>
         </div>
     </div>
