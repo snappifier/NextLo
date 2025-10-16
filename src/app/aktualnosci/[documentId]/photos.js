@@ -47,7 +47,7 @@ export default function Photos({media, post}) {
 							/>
 							{/*<button*/}
 							{/*	onClick={() => setOpened(false)}*/}
-							{/*	className="absolute md:hidden top-2  right-2 text-white hover:text-gray-300 text-4xl font-light z-500 cursor-pointer"*/}
+							{/*	className="absolute md:hidden top-2 right-2 text-white hover:text-gray-300 text-4xl font-light z-500 cursor-pointer"*/}
 							{/*	aria-label="Zamknij"*/}
 							{/*>*/}
 							{/*	×*/}
