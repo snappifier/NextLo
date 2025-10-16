@@ -76,9 +76,11 @@ export default async function Page({ params }) {
                         ← Powrót do {tytulZakladki}
                     </Link>
                 </div>
-                <h1 className="text-3xl font-bold">
-                    {wydarzenie?.TytulWydarzenia || `Wydarzenie ${wydarzenie.id}`}
-                </h1>
+                <div className="w-full h-max">
+                    <h1 className="w-full text-3xl font-bold whitespace-normal break-words leading-tight">
+                        {wydarzenie?.TytulWydarzenia || `Wydarzenie ${wydarzenie.id}`}
+                    </h1>
+                </div>
 
                 {wydarzenie?.Zdjecia && wydarzenie.Zdjecia.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
