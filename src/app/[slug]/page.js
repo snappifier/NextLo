@@ -8,12 +8,12 @@ import Kafelki from "@/components/pages/Kafelki";
 import { Suspense } from "react";
 
 
-export const revalidate = 86400;
+export const revalidate = 120;
 
 const attrs = (x) => (x?.attributes ?? x ?? {});
 
 const slugify = (s = "") =>
-	s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+	s.normalize("NFD").replace(/[\u0300-\u036f]/g, "" )
 		.toLowerCase().trim()
 		.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
