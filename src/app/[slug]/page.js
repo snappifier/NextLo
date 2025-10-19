@@ -105,7 +105,7 @@ const AutomatycznyContent = ({data}) => {
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-			<div className="w-full flex items-center justify-center">
+			<div className="w-full flex items-center justify-center md:justify-start md:w-[90%] lg:w-[80%]">
 				{sections.length ? (
 					<div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-6 text-wrap">
 						<Header text={data["Naglowek"]} />
