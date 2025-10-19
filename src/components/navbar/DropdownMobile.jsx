@@ -166,7 +166,7 @@ function CategoryGrid({ items, onNavigate }) {
                             onClick={onNavigate}
                             className="group block h-full">
                             <motion.div
-                                className="h-full rounded-xl bg-white/95 hover:bg-white p-4 shadow-md ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-white flex items-center"
+                                className="h-full rounded-xl bg-white/95 hover:bg-white p-4 shadow-md ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.18, ease: "easeOut", delay: i * 0.02 }}
