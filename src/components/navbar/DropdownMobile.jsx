@@ -40,7 +40,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.1, ease: "easeOut" }}
             exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.05, ease: "easeOut" } }}
-            className="relative w-[94%] sm:w-[90%] lg:w-[80%]  h-max min-h-max bg-zinc-100 rounded-lg flex flex-col items-center justify-start gap-5 py-8 shadow-lg overflow-auto"
+            className={`relative w-[94%] sm:w-[90%] lg:w-[80%]  h-max bg-zinc-100 rounded-lg flex flex-col items-center justify-start gap-5 py-8 shadow-lg overflow-auto ${!showMain && "mb-5"}`}
         >
 
 
