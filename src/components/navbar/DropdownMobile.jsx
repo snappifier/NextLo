@@ -154,7 +154,7 @@ function CategoryGrid({ items, onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="w-[90%] grid grid-cols-2 sm:grid-cols-3 gap-3 pb-8 items-stretch"
+            className="w-[90%] grid grid-cols-2 sm:grid-cols-3 gap-1 py-8 items-stretch"
         >
             {items?.length ? (
                 items.map((el, i) => {
