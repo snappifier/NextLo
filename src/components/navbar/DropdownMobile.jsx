@@ -40,7 +40,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.1, ease: "easeOut" }}
             exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.05, ease: "easeOut" } }}
-            className="relative w-[94%] sm:w-[90%] lg:w-[80%]  h-max bg-zinc-100 rounded-lg flex flex-col items-center justify-start gap-5 py-8 shadow-lg overflow-auto"
+            className="relative w-[94%] sm:w-[90%] lg:w-[80%]  h-max min-h-max bg-zinc-100 rounded-lg flex flex-col items-center justify-start gap-5 py-8 shadow-lg overflow-auto"
         >
 
 
@@ -143,7 +143,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                 )}
             </AnimatePresence>
 	        <motion.span
-		        initial={{ opacity: 0, scale: 0.98 }}
+		        initial={{ opacity: 0, scale: 0.80 }}
 		        animate={{ opacity: 1, scale: 1 }}
 		        transition={{ duration: 0.2, ease: "easeOut", delay: 0.4 }}
 		        className="w-[90%] h-px bg-slate-400 min-h-px"></motion.span>
@@ -151,7 +151,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 		        initial={{ opacity: 0, scale: 0.80,  }}
 		        animate={{ opacity: 1, scale: 1, y: 0 }}
 		        transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
-		        className="flex items-center justify-around w-full h-full min-h-12 text-black/60 pt-4 pb-1">
+		        className="flex items-center justify-around w-full h-full min-h-12 text-black/60 pt-4">
 		        <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"></path></svg>
 		        <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7.175q.125 0 .263-.038t.262-.112L19.6 8.25q.2-.125.3-.312t.1-.413q0-.5-.425-.75T18.7 6.8L12 11L5.3 6.8q-.45-.275-.875-.012T4 7.525q0 .25.1.438t.3.287l7.075 4.425q.125.075.263.113t.262.037"></path></svg>
 		        <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 48 48"><path fill="currentColor" d="M13.24 21.58c2.88 5.66 7.52 10.28 13.18 13.18l4.4-4.4c.54-.54 1.34-.72 2.04-.48c2.24.74 4.66 1.14 7.14 1.14c1.1 0 2 .9 2 2V40c0 1.1-.9 2-2 2C21.22 42 6 26.78 6 8c0-1.1.9-2 2-2h7c1.1 0 2 .9 2 2c0 2.5.4 4.9 1.14 7.14c.22.7.06 1.48-.5 2.04z"></path></svg>
@@ -169,7 +169,7 @@ function CategoryGrid({ items, onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="w-[90%] grid grid-cols-2 sm:grid-cols-3 gap-1 py-8 items-stretch"
+            className="w-[90%] grid grid-cols-2 sm:grid-cols-3 gap-1 py-3 items-stretch"
         >
             {items?.length ? (
                 items.map((el, i) => {
