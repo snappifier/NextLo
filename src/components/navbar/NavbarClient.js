@@ -15,7 +15,17 @@ export default function NavbarClient({menu}) {
 	const [searchOn, setSearchOn] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const handleClick = () => setSearchOn(true);
+	useEffect(() => {
+		if (isOpen) {
+			document.body.classList.add('no-scroll');
+		} else {
+			document.body.classList.remove('no-scroll');
+		}
+
+		return () => {
+			document.body.classList.remove('no-scroll');
+		};
+	}, [isOpen]);
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;
