@@ -12,7 +12,7 @@ export default function ButtonsBanner({przyciski}){
                     transition={{ duration: 0.2, ease: "easeOut" }}
                     className="bg-[#3077BA]/85 h-20 w-full drop-shadow-lg/30 rounded-lg flex flex-col justify-center items-center text-white cursor-pointer">
                     <div className="h-8" dangerouslySetInnerHTML={{ __html: item["IconPath"] }} />
-                    <p className="text-xl font-light select-none">{item["Nazwa"]}</p>
+                    <p className="text-xl/5 text-center font-light select-none">{item["Nazwa"]}</p>
                 </motion.div>
             </Link>
         })}

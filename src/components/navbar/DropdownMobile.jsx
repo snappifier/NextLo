@@ -64,7 +64,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 									initial={{ opacity: 0, scale: 0.98 }}
 									animate={{ opacity: 1, scale: 1 }}
 									transition={{ duration: 0.2, ease: "easeOut", delay: 0.1 }}
-									className="w-[90%] h-px bg-slate-400 "></motion.span>
+									className="w-[90%] h-px bg-slate-400 min-h-px"></motion.span>
 
 
 			                {!showMain && (
@@ -146,7 +146,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 		        initial={{ opacity: 0, scale: 0.98 }}
 		        animate={{ opacity: 1, scale: 1 }}
 		        transition={{ duration: 0.2, ease: "easeOut", delay: 0.4 }}
-		        className="w-[90%] h-px bg-slate-400"></motion.span>
+		        className="w-[90%] h-px bg-slate-400 min-h-px"></motion.span>
 	        <motion.div
 		        initial={{ opacity: 0, scale: 0.80,  }}
 		        animate={{ opacity: 1, scale: 1, y: 0 }}
