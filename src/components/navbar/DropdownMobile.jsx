@@ -46,7 +46,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 	                animate={{ opacity: 1, y: 0, scale: 1 }}
 	                transition={{ duration: 0.2, ease: "easeOut"}}
 	                className="font-[poppins] font-light text-base text-slate-700 text-center select-none flex items-center justify-center">
-                   <p className="w-[80%]">I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu</p>
+                   <p className={`w-[70%] md:w-[80%] `}>I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu</p>
 
                 </motion.div>
 								<motion.span
@@ -58,7 +58,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                     <motion.button
                         type="button"
                         onClick={handleBack}
-                        className="absolute top-4 right-3 text-slate-600 p-2"
+                        className="absolute right-3 text-slate-600 p-2"
                         whileTap={{ scale: 0.96 }}
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
