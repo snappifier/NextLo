@@ -3,6 +3,9 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import logo from "@/images/logo.webp"
+import godlo from "@/images/godlo.webp"
+import Image from "next/image";
 
 export default function DropdownMobile({ menu, setIsOpen }) {
 
@@ -44,40 +47,52 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                 <motion.div
 	                initial={{ opacity: 0, y: 10, scale: 0.80 }}
 	                animate={{ opacity: 1, y: 0, scale: 1 }}
-	                transition={{ duration: 0.2, ease: "easeOut"}}
-	                className="font-[poppins] font-light text-base text-slate-700 text-center select-none flex items-center justify-center">
-                   <p className={`w-[70%] md:w-[80%] `}>I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu</p>
+	                transition={{ duration: 0.3, ease: "easeOut"}}
+	                className="font-[poppins] font-light text-sm sm:text-base text-slate-700 text-center select-none flex items-center justify-center w-full">
+                   {/*<p className={`w-[70%] md:w-[80%] `}>I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu</p>*/}
+	                <div className="flex items-center justify-between w-[90%] ">
+		                <Image src={logo} alt="logo" className="select-none h-12 md:h-15 w-12 md:w-15 drop-shadow-md pointer-events-none"/>
+		                <p
+			                className="px-3 ">I
+			                Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
+
+		                <Image src={godlo} alt="Godło" className=" select-none h-12 md:h-15 w-auto object-contain pointer-events-none"/>
+	                </div>
 
                 </motion.div>
 								<motion.span
 									initial={{ opacity: 0, scale: 0.98 }}
 									animate={{ opacity: 1, scale: 1 }}
 									transition={{ duration: 0.2, ease: "easeOut", delay: 0.1 }}
-									className="w-[90%] h-px bg-slate-400"></motion.span>
-                {!showMain && (
-                    <motion.button
-                        type="button"
-                        onClick={handleBack}
-                        className="absolute right-3 text-slate-600 p-2"
-                        whileTap={{ scale: 0.96 }}
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        aria-label="Powrót"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            className="h-10 w-10"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </motion.button>
-                )}
+									className="w-[90%] h-px bg-slate-400 "></motion.span>
+
+
+			                {!showMain && (
+				                <div className="flex items-center justify-end w-full pt-4 pr-4">
+			                    <motion.button
+			                        type="button"
+			                        onClick={handleBack}
+			                        className="absolute text-slate-600"
+			                        whileTap={{ scale: 0.96 }}
+			                        initial={{ opacity: 0, x: 10 }}
+			                        animate={{ opacity: 1, x: 0 }}
+			                        aria-label="Powrót"
+			                    >
+			                        <svg
+			                            xmlns="http://www.w3.org/2000/svg"
+			                            viewBox="0 0 24 24"
+			                            className="h-10 w-10"
+			                            fill="none"
+			                            stroke="currentColor"
+			                            strokeWidth="2"
+			                            strokeLinecap="round"
+			                            strokeLinejoin="round"
+			                        >
+			                            <path d="M15 18l-6-6 6-6" />
+			                        </svg>
+			                    </motion.button>
+				                </div>
+			                )}
 
 
             <AnimatePresence mode="wait">
@@ -130,10 +145,10 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 	        <motion.span
 		        initial={{ opacity: 0, scale: 0.98 }}
 		        animate={{ opacity: 1, scale: 1 }}
-		        transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
+		        transition={{ duration: 0.2, ease: "easeOut", delay: 0.4 }}
 		        className="w-[90%] h-px bg-slate-400"></motion.span>
 	        <motion.div
-		        initial={{ opacity: 0, scale: 0.80, y: -10 }}
+		        initial={{ opacity: 0, scale: 0.80,  }}
 		        animate={{ opacity: 1, scale: 1, y: 0 }}
 		        transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
 		        className="flex items-center justify-around w-full text-black/60 pt-4">
