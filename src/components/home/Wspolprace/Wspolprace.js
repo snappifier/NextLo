@@ -12,7 +12,8 @@ export default function Wspolprace({ data }) {
 	}
 
 	return (
-		<div className="w-full bg-[#3077BA] drop-shadow-lg py-4 my-4 overflow-hidden">
+		<div className="w-full bg-[#3077BA] drop-shadow-lg py-4 my-4 overflow-hidden ">
+			<div className="w-full mask-l-from-94% mask-l-to-98%  mask-r-from-94% mask-r-to-98%">
 			<Ticker duration={50} gap={24}>
 				{data.concat(data).map((src, index) => (
 					<div className="h-12 md:h-14 lg:h-16 flex-shrink-0 px-6 transition-transform duration-300 flex items-center select-none">
@@ -28,6 +29,7 @@ export default function Wspolprace({ data }) {
 					</div>
 				))}
 			</Ticker>
+			</div>
 		</div>
 	)
 }
