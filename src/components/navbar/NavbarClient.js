@@ -38,23 +38,23 @@ export default function NavbarClient({menu}) {
 	}, []);
 
 
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		if (!isOpen) return;
-
-		let ticking = false;
-		const onScroll = () => {
-			if (ticking) return;
-			ticking = true;
-			requestAnimationFrame(() => {
-				setIsOpen(false);
-				ticking = false;
-			});
-		};
-
-		window.addEventListener("scroll", onScroll, {passive: true});
-		return () => window.removeEventListener("scroll", onScroll);
-	}, [isOpen]);
+	// useEffect(() => {
+	// 	if (typeof window === "undefined") return;
+	// 	if (!isOpen) return;
+	//
+	// 	let ticking = false;
+	// 	const onScroll = () => {
+	// 		if (ticking) return;
+	// 		ticking = true;
+	// 		requestAnimationFrame(() => {
+	// 			setIsOpen(false);
+	// 			ticking = false;
+	// 		});
+	// 	};
+	//
+	// 	window.addEventListener("scroll", onScroll, {passive: true});
+	// 	return () => window.removeEventListener("scroll", onScroll);
+	// }, [isOpen]);
 
 	//  Zamykanie przy resize
 	useEffect(() => {
