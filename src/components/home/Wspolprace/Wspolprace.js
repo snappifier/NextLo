@@ -16,7 +16,7 @@ export default function Wspolprace({ data }) {
 			<div className="w-full mask-l-from-94% mask-l-to-98%  mask-r-from-94% mask-r-to-98%">
 			<Ticker duration={50} gap={24}>
 				{data.concat(data).map((src, index) => (
-					<div className="h-12 md:h-14 lg:h-16 flex-shrink-0 px-6 transition-transform duration-300 flex items-center select-none">
+					<div className="h-6 md:h-8 lg:h-10 flex-shrink-0 px-6 transition-transform duration-300 flex items-center select-none">
 						<Image
 							src={src}
 							alt={`Partner ${index + 1}`}
