@@ -1,6 +1,6 @@
 "use client"
-import logo from "@/images/logolo.webp"
-import godlo from "@/images/godlo.webp"
+import logo from "../../../../public/images/logolo.webp"
+import godlo from "../../../../public/images/godlo.webp"
 import Image from "next/image";
 import ButtonsBanner from "@/components/home/banner/buttonsBaner";
 import {getStrapiMedia} from "@/app/lib/strapi";

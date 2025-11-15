@@ -94,21 +94,6 @@ const nextConfig = {
                         value: 'strict-origin-when-cross-origin'
                     },
                     {
-                        key: "Content-Security-Policy",
-                        value: `
-                            default-src 'self';
-                            script-src 'self' https://cdn.jsdelivr.net;
-                            style-src 'self' 'unsafe-inline';
-                            img-src 'self' data: blob: https://strapi-production-cbefe.up.railway.app;
-                            font-src 'self';
-                            connect-src 'self' https://strapi-production-cbefe.up.railway.app;
-                            frame-ancestors 'none';
-                            object-src 'none';
-                            base-uri 'self';
-                            form-action 'self';
-                          `.replace(/\s{2,}/g, ' ').trim()
-                    },
-                    {
                         key: "Permissions-Policy",
                         value: [
                             "camera=()",

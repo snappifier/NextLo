@@ -3,8 +3,8 @@
 import {useState} from "react";
 import {motion} from "motion/react";
 import Link from "next/link";
-import godlo from "src/images/godlo.webp";
-import logo from "src/images/logo.webp";
+import godlo from "../../../public/images/godlo.webp";
+import logo from "../../../public/images/logo.webp";
 import Image from "next/image";
 
 
