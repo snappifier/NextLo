@@ -71,6 +71,61 @@ const nextConfig = {
         }
         return config;
     },
+    async headers() {
+        return [
+            {
+                source: '/(.*)',
+                headers: [
+                    {
+                        key: 'X-Content-Type-Options',
+                        value: 'nosniff'
+                    },
+                    {
+                        key: 'X-Frame-Options',
+                        value: 'DENY'
+                    },
+                    {
+                        key: 'X-XSS-Protection',
+                        value: '1; mode=block'
+                    },
+                    {
+                        key: 'Referrer-Policy',
+                        value: 'strict-origin-when-cross-origin'
+                    },
+                    {
+                        key: "Content-Security-Policy",
+                        value: `
+                            default-src 'self';
+                            script-src 'self' 'unsafe-inline' 'unsafe-eval';
+                            style-src 'self' 'unsafe-inline';
+                            img-src 'self' data: blob: https://strapi-production-cbefe.up.railway.app;
+                            font-src 'self';
+                            connect-src 'self' https://strapi-production-cbefe.up.railway.app;
+                            frame-ancestors 'none';
+                            object-src 'none';
+                            base-uri 'self';
+                            form-action 'self';
+                          `.replace(/\s{2,}/g, ' ').trim()
+                    },
+
+                    {
+                        key: "Permissions-Policy",
+                        value: [
+                            "camera=()",
+                            "microphone=()",
+                            "geolocation=()",
+                            "fullscreen=(self)",
+                            "payment=()",
+                            "gyroscope=()",
+                            "accelerometer=()",
+                            "magnetometer=()",
+                            "usb=()"
+                        ].join(", ")
+                    }
+                ],
+            },
+        ];
+    },
 };
 
 export default nextConfig;
