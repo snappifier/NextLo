@@ -28,11 +28,9 @@ export default function RootLayout({ children }) {
     return (
         <html lang="pl" className={meow_script.className + " bg-[#f0f0f0] antialiased " + poppins.className}>
         <head>
-            {/* ✅ DODAJ preconnect dla Railway */}
             <link rel="preconnect" href="https://strapi-production-cbefe.up.railway.app" />
             <link rel="dns-prefetch" href="https://strapi-production-cbefe.up.railway.app" />
 
-            {/* ✅ Preload kluczowych zasobów */}
             <link rel="preload" href="/images/logo.webp" as="image" />
             <link rel="preload" href="/images/godlo.webp" as="image" />
         </head>
@@ -40,11 +38,7 @@ export default function RootLayout({ children }) {
         <NavbarNew/>
         {children}
         <FooterServer />
-        <Script
-            src={"https://website-widgets.pages.dev/dist/sienna.min.js"}
-            strategy="lazyOnload"  // ✅ ZMIEŃ z "afterInteractive" na "lazyOnload"
-            defer
-        />
+        <Script src={"https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"} strategy="lazyOnload" defer></Script>
         </body>
         </html>
     );
