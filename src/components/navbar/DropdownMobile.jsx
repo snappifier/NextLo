@@ -3,8 +3,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import logo from "@/images/logo.webp"
-import godlo from "@/images/godlo.webp"
+import logo from "../../../public/images/logo.webp"
+import godlo from "../../../public/images/godlo.webp"
 import Image from "next/image";
 
 export default function DropdownMobile({ menu, setIsOpen }) {
