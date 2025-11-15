@@ -41,11 +41,10 @@ export async function strapiFetch(path, opts = {}) {
         finalHeaders["Authorization"] = `Bearer ${process.env.STRAPI_API_TOKEN}`;
     }
 
-    // ✅ KLUCZOWA ZMIANA - dodaj cache do fetch
     const res = await fetch(url, {
         // Domyślnie Next.js cache'uje, chyba że `cache: 'no-store'` przekazane w opts
         next: {
-            revalidate: fetchOptions.revalidate ?? 3600, // 1h domyślnie
+            revalidate: fetchOptions.revalidate ?? 1800, // 1h domyślnie
             tags: fetchOptions.tags ?? [endpoint.split('/')[2] || 'strapi'] // np. 'posts', 'menu'
         },
         ...fetchOptions,

@@ -39,7 +39,6 @@ export default async function Page({ params }) {
 
     const year = slug;
 
-    // pobieramy TU i TERAZ tylko gdy wejdziemy na /galeria/2025
     const zakladka = await getZakladkaByYear(year);
 
     if (!zakladka) {
