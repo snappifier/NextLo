@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 
 const Tarcze = dynamic(() => import('@/components/home/Wspolprace/Tarcze'), {
     loading: () => <div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />,
-    ssr: true // ✅ Pozostaw SSR dla SEO
+    ssr: true
 });
 
 export const revalidate = 3600;
@@ -57,7 +57,6 @@ export default async function Home() {
                                 </Suspense>
                             )}
 
-                            {/* ✅ DODAJ Suspense dla Tarcze też: */}
                             {componentType === "home.osiagniecia" && (
                                 <Suspense fallback={<div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />}>
                                     <Tarcze/>
