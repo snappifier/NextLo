@@ -9,9 +9,6 @@ const attrs = (x) => (x?.attributes ?? x ?? {});
 const searchCache = new Map();
 const CACHE_TTL = 5 * 60 * 1000;
 
-// Mapowanie Single Types (używane przez custom endpoint Strapi)
-// Jeśli chcesz przeszukiwać więcej Single Types, dodaj je do search.js w Strapi
-
 export async function GET(req) {
 	const { searchParams } = new URL(req.url);
 	const q = (searchParams.get('q') || '').trim().toLowerCase();
@@ -26,7 +23,7 @@ export async function GET(req) {
 
 		const all = [];
 
-		// 1. Przeszukaj strukturę menu (istniejący kod)
+		// 1. Przeszukaj strukturę menu (podstrony)
 		try {
 			const menu = await strapiFetch('/api/menu?populate[Kategoria][populate]=*', { cache: 'no-store' });
 			const root = attrs(menu?.data);
@@ -40,68 +37,44 @@ export async function GET(req) {
 					const excerpt = ap["Opis"] ?? '';
 					const path = ap["Link"] ?? '';
 					const id = ap.id ?? `menu::${title}::${path}`;
-					all.push({ id, title, excerpt, path, type: 'menu' });
+					all.push({ id, title, excerpt, path, type: 'page' });
 				}
 			}
 		} catch (e) {
 			console.error('Menu fetch error:', e);
 		}
 
-		// 2. Użyj custom search endpoint ze Strapi (tylko jeśli jest zapytanie)
+		// 2. Przeszukaj posty (jeśli jest query)
 		if (q) {
 			try {
-				const strapiSearchRes = await strapiFetch(
-					`/api/search?query=${encodeURIComponent(q)}`,
+				const postsRes = await strapiFetch(
+					'/api/posts?pagination[pageSize]=100',
 					{ cache: 'no-store' }
 				);
 
-				// Dodaj posty z wyników Strapi search
-				const posts = strapiSearchRes?.results?.posts || [];
+				const posts = postsRes?.data || [];
+
 				for (const post of posts) {
-					const title = post.title || post.Tytul || '';
-					const excerpt = post.description || post.Opis || '';
-					const slug = post.slug || post.id;
-					const path = `/blog/${slug}`; // dostosuj do swojej struktury URL
+					const title = post.Tytul || '';
+					const excerpt = post.Opis || '';
+					const documentId = post.documentId;
+					const author = post.Autor || '';
+					const date = post.Data || '';
+
+					if (!documentId) continue;
 
 					all.push({
 						id: `post::${post.id}`,
 						title,
 						excerpt,
-						path,
-						type: 'post'
-					});
-				}
-
-				// Dodaj Single Types z wyników Strapi search
-				const singleTypes = strapiSearchRes?.results?.singleTypes || [];
-				for (const st of singleTypes) {
-					// Mapowanie nazw Single Types na polskie nazwy i ścieżki
-					const nameMap = {
-						'hymn': { name: 'Hymn', path: '/hymn' },
-						'patron': { name: 'Patron', path: '/patron' },
-						'akademia-zamojska': { name: 'Akademia Zamojska', path: '/akademia-zamojska' },
-					};
-
-					const mapped = nameMap[st.name] || {
-						name: st.name.charAt(0).toUpperCase() + st.name.slice(1),
-						path: `/${st.name}`
-					};
-
-					// Spróbuj wyciągnąć tytuł z danych
-					const data = st.data || {};
-					const dataTitle = data.Tytul || data.title || '';
-
-					all.push({
-						id: `single::${st.name}`,
-						title: dataTitle || mapped.name,
-						excerpt: `Strona: ${mapped.name}`,
-						path: mapped.path,
-						type: 'single-type'
+						path: `/aktualnosci/${documentId}`,
+						type: 'post',
+						author,
+						date
 					});
 				}
 			} catch (e) {
-				console.error('Strapi search endpoint error:', e);
-				// Jeśli custom endpoint nie działa, kontynuuj bez błędu
+				console.error('Posts fetch error:', e);
 			}
 		}
 
@@ -117,11 +90,17 @@ export async function GET(req) {
 		// Filtruj wyniki
 		const filtered = all.filter(x =>
 			(x.title || '').toLowerCase().includes(q) ||
-			(x.excerpt || '').toLowerCase().includes(q)
+			(x.excerpt || '').toLowerCase().includes(q) ||
+			(x.author || '').toLowerCase().includes(q)
 		);
 
-		// Sortuj wyniki (preferuj dopasowania w tytule)
+		// Sortuj wyniki (posty na górze, potem dopasowanie w tytule)
 		filtered.sort((a, b) => {
+			// Najpierw posty
+			if (a.type === 'post' && b.type !== 'post') return -1;
+			if (a.type !== 'post' && b.type === 'post') return 1;
+
+			// Potem dopasowanie w tytule
 			const inx = (s) => (s || '').toLowerCase().indexOf(q);
 			const as = Math.min(
 				inx(a.title) === -1 ? 999 : inx(a.title),
@@ -141,9 +120,8 @@ export async function GET(req) {
 				_debug: {
 					totalItems: all.length,
 					byType: {
-						menu: all.filter(x => x.type === 'menu').length,
+						pages: all.filter(x => x.type === 'page').length,
 						posts: all.filter(x => x.type === 'post').length,
-						singleTypes: all.filter(x => x.type === 'single-type').length,
 					}
 				}
 			} : {})
@@ -160,7 +138,6 @@ export async function GET(req) {
 	}
 }
 
-// Opcjonalnie: funkcja do czyszczenia cache
 export function clearSearchCache() {
 	searchCache.clear();
 }
