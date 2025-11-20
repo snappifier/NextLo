@@ -168,7 +168,7 @@ const TopChips = ({ items, activeId, onJump }) => {
     if (items.length === 0) return null;
 
     return (
-        <div id="top-chips" className="xl:hidden sticky top-20 md:top-20 z-30 -mt-2 mb-4 sm:mb-6 bg-white">
+        <div id="top-chips" className="xl:hidden sticky top-20 md:top-20 z-30 -mt-2 mb-4 sm:mb-6 ">
             <div className="flex gap-2 overflow-x-auto px-1 py-1.5 scrollbar-none">
                 {items.map(({ title, id }) => {
                     const isActive = activeId === id;
@@ -182,7 +182,7 @@ const TopChips = ({ items, activeId, onJump }) => {
                             aria-current={isActive ? "page" : "false"}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
-                            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-[poppins] transition-all duration-200 bg-[#f7f7f7] ${
+                            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-[poppins] transition-all duration-200 bg-white ${
                                 isActive
                                     ? "border-[#3077BA] text-[#3077BA]"
                                     : "border-slate-300 text-slate-600 hover:border-slate-400 hover:text-slate-800"
