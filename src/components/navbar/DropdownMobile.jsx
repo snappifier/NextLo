@@ -109,7 +109,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
                             exit: { opacity: 0, transition: { staggerChildren: 0.04, staggerDirection: -1 } },
                         }}
 
-                        className="relative flex flex-col w-full px-5 sm:px-10 md:px-20 gap-9 py-3 h-max drop-shadow-lg/10"
+                        className="relative flex flex-col w-full px-5 sm:px-10 md:px-20 gap-9 py-3 h-max"
                     >
                         {categories.length ? (
                             categories.map((cat, index) => (
