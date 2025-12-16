@@ -10,7 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
-    "@base-ui-components/react": "^1.0.0-rc.0",
+    "@base-ui-components/react": "1.0.0-beta.3",
     "framer-motion-ticker": "^1.0.19",
     "lucide-react": "^0.561.0",
     "motion": "^12.23.26",
