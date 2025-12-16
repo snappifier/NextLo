@@ -6,7 +6,7 @@ import logo from "../../../public/images/logolo.webp"
 import {AnimatePresence, motion} from "motion/react";
 import {useEffect, useState} from "react";
 import Dropdown from "./Dropdown";
-import DropdownMobile from "./DropdownMobile.jsx";
+import DropdownMobile from "./DropdownMobile.js";
 import {Hamburger} from "@/ui/Hamburger";
 import InlineSearch from "@/components/navbar/InlineSearch";
 import MobileMenuSearch from "@/components/navbar/MobileMenuSearch";
