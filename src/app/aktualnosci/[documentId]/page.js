@@ -49,9 +49,7 @@ export default async function PostDetail({ params }) {
 						</p>
 					</Link>
 					<Header text={post["Tytul"]} />
-					<div className="w-full text-wrap break-words text-justify text-slate-700">
-						{post["Opis"]}
-					</div>
+					<div className="w-full text-wrap break-words text-justify text-slate-700" dangerouslySetInnerHTML={{__html: post["Opis"]}}></div>
 					<div className="flex flex-col w-max font-extralight text-sm">
 						<p>Autor: {post["Autor"]}</p>
 						<p>Data: {post["Data"]}</p>

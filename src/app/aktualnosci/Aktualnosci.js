@@ -5,7 +5,7 @@ import Link from "next/link";
 import Arrow, { clampText, formatPLDate } from "@/components/home/Aktualnosci/NewsCard";
 import { strapiFetch } from "@/app/lib/strapi";
 
-const MAX_POSTS = 3;
+const MAX_POSTS = 9;
 
 export default function Aktualnosci() {
     const [page, setPage] = useState(1);
@@ -70,6 +70,11 @@ export default function Aktualnosci() {
         const documentId = news.documentId;
         const id = news.id;
 
+        const stripHtml = (html) => {
+            if (!html) return "";
+            return html.replace(/(<([^>]+)>)/gi, "");
+        };
+
         return (
             <Link
                 href={`/aktualnosci/${documentId}`}
@@ -84,7 +89,7 @@ export default function Aktualnosci() {
                         <p className="font-medium text-lg text-slate-900">{title}</p>
                     </div>
                     <div className="text-sm w-full h-full font-light flex flex-col justify-between gap-2 text-slate-700">
-                        <p className="line-clamp-3">{clampText(body, 215)}</p>
+                        <p className="line-clamp-3">{clampText(stripHtml(body), 215)}</p>
                         <div
                             className="inline-flex items-center gap-2 text-sm text-sky-700 hover:text-sky-800 transition-colors"
                         >
@@ -101,7 +106,7 @@ export default function Aktualnosci() {
         if (totalPages <= 1) return [];
 
         const pages = [];
-        const showPages = 3;
+        const showPages = 4;
 
         let startPage = Math.max(1, page - Math.floor(showPages / 2));
         let endPage = Math.min(totalPages, startPage + showPages - 1);
