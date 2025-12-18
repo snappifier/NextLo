@@ -25,12 +25,10 @@ async function getWydarzenieById(id) {
 
     if (!payload) return null;
 
-    // Obsługa zarówno tablicy jak i pojedynczego obiektu
     const zakladki = Array.isArray(payload)
         ? payload.flatMap(p => p?.Zakladki ?? p?.attributes?.Zakladki ?? [])
         : payload?.Zakladki ?? payload?.attributes?.Zakladki ?? [];
 
-    // Szukamy zakładki zawierającej nasze wydarzenie
     let znalezioneWydarzenie = null;
     let tytulZakladki = null;
 

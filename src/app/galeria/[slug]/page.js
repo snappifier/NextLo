@@ -78,23 +78,12 @@ export default async function Page({ params }) {
 																				{/*{ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}*/}
 																				<ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}/>
 																			</Link>
-
-
                                     );
                                 })}
 
 	                      </div>
 	                    </div>
                     </div>
-
-
-
-
-
-
-
-
-
                 )}
             </div>
         </div>

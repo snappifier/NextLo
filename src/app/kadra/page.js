@@ -7,6 +7,10 @@ async function getKadra() {
     return json?.data ?? {};
 }
 
+export const metadata = {
+    title: 'Kadra',
+};
+
 export default async function Page(){
     return (
         <Suspense fallback={

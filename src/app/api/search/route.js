@@ -23,7 +23,7 @@ export async function GET(req) {
 
 		const all = [];
 
-		// 1. Przeszukaj strukturę menu (podstrony)
+		// Przeszukiwanie struktury menu (podstrony)
 		try {
 			const menu = await strapiFetch('/api/menu?populate[Kategoria][populate]=*', { cache: 'no-store' });
 			const root = attrs(menu?.data);
@@ -44,7 +44,7 @@ export async function GET(req) {
 			console.error('Menu fetch error:', e);
 		}
 
-		// 2. Przeszukaj posty (jeśli jest query)
+		// Posty
 		if (q) {
 			try {
 				const postsRes = await strapiFetch(
@@ -78,7 +78,7 @@ export async function GET(req) {
 			}
 		}
 
-		// Jeśli brak zapytania, zwróć pustą listę
+		// Jeżeli brak zapytań
 		if (!q) {
 			return NextResponse.json({
 				items: [],
@@ -87,20 +87,16 @@ export async function GET(req) {
 			});
 		}
 
-		// Filtruj wyniki
 		const filtered = all.filter(x =>
 			(x.title || '').toLowerCase().includes(q) ||
 			(x.excerpt || '').toLowerCase().includes(q) ||
 			(x.author || '').toLowerCase().includes(q)
 		);
 
-		// Sortuj wyniki (posty na górze, potem dopasowanie w tytule)
 		filtered.sort((a, b) => {
-			// Najpierw posty
 			if (a.type === 'post' && b.type !== 'post') return -1;
 			if (a.type !== 'post' && b.type === 'post') return 1;
 
-			// Potem dopasowanie w tytule
 			const inx = (s) => (s || '').toLowerCase().indexOf(q);
 			const as = Math.min(
 				inx(a.title) === -1 ? 999 : inx(a.title),

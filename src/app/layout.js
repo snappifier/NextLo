@@ -20,8 +20,16 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-    title: "1LO ZAMOŚĆ",
-    description: "Strona szkolna 1 Liceum Ogólnokształcącego imienia Jana Zamoyskiego w Zamościu",
+    title: {
+        template: '%s - I Liceum Ogólnokształcące w Zamościu',
+        default: 'I Liceum Ogólnokształcące w Zamościu'
+    },
+    icons: {
+        icon: '/logo.ico',
+        shortcut: '/logo.ico',
+        apple: '/logo.ico',
+    },
+    description: "Strona szkolna I Liceum Ogólnokształcącego imienia Jana Zamoyskiego w Zamościu",
 };
 
 export default function RootLayout({ children }) {

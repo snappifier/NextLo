@@ -12,6 +12,10 @@ async function getGalerry() {
     return json?.data ?? {};
 }
 
+export const metadata = {
+    title: 'Galeria',
+};
+
 export default async function Page(){
     const data = await getGalerry();
     const pages = data["Zakladki"];

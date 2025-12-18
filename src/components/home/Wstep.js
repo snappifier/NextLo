@@ -28,7 +28,6 @@ export default function Wstep({data}) {
                 </div>
 
                 {data?.["Zdjecie"] && (
-                    // RODZIC musi być relative i mieć określony rozmiar
                     <div className="relative w-full max-w-[420px] h-[440px] aspect-auto md:h-[480px] flex-shrink-0 rounded-2xl overflow-hidden">
                         <Image
                             src={getStrapiMedia(data["Zdjecie"].url)}

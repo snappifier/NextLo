@@ -30,7 +30,7 @@ export default function Banner({baner}) {
 						fill
 						className="object-cover rounded-2xl brightness-70"
 						priority
-						quality={85} // obniż z 100 (domyślne) do 85
+						quality={85}
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw "
 					/>
 				</div>

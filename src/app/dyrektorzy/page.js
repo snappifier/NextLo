@@ -6,6 +6,10 @@ async function getDyrektorzy() {
     return json?.data ?? {};
 }
 
+export const metadata = {
+    title: 'Dyrektorzy',
+};
+
 export default async function Page() {
     const data = await getDyrektorzy();
     if (data && data.length > 0) {

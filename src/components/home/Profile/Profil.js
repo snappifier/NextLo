@@ -10,10 +10,9 @@ const Profil = ({ item, id, d, tint }) => {
         animate="rest"
         whileHover="hover"
         className="relative w-full h-full flex flex-col rounded-xl bg-white border border-slate-200 overflow-hidden"
-        style={{ transform: "translateZ(0)" }} // promotuj do kompozycji (gładszy pierwszy hover)
+        style={{ transform: "translateZ(0)" }}
     >
         <div className="relative w-full h-full flex flex-col">
-            {/* Pasek nagłówkowy */}
             <div className="relative z-0 w-full h-1/2 flex justify-between">
                 <div className="w-max h-max flex p-3">
                       <span className="inline-flex items-center rounded-full bg-slate-900/5 border border-slate-200 px-2.5 py-0.5 text-[11px] sm:text-xs font-medium text-slate-700">
@@ -21,13 +20,11 @@ const Profil = ({ item, id, d, tint }) => {
                       </span>
                 </div>
                 <div className="w-max h-full -translate-x-3 sm:-translate-x-4 translate-y-3 sm:translate-y-4 opacity-80">
-                    {/* Kolorowa ikonka */}
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-20 " viewBox="0 0 24 24" aria-hidden>
                         <g fill="none" stroke={item["Kolor"]} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round">
                             {d ? (
                                 <path d={d} />
                             ) : (
-                                // Fallback, gdy d brak — proste koło
                                 <circle cx={12} cy={12} r={6} />
                             )}
                             <circle cx={12} cy={12} r={2} />
@@ -36,7 +33,6 @@ const Profil = ({ item, id, d, tint }) => {
                 </div>
             </div>
 
-            {/* Overlay – biały w spoczynku, kolor TYLKO na hover; gładkie wejście */}
             <motion.div
                 variants={{
                     rest: {

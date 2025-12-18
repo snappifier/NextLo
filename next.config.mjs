@@ -20,9 +20,6 @@ const nextConfig = {
     // Kompresja
     compress: true,
 
-    // Optymalizacja bundli
-    swcMinify: true,
-
     // Modularize imports - zmniejsza bundle
     modularizeImports: {
         'lucide-react': {

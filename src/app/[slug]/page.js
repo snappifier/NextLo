@@ -45,7 +45,6 @@ async function getMenuItems() {
 }
 
 async function fetchSingleById(idBase, type) {
-	// zbuduj obiekt populate w zależności od typu
 	let populateObj;
 	if (type === "Kafelki") {
 		// odpowiada: populate[Kadra][populate][Szablon][populate][Kafeleki]
@@ -76,9 +75,7 @@ async function fetchSingleById(idBase, type) {
 			const row = Array.isArray(json?.data) ? json.data[0] : json?.data;
 			if (row) return attrs(row);
 		} catch (e) {
-			// jeśli błąd nie jest 404 — rzuć dalej
 			if (!String(e?.message || "").includes("404")) throw e;
-			// w przypadku 404 — spróbuj następnego kandydata
 		}
 	}
 	return null;
@@ -101,8 +98,23 @@ async function getPageData(slugParam) {
 	return null;
 }
 
+export async function generateMetadata({ params }) {
+	const resolvedParams = await params;
+	const result = await getPageData(resolvedParams.slug);
+
+	if (!result) return {};
+
+	const [data] = result;
+	const title = data["Naglowek"] || data["Tytul"];
+
+	return {
+		title: title,
+	};
+}
+
 const AutomatycznyContent = ({data}) => {
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
+	console.log(sections);
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
 			<div className="w-full flex items-center justify-center md:justify-start md:w-[90%] lg:w-[80%]">
