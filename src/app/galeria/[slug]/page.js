@@ -1,4 +1,3 @@
-// app/galeria/[slug]/page.jsx
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -34,7 +33,12 @@ async function getZakladkaByYear(year) {
 }
 
 export default async function Page({ params }) {
-    const slug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug;
+    const resolvedParams = await params;
+
+    const rawSlug = resolvedParams.slug;
+
+    const slug = Array.isArray(rawSlug) ? rawSlug[0] : rawSlug;
+
     if (!slug) return notFound();
 
     const year = slug;

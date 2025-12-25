@@ -163,16 +163,21 @@ const LoadingFallback = () => (
 );
 
 export default async function Page({ params }) {
-	const resolvedParams = await params;
+    if (!params) return notFound();
+    const resolvedParams = await params;
 	let { slug } = resolvedParams;
-	const result = await getPageData(slug);
-	if (!result) return notFound();
-	const [data, typ] = result;
+	try{
+        const result = await getPageData(slug);
+        if (!result) return notFound();
+        const [data, typ] = result;
 
-	return (
-		<Suspense fallback={<LoadingFallback />}>
-			{typ === "Automatyczny" && <AutomatycznyContent data={data} />}
-			{typ === "Kafelki" && <Kafelki dataKafelki={data} />}
-		</Suspense>
-	);
+        return (
+            <Suspense fallback={<LoadingFallback />}>
+                {typ === "Automatyczny" && <AutomatycznyContent data={data} />}
+                {typ === "Kafelki" && <Kafelki dataKafelki={data} />}
+            </Suspense>
+        );
+    } catch (e){
+        return notFound();
+    }
 }

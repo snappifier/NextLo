@@ -37,8 +37,8 @@ export default function RootLayout({ children }) {
         <html lang="pl" className={meow_script.className + " bg-[#f0f0f0] antialiased " + poppins.className}>
         <head>
 
-            <link rel="preconnect" href="https://strapi-production-cbefe.up.railway.app" />
-            <link rel="dns-prefetch" href="https://strapi-production-cbefe.up.railway.app" />
+            <link rel="preconnect" href="https://panel.1lo.com.pl" />
+            <link rel="dns-prefetch" href="https://panel.1lo.com.pl" />
 
             <link rel="preload" href="/images/logo.webp" as="image" />
             <link rel="preload" href="/images/godlo.webp" as="image" />

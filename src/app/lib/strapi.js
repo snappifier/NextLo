@@ -1,6 +1,6 @@
 import qs from "qs";
 
-export const STRAPI_URL = "https://strapi-production-cbefe.up.railway.app";
+export const STRAPI_URL = "https://panel.1lo.com.pl";
 
 export async function strapiFetch(path, opts = {}) {
     const { token, headers = {}, fetchOptions = {}, ...restOpts } = opts;
@@ -44,7 +44,7 @@ export async function strapiFetch(path, opts = {}) {
     const res = await fetch(url, {
         // Domyślnie Next.js cache'uje, chyba że `cache: 'no-store'` przekazane w opts
         next: {
-            revalidate: fetchOptions.revalidate ?? 1800, // 1h domyślnie
+            revalidate: fetchOptions.revalidate ?? 120, // 1h domyślnie
             tags: fetchOptions.tags ?? [endpoint.split('/')[2] || 'strapi'] // np. 'posts', 'menu'
         },
         ...fetchOptions,

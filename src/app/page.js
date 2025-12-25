@@ -11,7 +11,7 @@ const Tarcze = dynamic(() => import('@/components/home/Wspolprace/Tarcze'), {
     ssr: true
 });
 
-export const revalidate = 3600;
+export const revalidate = 90;
 
 async function getHome() {
     const json = await strapiFetch({
