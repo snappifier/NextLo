@@ -21,6 +21,8 @@ const nextConfig = {
     // Kompresja
     compress: true,
 
+    output: "standalone",
+
     // Modularize imports - zmniejsza bundle
     modularizeImports: {
         'lucide-react': {

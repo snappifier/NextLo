@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/pages/Header";
 import Photos from "@/app/aktualnosci/[documentId]/photos";
+import sanitizeHtml from 'sanitize-html';
 
-export const revalidate = 7200;
+export const revalidate = 120;
 
 async function getPostById(documentId) {
 	try {
@@ -49,7 +50,17 @@ export default async function PostDetail({ params }) {
 						</p>
 					</Link>
 					<Header text={post["Tytul"]} />
-					<div className="w-full text-wrap break-words text-justify text-slate-700" dangerouslySetInnerHTML={{__html: post["Opis"]}}></div>
+                    <div className="w-full text-wrap break-words text-justify text-slate-700"
+                         dangerouslySetInnerHTML={{
+                             __html: sanitizeHtml(post["Opis"], {
+                                 allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'h1', 'h2', 'p', "a" ]),
+                                 allowedAttributes: {
+                                     ...sanitizeHtml.defaults.allowedAttributes,
+                                     '*': ['style', 'class']
+                                 }
+                             })
+                         }}>
+                    </div>
 					<div className="flex flex-col w-max font-extralight text-sm">
 						<p>Autor: {post["Autor"]}</p>
 						<p>Data: {post["Data"]}</p>

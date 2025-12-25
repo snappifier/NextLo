@@ -25,9 +25,9 @@ export const metadata = {
         default: 'I Liceum Ogólnokształcące w Zamościu'
     },
     icons: {
-        icon: '/logo.ico',
-        shortcut: '/logo.ico',
-        apple: '/logo.ico',
+        icon: '/images/logolo.webp',
+        shortcut: '/images/logolo.webp',
+        apple: '/images/logolo.webp',
     },
     description: "Strona szkolna I Liceum Ogólnokształcącego imienia Jana Zamoyskiego w Zamościu",
 };

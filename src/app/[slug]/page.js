@@ -114,7 +114,6 @@ export async function generateMetadata({ params }) {
 
 const AutomatycznyContent = ({data}) => {
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
-	console.log(sections);
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
 			<div className="w-full flex items-center justify-center md:justify-start md:w-[90%] lg:w-[80%]">

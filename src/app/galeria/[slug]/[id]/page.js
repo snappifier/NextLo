@@ -1,5 +1,5 @@
-import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
-import {notFound} from "next/navigation";
+import { getStrapiMedia, strapiFetch } from "@/app/lib/strapi";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 import Photo from "@/app/galeria/[slug]/[id]/photo";
@@ -10,6 +10,11 @@ async function getWydarzenieById(id) {
         query: {
             populate: {
                 Zakladki: {
+                    filters: {
+                        Wydarzenia: {
+                            id: { $eq: id }
+                        }
+                    },
                     populate: {
                         Wydarzenia: {
                             populate: "*",
@@ -22,37 +27,31 @@ async function getWydarzenieById(id) {
     });
 
     const payload = json?.data ?? null;
-
     if (!payload) return null;
 
     const zakladki = Array.isArray(payload)
         ? payload.flatMap(p => p?.Zakladki ?? p?.attributes?.Zakladki ?? [])
         : payload?.Zakladki ?? payload?.attributes?.Zakladki ?? [];
 
-    let znalezioneWydarzenie = null;
-    let tytulZakladki = null;
-
     for (const zakladka of zakladki) {
         const wydarzenia = zakladka?.Wydarzenia ?? [];
         const wydarzenie = wydarzenia.find(w => w.id === parseInt(id));
 
         if (wydarzenie) {
-            znalezioneWydarzenie = wydarzenie;
-            tytulZakladki = zakladka?.Tytul;
-            break;
+            return {
+                wydarzenie: wydarzenie,
+                tytulZakladki: zakladka?.Tytul
+            };
         }
     }
 
-    if (!znalezioneWydarzenie) return null;
-
-    return {
-        wydarzenie: znalezioneWydarzenie,
-        tytulZakladki
-    };
+    return null;
 }
 
 export default async function Page({ params }) {
-    const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
+    const resolvedParams = await params;
+
+    const id = Array.isArray(resolvedParams?.id) ? resolvedParams.id[0] : resolvedParams?.id;
     if (!id) return notFound();
 
     const result = await getWydarzenieById(id);
@@ -83,14 +82,7 @@ export default async function Page({ params }) {
                 {wydarzenie?.Zdjecia && wydarzenie.Zdjecia.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
                         {wydarzenie.Zdjecia.map((zdjecie) => (
-                            // <div key={zdjecie.id} className="relative aspect-square overflow-hidden rounded-lg hover:scale-105 transition-transform duration-300">
-                            //     <img
-                            //         src={getStrapiMedia(zdjecie.url)}
-                            //         alt={wydarzenie.TytulWydarzenia}
-                            //         className="w-full h-full object-cover "
-                            //     />
-                            // </div>
-	                        <Photo key={zdjecie.id} url={getStrapiMedia(zdjecie.url)} alttext={wydarzenie.TytulWydarzenia} />
+                            <Photo key={zdjecie.id} url={getStrapiMedia(zdjecie.url)} alttext={wydarzenie.TytulWydarzenia} />
                         ))}
                     </div>
                 )}
