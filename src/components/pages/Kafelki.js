@@ -3,52 +3,6 @@
 import { motion } from "motion/react";
 import { useMemo, useEffect, useState } from "react";
 
-const badges = {
-    Dyrektor: "bg-red-100 text-red-700",
-    Wicedyrektor: "bg-yellow-100 text-yellow-800",
-    Nauczyciel: "bg-green-100 text-green-700",
-    PedagogSpecjalny: "bg-blue-100 text-blue-700",
-    PedagogSzkolny: "bg-blue-100 text-blue-700",
-    PsychologSzkolny: "bg-blue-100 text-blue-700",
-    Biblioteka: "bg-green-100 text-green-700",
-};
-
-const przedmioty = [
-    "Język polski",
-    "Język angielski",
-    "Język francuski",
-    "Język hiszpański",
-    "Język niemiecki",
-    "Język rosyjski",
-    "Język łaciński",
-    "Historia",
-    "Edukacja obywatelska",
-    "Wiedza o społeczeństwie",
-    "Geografia",
-    "Biologia",
-    "Matematyka",
-    "Fizyka",
-    "Chemia",
-    "Edukacja dla bezpieczeństwa",
-    "Biznes i zarządzanie",
-    "Informatyka",
-    "Doradztwo zawodowe",
-    "Wychowanie fizyczne",
-    "Religia",
-    "Muzyka",
-    "Pedagog specjalny",
-    "Pedagog szkolny",
-    "Psycholog szkolny",
-    "Edukacja zdrowotna",
-    "Biblioteka",
-];
-
-const FALLBACK_IMG =
-    "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjYTdhN2E3IiBkPSJNMTIgMTJxLTEuNjUgMC0yLjgyNS0xLjE3NVQ4IDh0MS4xNzUtMi44MjVUMTIgNHQyLjgyNSAxLjE3NVQxNiA4dC0xLjE3NSAyLjgyNVQxMiAxMm0tOCA4di0yLjhxMC0uODUuNDM4LTEuNTYyVDUuNiAxNC41NXExLjU1LS43NzUgMy4xNS0xLjE2MlQxMiAxM3QzLjI1LjM4OHQzLjE1IDEuMTYycS43MjUuMzc1IDEuMTYzIDEuMDg4VDIwIDE3LjJWMjB6Ii8+PC9zdmc+";
-
-const ORDER_EXTRA_FIRST = ["Dyrekcja"];
-const ORDER_EXTRA_LAST = ["Inne"];
-
 const slug = (s) =>
     String(s)
         .toLowerCase()
@@ -58,7 +12,6 @@ const slug = (s) =>
         .trim()
         .replace(/\s+/g, "-");
 
-// >>> ZMIANA: wielokrotne klucze grup
 const getGroupKeys = (p) => {
     const keys = [];
     const raw = (p["Naglowek"] ?? "").trim();
@@ -85,7 +38,7 @@ const Card = ({ profil }) => (
             {profil["Opis"] && (
                 <p className="text-slate-600 text-xs mt-1 font-[poppins]">{profil["Opis"]}</p>
             )}
-            {profil["Opis"] && (
+            {profil["przypinki"]?.[0] && (
                 <span
                     className={`mt-2 inline-flex items-center rounded-md px-2 py-1 text-[11px] sm:text-xs font-medium`}
                     style={{color: profil["przypinki"][0]["KolorTekstu"],
@@ -175,7 +128,6 @@ const TopChips = ({ items, activeId, onJump }) => (
 
 const Kafelki = ({dataKafelki}) => {
 
-    // >>> ZMIANA: rozdzielanie do wielu grup
     const groups = useMemo(() => {
         const acc = {};
         for (const p of dataKafelki["Sekcja"]["Szablon"]) {
@@ -189,18 +141,9 @@ const Kafelki = ({dataKafelki}) => {
         }
         return acc;
     }, [dataKafelki]);
+
     const sectionOrder = useMemo(() => {
-        const existing = Object.keys(groups);
-        const preferred = [...ORDER_EXTRA_FIRST, ...przedmioty, ...ORDER_EXTRA_LAST].filter((k) =>
-            existing.includes(k)
-        );
-        const leftovers = existing.filter((k) => !preferred.includes(k)).sort(sortPL);
-        return [
-            ...ORDER_EXTRA_FIRST.filter((k) => preferred.includes(k)),
-            ...przedmioty.filter((k) => preferred.includes(k)),
-            ...leftovers,
-            ...ORDER_EXTRA_LAST.filter((k) => preferred.includes(k)),
-        ];
+        return Object.keys(groups).sort(sortPL);
     }, [groups]);
 
     const sectionIds = useMemo(
@@ -277,7 +220,7 @@ const Kafelki = ({dataKafelki}) => {
     };
 
     return (
-        <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center">
+        <div className="w-full min-h-screen pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%] grid grid-cols-1 xl:grid-cols-[1fr_18rem] gap-6 md:gap-8">
                 <main>
                     <div className="w-full flex flex-col mb-4 sm:mb-6">
@@ -286,7 +229,6 @@ const Kafelki = ({dataKafelki}) => {
                         </p>
                     </div>
 
-                    {/* mobilny/topowy scrollspy */}
                     <TopChips items={sectionIds} activeId={active} onJump={handleJump} />
 
                     {sectionOrder.map((section) => (

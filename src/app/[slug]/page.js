@@ -47,9 +47,8 @@ async function getMenuItems() {
 async function fetchSingleById(idBase, type) {
 	let populateObj;
 	if (type === "Kafelki") {
-		// odpowiada: populate[Kadra][populate][Szablon][populate][Kafeleki]
 		populateObj = {
-			Kadra: {
+			Sekcja: {
 				populate: {
 					Szablon: {
 						populate: "Kafeleki",
