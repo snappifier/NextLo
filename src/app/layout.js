@@ -9,6 +9,7 @@ const meow_script = Meow_Script({
     weight: ['400'],
     style: 'normal',
     display: 'swap',
+    variable: '--font-meow-script',
 })
 
 const poppins = Poppins({
@@ -17,6 +18,7 @@ const poppins = Poppins({
     style: 'normal',
     display: 'swap',
     preload: true,
+    variable: '--font-poppins',
 });
 
 export const metadata = {
@@ -34,7 +36,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="pl" className={meow_script.className + " bg-[#f0f0f0] antialiased " + poppins.className}>
+        <html lang="pl" className={`${meow_script.variable} ${poppins.variable} bg-[#f0f0f0] antialiased`}> 
         <head>
 
             <link rel="preconnect" href="https://panel.1lo.com.pl" />

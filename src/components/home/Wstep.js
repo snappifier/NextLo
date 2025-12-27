@@ -18,7 +18,7 @@ export default function Wstep({data}) {
                     </div>
 
                     <div className="mt-6 md:mt-8 flex flex-col gap-6 md:gap-8">
-                        <p className="font-[meow_script] text-4xl md:text-5xl lg:text-6xl leading-tight">
+                        <p className="font-meow-script text-4xl md:text-5xl lg:text-6xl leading-tight">
                             {data["Naglowek"]}
                         </p>
                         <p className="font-light text-balance text-base md:text-lg lg:text-xl text-slate-800">

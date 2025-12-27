@@ -14,7 +14,7 @@ export default function Dropdown({ menu }) {
         router.prefetch(href);
     };
     return (
-        <NavigationMenu.Root className="font-[poppins] min-w-max rounded-lg bg-transparent p-1 text-white">
+        <NavigationMenu.Root className="font-poppins min-w-max rounded-lg bg-transparent p-1 text-white">
             <NavigationMenu.List
                 className="relative flex"
                 role="menubar"
@@ -38,7 +38,7 @@ export default function Dropdown({ menu }) {
                         </NavigationMenu.Trigger>
 
                         <NavigationMenu.Content className={contentClassName} role="menu">
-                            <ul className={(gridTable[index] ?? gridTable[0]) + " list-none font-[poppins]"}>
+                            <ul className={(gridTable[index] ?? gridTable[0]) + " list-none font-poppins"}>
                                 {(cat?.Podstrona ?? []).map((page, i) => (
                                     <li
                                         key={page?.Link ?? page?.id ?? `${index}-${i}`}

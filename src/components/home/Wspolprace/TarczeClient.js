@@ -65,7 +65,7 @@ export default function TarczeClient({data}) {
     if (shieldImages.length === 0) return null
 
     return (
-        <div className="font-[poppins] mb-8 z-10 w-full flex pt-6 pb-6 bg-white rounded-2xl shadow-lg/20 overflow-hidden">
+        <div className="font-poppins mb-8 z-10 w-full flex pt-6 pb-6 bg-white rounded-2xl shadow-lg/20 overflow-hidden">
             <div className="w-full flex flex-col gap-4 items-center md:items-start">
                 <div className="px-6 md:px-10 w-full flex flex-col">
                     <p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">

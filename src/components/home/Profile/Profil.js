@@ -53,7 +53,7 @@ const Profil = ({ item, id, d, tint }) => {
                     backgroundColor: { duration: 0.42, ease: easeSoft },
                     default: { duration: 0.45, ease: easeSoft },
                 }}
-                className="pointer-events-none absolute inset-x-0 bottom-0 z-[100] flex flex-col justify-end p-3 sm:p-4 rounded-t-xl"
+                className="pointer-events-none absolute inset-x-0 bottom-0 z-100 flex flex-col justify-end p-3 sm:p-4 rounded-t-xl"
                 style={{ willChange: "height, background-color, backdrop-filter" }}
                 aria-hidden="true"
             >
