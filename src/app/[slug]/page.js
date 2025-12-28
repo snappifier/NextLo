@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
-import MainContent from "@/app/components/pages/MainContent";
-import Link from "@/app/components/pages/Link";
-import Media from "@/app/components/pages/Media";
-import Header from "@/app/components/pages/Header";
-import Tiles from "@/app/components/pages/Tiles";
 import { Suspense } from "react";
+import Header from "@/app/components/pages/auto/Header";
+import MainContent from "@/app/components/pages/auto/MainContent";
+import Media from "@/app/components/pages/auto/Media";
+import Tiles from "@/app/components/pages/tiles/Tiles";
 
 
 export const revalidate = 120;
