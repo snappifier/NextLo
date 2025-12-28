@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import {strapiFetch} from "@/app/lib/strapi";
-import Kadra from "@/app/kadra/KadraClient";
+import StaffClient from "@/app/kadra/StaffClient";
 
 async function getKadra() {
     const json = await strapiFetch("/api/kadras");
@@ -32,5 +32,5 @@ export default async function Page(){
 
 async function KadraAsync() {
     const kadra = await getKadra();
-    return <Kadra kadra={kadra} />;
+    return <StaffClient kadra={kadra} />;
 }

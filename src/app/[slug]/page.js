@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
-import Content from "@/components/pages/Content";
-import LinkComponent from "@/components/pages/LinkComponent";
-import MediaComponent from "@/components/pages/MediaComponent";
-import Header from "@/components/pages/Header";
-import Kafelki from "@/components/pages/Kafelki";
+import MainContent from "@/app/components/pages/MainContent";
+import Link from "@/app/components/pages/Link";
+import Media from "@/app/components/pages/Media";
+import Header from "@/app/components/pages/Header";
+import Tiles from "@/app/components/pages/Tiles";
 import { Suspense } from "react";
 
 
@@ -46,7 +46,7 @@ async function getMenuItems() {
 
 async function fetchSingleById(idBase, type) {
 	let populateObj;
-	if (type === "Kafelki") {
+	if (type === "Tiles") {
 		populateObj = {
 			Sekcja: {
 				populate: {
@@ -130,10 +130,10 @@ const AutomatycznyContent = ({data}) => {
 
 							return (
 								<div key={section.id} className="w-full h-max flex flex-col gap-5">
-									{hasContent && <Content text={content}/>}
-									{hasLinks && <LinkComponent linkArray={links}/>}
-									{hasMedia && <MediaComponent media={media}
-																 col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
+									{hasContent && <MainContent text={content}/>}
+									{hasLinks && <Link linkArray={links}/>}
+									{hasMedia && <Media media={media}
+                                                        col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
 								</div>
 							);
 						})}
@@ -172,7 +172,7 @@ export default async function Page({ params }) {
         return (
             <Suspense fallback={<LoadingFallback />}>
                 {typ === "Automatyczny" && <AutomatycznyContent data={data} />}
-                {typ === "Kafelki" && <Kafelki dataKafelki={data} />}
+                {typ === "Tiles" && <Tiles dataKafelki={data} />}
             </Suspense>
         );
     } catch (e){

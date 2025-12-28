@@ -1,5 +1,5 @@
 import {strapiFetch} from "@/app/lib/strapi";
-import DyrekcjaClient from "@/app/dyrektorzy/DyrekcjaClient";
+import PrincipalsClient from "@/app/dyrektorzy/PrincipalsClient";
 
 async function getDyrektorzy() {
     const json = await strapiFetch("/api/archiwum-dyrekcjas?populate=*&sort[0]=Poczatek:desc");
@@ -13,7 +13,7 @@ export const metadata = {
 export default async function Page() {
     const data = await getDyrektorzy();
     if (data && data.length > 0) {
-        return <DyrekcjaClient data={data} />;
+        return <PrincipalsClient data={data} />;
     }
     return null
 }

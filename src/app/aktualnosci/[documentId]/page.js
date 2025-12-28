@@ -1,8 +1,8 @@
 import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Header from "@/components/pages/Header";
-import Photos from "@/app/aktualnosci/[documentId]/photos";
+import Header from "@/app/components/pages/Header";
+import Photos from "@/app/aktualnosci/[documentId]/Photos";
 import sanitizeHtml from 'sanitize-html';
 
 export const revalidate = 120;
