@@ -4,22 +4,20 @@ import Script from "next/script";
 import FooterServer from "@/app/components/footer/FooterServer";
 import Navbar from "@/app/components/navbar/desktop/Navbar";
 
+const meow_script = Meow_Script({
+    subsets: ['latin'],
+    weight: ['400'],
+    style: 'normal',
+    display: 'swap',
+})
 
 const poppins = Poppins({
     subsets: ['latin'],
     weight: ['100','200','300','400','500','600','700','800','900'],
     style: 'normal',
     display: 'swap',
+    preload: true,
 });
-
-const meowScript = Meow_Script({
-    subsets: ['cursive'],
-    weight: ['400'],
-    style: 'normal',
-    display: 'swap',
-});
-
-
 
 export const metadata = {
     title: {
@@ -37,12 +35,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="pl">
-            <body className={`bg-[#f0f0f0] antialiased ${meowScript.className} ${poppins.className} `}>
-                <Navbar/>
-                {children}
-                <FooterServer />
-                <Script src={"https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"} strategy="lazyOnload" defer></Script>
-            </body>
+        <body className={meow_script.className + " bg-[#f0f0f0] antialiased " + poppins.className}>
+            <Navbar/>
+            {children}
+            <FooterServer />
+            <Script src={"https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"} strategy="lazyOnload" defer></Script>
+        </body>
         </html>
     );
 }
