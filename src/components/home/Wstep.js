@@ -3,7 +3,7 @@ import {getStrapiMedia} from "@/app/lib/strapi";
 
 export default function Wstep({data}) {
     return (
-        <div className="font-[poppins] flex relative w-full justify-center ">
+        <div className="font-poppins flex relative w-full justify-center ">
             <section
                 className="
           px-6 py-6 md:px-10 md:py-8

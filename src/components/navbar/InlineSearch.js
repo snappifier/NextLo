@@ -4,21 +4,18 @@ import { useEffect, useRef, useState } from 'react';
 import {motion} from "motion/react"
 import Link from 'next/link';
 
-// Ikona posta
 const PostIcon = () => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" className="shrink-0">
 		<path fill="currentColor" d="M19 5v14H5V5zm0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-4.86 8.86l-3 3.87L9 13.14L6 17h12z"/>
 	</svg>
 );
 
-// Ikona strony
 const PageIcon = () => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" className="shrink-0">
 		<path fill="currentColor" d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8zm4 18H6V4h7v5h5z"/>
 	</svg>
 );
 
-// Formatowanie daty
 const formatDate = (dateStr) => {
 	if (!dateStr) return '';
 	try {
@@ -123,7 +120,7 @@ export default function InlineSearch() {
 	}, []);
 
 	return (
-		<motion.div ref={rootRef} className={`absolute size-11 rounded-full flex items-center justify-end gap-0 right-0 ${shf ? 'bg-white' : ''} transition-colors duration-200`}
+		<motion.div ref={rootRef} className={`absolute size-10 rounded-xl flex items-center justify-end gap-0 right-0 ${shf ? 'bg-white' : ''} transition-colors duration-200`}
 					onFocus={() => setFocused(true)}
 					onBlur={() => setFocused(false)}
 					animate={shf ? {width: '250px'} : {} }
