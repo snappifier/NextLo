@@ -35,8 +35,8 @@ const dyrektorzy = ({data}) => {
                                     />
                                 </div>
                                 <div className="p-3 sm:p-4">
-                                    <h4 className="text-slate-900 text-base sm:text-[15px] font-[poppins] font-medium leading-tight">{profil["ImieNazwisko"]}</h4>
-                                    <p className="text-slate-600 text-sm mt-1 font-[poppins]">{ profil?.["Koniec"] ? `${profil?.["Poczatek"].substring(0,4)}-${profil["Koniec"].substring(0,4)}` : "Aktualne" }</p>
+                                    <h4 className="text-slate-900 text-base sm:text-[15px] font-poppins font-medium leading-tight">{profil["ImieNazwisko"]}</h4>
+                                    <p className="text-slate-600 text-sm mt-1 font-poppins">{ profil?.["Koniec"] ? `${profil?.["Poczatek"].substring(0,4)}-${profil["Koniec"].substring(0,4)}` : "Aktualne" }</p>
                                 </div>
                             </motion.div>
                         ))}

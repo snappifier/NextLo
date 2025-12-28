@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+    --font-poppins: var(--font-poppins), system-ui, sans-serif;
+    --font-meow-script: var(--font-meow-script), cursive;
+}
+
 /* globals.css */
 .rich-content.ck-content {
     /* podstawy: czcionka, odstępy – możesz użyć prose (plugin typography) */

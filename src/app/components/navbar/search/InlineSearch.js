@@ -125,7 +125,7 @@ export default function InlineSearch() {
 	}, []);
 
 	return (
-		<motion.div ref={rootRef} className={`absolute size-11 rounded-full flex items-center justify-end gap-0 right-0 ${shf ? 'bg-white' : ''} transition-colors duration-200`}
+		<motion.div ref={rootRef} className={`absolute size-10 rounded-xl flex items-center justify-end gap-0 right-0 ${shf ? 'bg-white' : ''} transition-colors duration-200`}
 					onFocus={() => setFocused(true)}
 					onBlur={() => setFocused(false)}
 					animate={shf ? {width: '250px'} : {} }

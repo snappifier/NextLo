@@ -32,11 +32,11 @@ const Card = ({ profil }) => (
         transition={{ type: "spring", stiffness: 260, damping: 24 }}
     >
         <div className="p-3 sm:p-4">
-            <h4 className="text-slate-900 text-base sm:text-[15px] font-[poppins] font-medium leading-tight">
+            <h4 className="text-slate-900 text-base sm:text-[15px] font-poppins font-medium leading-tight">
                 {profil["ImieNazwisko"]}
             </h4>
             {profil["Opis"] && (
-                <p className="text-slate-600 text-xs mt-1 font-[poppins]">{profil["Opis"]}</p>
+                <p className="text-slate-600 text-xs mt-1 font-poppins">{profil["Opis"]}</p>
             )}
             {profil["przypinki"]?.[0] && (
                 <span
@@ -86,7 +86,7 @@ const RightRail = ({ items, activeId, onJump }) => (
                 }`}
             />
                         <span
-                            className={`ml-4 text-sm font-[poppins] transition-colors ${
+                            className={`ml-4 text-sm font-poppins transition-colors ${
                                 isActive ? "text-slate-900 font-medium" : "text-slate-600 group-hover:text-slate-800"
                             }`}
                         >
@@ -112,7 +112,7 @@ const TopChips = ({ items, activeId, onJump }) => (
                         aria-current={isActive ? "true" : "false"}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-[poppins] transition bg-[#f7f7f7] ${
+                        className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-poppins transition bg-[#f7f7f7] ${
                             isActive
                                 ? "border-[#3077BA] text-[#3077BA]"
                                 : "border-slate-300 text-slate-600 hover:border-slate-400 hover:text-slate-800"

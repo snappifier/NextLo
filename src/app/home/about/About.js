@@ -3,7 +3,7 @@ import {getStrapiMedia} from "@/app/lib/strapi";
 
 export default function About({data}) {
     return (
-        <div className="font-[poppins] flex relative w-full justify-center ">
+        <div className="font-poppins flex relative w-full justify-center ">
             <section
                 className="
           px-6 py-6 md:px-10 md:py-8
@@ -18,7 +18,7 @@ export default function About({data}) {
                     </div>
 
                     <div className="mt-6 md:mt-8 flex flex-col gap-6 md:gap-8">
-                        <p className="font-[meow_script] text-4xl md:text-5xl lg:text-6xl leading-tight">
+                        <p className="font-meow-script text-4xl md:text-5xl lg:text-6xl leading-tight">
                             {data["Naglowek"]}
                         </p>
                         <p className="font-light text-balance text-base md:text-lg lg:text-xl text-slate-800">

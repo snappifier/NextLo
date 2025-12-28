@@ -83,12 +83,12 @@ const Card = ({ profil }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="p-3 sm:p-4">
-                <h4 className="text-slate-900 text-base sm:text-[15px] font-[poppins] font-medium leading-tight ">
+                <h4 className="text-slate-900 text-base sm:text-[15px] font-poppins font-medium leading-tight ">
                     {profil["Tytul"] && `${profil["Tytul"]} `}
                     {profil["ImieNazwisko"]}
                 </h4>
                 {profil["Przedmiot"] && (
-                    <p className="text-slate-600 text-xs mt-1 font-[poppins] line-clamp-2">{profil["Przedmiot"]}</p>
+                    <p className="text-slate-600 text-xs mt-1 font-poppins line-clamp-2">{profil["Przedmiot"]}</p>
                 )}
                 {profil["Funkcja"] && (
                     <span
@@ -150,7 +150,7 @@ const RightRail = ({ items, activeId, onJump }) => {
                                 }`}
                             />
                             <span
-                                className={`ml-4 text-sm font-[poppins] transition-colors duration-200 ${
+                                className={`ml-4 text-sm font-poppins transition-colors duration-200 ${
                                     isActive ? "text-slate-900 font-medium" : "text-slate-600 group-hover:text-slate-800"
                                 }`}
                             >
@@ -182,7 +182,7 @@ const TopChips = ({ items, activeId, onJump }) => {
                             aria-current={isActive ? "page" : "false"}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
-                            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-[poppins] transition-all duration-200 bg-white ${
+                            className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-poppins transition-all duration-200 bg-white ${
                                 isActive
                                     ? "border-[#3077BA] text-[#3077BA]"
                                     : "border-slate-300 text-slate-600 hover:border-slate-400 hover:text-slate-800"

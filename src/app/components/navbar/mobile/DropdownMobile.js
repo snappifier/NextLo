@@ -48,7 +48,7 @@ export default function DropdownMobile({ menu, setIsOpen }) {
 	                initial={{ opacity: 0, y: 10, scale: 0.80 }}
 	                animate={{ opacity: 1, y: 0, scale: 1 }}
 	                transition={{ duration: 0.3, ease: "easeOut"}}
-	                className="font-[poppins] font-light text-sm sm:text-base text-slate-700 text-center select-none flex items-center justify-center w-full">
+	                className="font-poppins font-light text-sm sm:text-base text-slate-700 text-center select-none flex items-center justify-center w-full">
                    {/*<p className={`w-[70%] md:w-[80%] `}>I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu</p>*/}
 	                <div className="flex items-center justify-between w-[90%] ">
 		                <Image src={logo} alt="logo" className="select-none h-12 md:h-15 w-12 md:w-15 drop-shadow-md pointer-events-none"/>
@@ -189,7 +189,7 @@ function CategoryGrid({ items, onNavigate }) {
                                 whileTap={{ scale: 0.98 }}
                             >
 
-                                <div className="font-[poppins] text-base text-slate-800 text-center">
+                                <div className="font-poppins text-base text-slate-800 text-center">
                                     {el?.Tytul ?? ""}
                                 </div>
                             </motion.div>

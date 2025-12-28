@@ -88,9 +88,9 @@ export default function Profile({item}) {
 					transition={{duration: 0.2, ease: "easeOut"}}
 				>
 					<h1>Profil</h1>
-					<h1 className="text-xl text-slate-800 font-[poppins] font-medium">{item["NazwaProfilu"]}</h1>
+					<h1 className="text-xl text-slate-800 font-poppins font-medium">{item["NazwaProfilu"]}</h1>
 					<motion.p
-						className="text-sm text-slate-900 leading-tight font-[poppins] pt-1 font-normal"
+						className="text-sm text-slate-900 leading-tight font-poppins pt-1 font-normal"
 						initial={false}
 						animate={isLg && hovered ? {opacity: 1, pointerEvents: "auto"} : {opacity: 0, pointerEvents: "none"}}
 						transition={{duration: 0.3}}

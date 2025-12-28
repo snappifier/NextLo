@@ -152,7 +152,7 @@ export default function NewsPage() {
                     {isLoading && <div className="mt-4 text-slate-700">Ładowanie...</div>}
 
                     {totalPages > 1 && (
-                        <nav aria-label="Paginacja" className="flex font-[poppins] items-center gap-2 mt-6 flex-wrap justify-center">
+                        <nav aria-label="Paginacja" className="flex font-poppins items-center gap-2 mt-6 flex-wrap justify-center">
                             <button
                                 onClick={() => handlePageChange(page - 1)}
                                 disabled={page === 1 || isLoading}
