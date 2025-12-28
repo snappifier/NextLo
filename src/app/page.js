@@ -1,12 +1,13 @@
 import {strapiFetch} from "@/app/lib/strapi";
-import Banner from "@/components/home/banner/Banner";
-import Profile from "@/components/home/Profile/Profile";
 import { Suspense } from "react";
-import AktualnosciServer from "@/components/home/Aktualnosci/AktualnosciServer";
-import Wstep from "@/components/home/Wstep";
 import dynamic from 'next/dynamic';
+import Banner from "@/app/home/banner/Banner";
+import ProfileSection from "@/app/home/profiles/ProfileSection";
+import NewsServer from "@/app/home/newsHome/NewsServer";
+import About from "@/app/home/about/About";
+import Shields from "@/app/home/collaborations/Shields";
 
-const Tarcze = dynamic(() => import('@/components/home/Wspolprace/Tarcze'), {
+const Tarcze = dynamic(() => import('@/app/home/collaborations/Shields'), {
     loading: () => <div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />,
     ssr: true
 });
@@ -26,7 +27,6 @@ async function getHome() {
     return json?.data ?? {};
 }
 
-// Loading komponent dla sekcji Aktualności
 const AktualnosciLoading = () => (
     <div className="w-full h-64 bg-gradient-to-b from-slate-100 to-slate-50 rounded-2xl animate-pulse" />
 );
@@ -47,19 +47,19 @@ export default async function Home() {
 
                     return (
                         <div key={key} className="w-full h-max">
-                            {componentType === "home.krotko-o-szkole" && <Wstep data={data} />}
+                            {componentType === "home.krotko-o-szkole" && <About data={data} />}
 
-                            {componentType === "home.profile" && <Profile data={data} id={data.id ?? index} />}
+                            {componentType === "home.profile" && <ProfileSection data={data} id={data.id ?? index} />}
 
                             {componentType === "home.aktualnosci" && (
                                 <Suspense fallback={<AktualnosciLoading />}>
-                                    <AktualnosciServer />
+                                    <NewsServer />
                                 </Suspense>
                             )}
 
                             {componentType === "home.osiagniecia" && (
                                 <Suspense fallback={<div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />}>
-                                    <Tarcze/>
+                                    <Shields/>
                                 </Suspense>
                             )}
                         </div>
