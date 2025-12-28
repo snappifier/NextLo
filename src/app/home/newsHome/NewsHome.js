@@ -24,13 +24,7 @@ export const NewsHome = ({posts}) => {
                         </div>
 
                         <div className="w-full h-auto flex gap-5 flex-col items-stretch">
-                            <div className="
-                                  w-full grid gap-4 max-w-7xl
-                                  grid-cols-1
-                                  sm:grid-cols-2
-                                  lg:grid-cols-3
-                                  auto-rows-auto
-                                  lg:auto-rows-[16rem]">
+                            <div className="w-full grid gap-4 max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto lg:auto-rows-[16rem]">
                                 {posts.map((news, index) => {
 
                                     return (
