@@ -1,6 +1,6 @@
-// app/api/search/routeApiSerach.js
+// app/api/search/route.js
 import { NextResponse } from 'next/server';
-import { strapiFetch } from './strapi';
+import { strapiFetch } from '../../lib/strapi';
 
 export const dynamic = 'force-dynamic';
 
