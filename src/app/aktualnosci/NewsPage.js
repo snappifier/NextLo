@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Arrow, { clampText, formatPLDate } from "@/components/home/NewsHome/NewsCard";
 import { strapiFetch } from "@/app/lib/strapi";
+import Arrow, {clampText, formatPLDate} from "@/app/home/newsHome/NewsCard";
 
 const MAX_POSTS = 9;
 

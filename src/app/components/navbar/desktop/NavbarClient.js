@@ -100,7 +100,7 @@ export default function NavbarClient({menu}) {
 							<InlineSearch/>
 
 						</div>
-						<div className="relative inset-0 flex items-center justify-center lg:hidden"><MobileMenuSearch /></div>
+						<div className="relative inset-0 flex items-center justify-center lg:hidden"><InlineSearch /></div>
 						<button
 							type="button"
 							className="group hover:bg-sky-800 h-10 w-10 flex justify-center items-center rounded-md cursor-pointer text-white lg:hidden "

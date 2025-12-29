@@ -12,16 +12,20 @@ const CACHE_TTL = 5 * 60 * 1000;
 export async function GET(req) {
 	const { searchParams } = new URL(req.url);
 	const q = (searchParams.get('q') || '').trim().toLowerCase();
+	const offset = parseInt(searchParams.get('offset') || '0', 10);
+	const limit = parseInt(searchParams.get('limit') || '10', 10);
 	const debug = searchParams.get('debug') === '1';
 
 	try {
+		// Cache dla pełnych wyników (bez paginacji)
 		const cacheKey = `search_${q}`;
+		let allFiltered;
+
 		const cached = searchCache.get(cacheKey);
 		if (cached && Date.now() - cached.time < CACHE_TTL) {
-			return NextResponse.json(cached.data);
-		}
-
-		const all = [];
+			allFiltered = cached.data;
+		} else {
+			const all = [];
 
 		// Przeszukiwanie struktury menu (podstrony)
 		try {
@@ -78,57 +82,67 @@ export async function GET(req) {
 			}
 		}
 
-		// Jeżeli brak zapytań
-		if (!q) {
-			return NextResponse.json({
-				items: [],
-				total: 0,
-				...(debug ? { _debug: { totalItems: all.length } } : {})
+			// Jeżeli brak zapytań
+			if (!q) {
+				return NextResponse.json({
+					items: [],
+					total: 0,
+					hasMore: false,
+					...(debug ? { _debug: { totalItems: all.length } } : {})
+				});
+			}
+
+			// Filtrowanie
+			allFiltered = all.filter(x =>
+				(x.title || '').toLowerCase().includes(q) ||
+				(x.excerpt || '').toLowerCase().includes(q) ||
+				(x.author || '').toLowerCase().includes(q)
+			);
+
+			// Sortowanie
+			allFiltered.sort((a, b) => {
+				if (a.type === 'post' && b.type !== 'post') return -1;
+				if (a.type !== 'post' && b.type === 'post') return 1;
+
+				const inx = (s) => (s || '').toLowerCase().indexOf(q);
+				const as = Math.min(
+					inx(a.title) === -1 ? 999 : inx(a.title),
+					inx(a.excerpt) === -1 ? 999 : inx(a.excerpt) + 5
+				);
+				const bs = Math.min(
+					inx(b.title) === -1 ? 999 : inx(b.title),
+					inx(b.excerpt) === -1 ? 999 : inx(b.excerpt) + 5
+				);
+				return as - bs;
 			});
+
+			// Zapisz do cache
+			searchCache.set(cacheKey, { data: allFiltered, time: Date.now() });
 		}
 
-		const filtered = all.filter(x =>
-			(x.title || '').toLowerCase().includes(q) ||
-			(x.excerpt || '').toLowerCase().includes(q) ||
-			(x.author || '').toLowerCase().includes(q)
-		);
-
-		filtered.sort((a, b) => {
-			if (a.type === 'post' && b.type !== 'post') return -1;
-			if (a.type !== 'post' && b.type === 'post') return 1;
-
-			const inx = (s) => (s || '').toLowerCase().indexOf(q);
-			const as = Math.min(
-				inx(a.title) === -1 ? 999 : inx(a.title),
-				inx(a.excerpt) === -1 ? 999 : inx(a.excerpt) + 5
-			);
-			const bs = Math.min(
-				inx(b.title) === -1 ? 999 : inx(b.title),
-				inx(b.excerpt) === -1 ? 999 : inx(b.excerpt) + 5
-			);
-			return as - bs;
-		});
+		const paginatedItems = allFiltered.slice(offset, offset + limit);
+		const hasMore = offset + limit < allFiltered.length;
 
 		const result = {
-			items: filtered.slice(0, 10),
-			total: filtered.length,
+			items: paginatedItems,
+			total: allFiltered.length,
+			hasMore,
+			offset,
+			limit,
 			...(debug ? {
 				_debug: {
-					totalItems: all.length,
-					byType: {
-						pages: all.filter(x => x.type === 'page').length,
-						posts: all.filter(x => x.type === 'post').length,
-					}
+					totalFiltered: allFiltered.length,
+					returnedCount: paginatedItems.length,
+					nextOffset: offset + limit
 				}
 			} : {})
 		};
 
-		searchCache.set(cacheKey, { data: result, time: Date.now() });
 		return NextResponse.json(result);
 	} catch (e) {
 		console.error('API /search error:', e);
 		return NextResponse.json(
-			{ items: [], total: 0, error: 'search_failed' },
+			{ items: [], total: 0, hasMore: false, error: 'search_failed' },
 			{ status: 500 }
 		);
 	}
