@@ -40,6 +40,8 @@ export default function InlineSearch() {
 		setValue('');
 		setResults([]);
 		setHasMore(false)
+		setFocused(false);
+		setHovered(false);
 	};
 
 	const loadMore = useCallback(async () => {
