@@ -2,13 +2,19 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
-import Arrow, {clampText, formatPLDate} from "@/app/home/newsHome/NewsCard";
+import Arrow, { clampText, formatPLDate } from "@/app/home/newsHome/NewsCard";
 
 const MAX_POSTS = 9;
 
 export default function NewsPage() {
-    const [page, setPage] = useState(1);
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const page = Number(searchParams.get('page')) || 1;
+
     const [posts, setPosts] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +83,7 @@ export default function NewsPage() {
 
         return (
             <Link
-                href={`/aktualnosci/${documentId}`}
+                href={`/aktualnosci/${documentId}?page=${page}`}
                 key={id}
                 className="bg-white border-slate-300 border rounded-xl overflow-hidden drop-shadow-md hover:drop-shadow-lg transition-shadow"
             >
@@ -124,7 +130,9 @@ export default function NewsPage() {
 
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages && newPage !== page) {
-            setPage(newPage);
+            const params = new URLSearchParams(searchParams);
+            params.set('page', newPage);
+            router.push(`${pathname}?${params.toString()}`, { scroll: false });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
@@ -192,7 +200,6 @@ export default function NewsPage() {
     );
 }
 
-// Helper functions
 async function normalizeResponse(res) {
     try {
         if (typeof res === 'object' && res !== null) {

@@ -28,9 +28,15 @@ export async function generateMetadata({ params }) {
 	};
 }
 
-export default async function PostDetail({ params }) {
+export default async function PostDetail({ params, searchParams }) {
 	const { documentId } = await params;
+    const resolvedSearchParams = await searchParams;
+
 	const post = await getPostById(documentId);
+
+    const page = resolvedSearchParams?.page || 1;
+
+    const backLink = `/aktualnosci?page=${page}`;
 
 	if (!post) {
 		notFound();
@@ -55,7 +61,7 @@ export default async function PostDetail({ params }) {
 				<div className="h-max w-full flex flex-col gap-10 items-center">
 					<NewsHeader text={post["Tytul"]} />
                     <div className="min-h-50 md:w-2/3 break-words text-justify text-slate-700 flex flex-col text-wrap p-8 bg-white rounded-xl shadow-lg gap-5">
-                        <Link href="/aktualnosci" className="w-max text-md">
+                        <Link href={backLink} className="w-max text-md">
                             <p className="text-slate-500 hover:text-slate-800 hover:cursor-pointer transition-colors">
                                 Wróć do aktualności
                             </p>
