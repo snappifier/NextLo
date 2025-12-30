@@ -14,6 +14,7 @@ const Tarcze = dynamic(() => import('@/app/home/collaborations/Shields'), {
 
 export const revalidate = 90;
 
+
 async function getHome() {
     const json = await strapiFetch({
         endpoint: "/api/strona-glowna-szablon",

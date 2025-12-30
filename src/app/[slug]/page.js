@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import Header from "@/app/components/pages/auto/Header";
 import MainContent from "@/app/components/pages/auto/MainContent";
 import Media from "@/app/components/pages/auto/Media";
+import LinkSection from "@/app/components/pages/auto/Link";
 import Tiles from "@/app/components/pages/tiles/Tiles";
 
 
@@ -114,9 +115,9 @@ const AutomatycznyContent = ({data}) => {
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-			<div className="w-full flex items-center justify-center md:justify-start md:w-[90%] lg:w-[80%]">
+			<div className="w-full flex items-center justify-center md:w-[90%] lg:w-[80%]">
 				{sections.length ? (
-					<div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-6 text-wrap">
+					<div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-5 text-wrap">
 						<Header text={data["Naglowek"]} />
 						{sections.map((section) => {
 							const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];
@@ -128,9 +129,9 @@ const AutomatycznyContent = ({data}) => {
 							const hasMedia = media.length > 0;
 
 							return (
-								<div key={section.id} className="w-full h-max flex flex-col gap-5">
+								<div key={section.id} className="w-full h-max flex flex-col gap-10">
 									{hasContent && <MainContent text={content}/>}
-									{hasLinks && <Link linkArray={links}/>}
+									{hasLinks && <LinkSection linkArray={links}/>}
 									{hasMedia && <Media media={media}
                                                         col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
 								</div>

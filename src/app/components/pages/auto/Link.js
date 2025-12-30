@@ -4,8 +4,8 @@ import Link from "next/link";
 import {getStrapiMedia} from "@/app/lib/strapi";
 import {motion} from "motion/react";
 
-const Link = ({linkArray}) => {
-    return (<div className="w-full flex flex-col">
+const LinkSection = ({linkArray}) => {
+    return (<div className="w-full flex flex-col gap-4  text-wrap p-8 bg-white rounded-xl shadow-lg">
         {linkArray.map((link) => (
             <Link
                 key={link.id}
@@ -31,4 +31,4 @@ const Link = ({linkArray}) => {
     </div>);
 }
 
-export default Link;
+export default LinkSection;

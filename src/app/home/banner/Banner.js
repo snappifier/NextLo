@@ -15,7 +15,7 @@ export default function Banner({baner}) {
 						       className="object-contain select-none max-h-15 max-w-15 md:max-h-20 md:max-w-20 lg:max-h-25 lg:max-w-25 drop-shadow-md/20 "/>
 						<div className="flex-1 flex px-2 w-full h-full">
 							<p
-								className="w-full md:max-w-[70%] text-center sm:text-left text-black/90 font-poppins text-sm sm:text-lg md:text-lg lg:text-xl/8 xl:text-3xl/10  font-light hyphens-auto">I
+								className="w-full md:max-w-[70%] text-center sm:text-left text-black/90 font-poppins text-sm sm:text-lg md:text-lg lg:text-xl/8 xl:text-3xl/10 font-light hyphens-auto">I
 								Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
 						</div>
 						<Image src={godlo} priority alt="Godło"
