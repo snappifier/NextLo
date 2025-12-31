@@ -59,7 +59,7 @@ export default async function PostDetail({ params, searchParams }) {
             </div>}
 			<div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col md:flex-row gap-4 sm:gap-10 py-10 z-10">
 				<div className="h-max w-full flex flex-col gap-10 items-center">
-					<NewsHeader text={post["Tytul"]} />
+					<NewsHeader text={post["Tytul"]} isBackground={srcMain ? 1 : 0} />
                     <div className="min-h-50 md:w-2/3 break-words text-justify text-slate-700 flex flex-col text-wrap p-8 bg-white rounded-xl shadow-lg gap-5">
                         <Link href={backLink} className="w-max text-md">
                             <p className="text-slate-500 hover:text-slate-800 hover:cursor-pointer transition-colors">

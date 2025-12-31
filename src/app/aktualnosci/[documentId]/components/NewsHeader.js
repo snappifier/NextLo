@@ -1,9 +1,13 @@
-const NewsHeader = ({text}) =>{
-    return (<div className="w-full md:w-3/4 flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-5 text-white">
-        <p className="w-full text-3xl sm:text-4xl lg:text-4xl/12 font-bold uppercase text-center">
+import React from "react";
+
+const NewsHeader = ({text, isBackground}) =>{
+    return (<div className={`w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 ${isBackground ? "text-white" : "text-[#3077BA]"}`}>
+        <p className="w-full text-3xl sm:text-4xl lg:text-xl font-medium uppercase text-center">
+            Aktualności
+        </p>
+        <p className="w-full text-3xl sm:text-4xl lg:text-6xl font-semibold text-center uppercase">
             {text}
         </p>
-        <div className="w-1/3 h-0.5 bg-[#3077BA] rounded-2xl"></div>
     </div>)
 }
 
