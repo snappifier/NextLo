@@ -27,7 +27,7 @@ export default async function Page(){
                 </p>
                 <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
             </div>
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-8">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-5 md:gap-8">
                 {pages.map((item) => {
                     const slug = item["Tytul"];
                     return <Link key={item.id} className="h-full w-full" href={`/galeria/${slug}`}>

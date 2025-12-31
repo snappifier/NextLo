@@ -65,7 +65,7 @@ export default async function Page({ params }) {
                         <p className="mt-4">Brak wydarzeń dla tego rocznika.</p>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-5 md:gap-8">
                         <div className="absolute w-max flex justify-start">
                             <Link
                                 href={`/galeria`}
@@ -76,10 +76,10 @@ export default async function Page({ params }) {
                         </div>
 
                         <div className="w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 text-[#3077BA]">
-                            <p className="w-full text-3xl sm:text-4xl lg:text-xl font-medium uppercase text-center">
+                            <p className="w-full text-md sm:text-lg lg:text-xl font-medium uppercase text-center">
                                 Galeria
                             </p>
-                            <p className="w-full text-3xl sm:text-4xl lg:text-6xl font-semibold uppercase text-center uppercase">
+                            <p className="w-full text-5xl sm:text-5xl lg:text-6xl font-semibold text-center uppercase">
                                 {year}
                             </p>
                             <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
