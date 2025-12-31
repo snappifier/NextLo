@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
-import Arrow, { clampText, formatPLDate } from "@/app/home/newsHome/NewsCard";
+import { clampText, formatPLDate } from "@/app/home/newsHome/NewsCard";
 
 const MAX_POSTS = 9;
 
@@ -85,7 +85,7 @@ export default function NewsPage() {
             <Link
                 href={`/aktualnosci/${documentId}?page=${page}`}
                 key={id}
-                className="bg-white border-slate-300 border rounded-xl overflow-hidden drop-shadow-md hover:drop-shadow-lg transition-shadow"
+                className="group bg-white border-slate-300 border rounded-xl overflow-hidden drop-shadow-md hover:drop-shadow-lg transition-shadow"
             >
                 <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
                     <div className="flex flex-col gap-1">
@@ -100,7 +100,7 @@ export default function NewsPage() {
                             className="inline-flex items-center gap-2 text-sm text-sky-700 hover:text-sky-800 transition-colors"
                         >
                             Czytaj dalej
-                            <Arrow />
+                            <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
                         </div>
                     </div>
                 </div>
