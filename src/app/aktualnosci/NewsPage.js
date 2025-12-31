@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
-import { clampText, formatPLDate } from "@/app/home/newsHome/NewsCard";
+import { clampText, formatPLDate, stripHtml } from "@/app/home/newsHome/NewsCard";
 
 const MAX_POSTS = 9;
 
@@ -76,30 +76,23 @@ export default function NewsPage() {
         const documentId = news.documentId;
         const id = news.id;
 
-        const stripHtml = (html) => {
-            if (!html) return "";
-            return html.replace(/(<([^>]+)>)/gi, "");
-        };
-
         return (
-            <Link
-                href={`/aktualnosci/${documentId}?page=${page}`}
-                key={id}
-                className="group bg-white border-slate-300 border rounded-xl overflow-hidden drop-shadow-md hover:drop-shadow-lg transition-shadow"
-            >
-                <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
-                    <div className="flex flex-col gap-1">
-                        <span className="text-xs font-light text-slate-600">
-                            {dateRaw ? formatPLDate(dateRaw) : ''}{author ? ` • ${author}` : ''}
-                        </span>
-                        <p className="font-medium text-lg text-slate-900">{title}</p>
-                    </div>
-                    <div className="text-sm w-full h-full font-light flex flex-col justify-between gap-2 text-slate-700">
-                        <p className="line-clamp-3">{clampText(stripHtml(body), 215)}</p>
-                        <div
-                            className="inline-flex items-center gap-2 text-sm text-sky-700 hover:text-sky-800 transition-colors"
-                        >
-                            Czytaj dalej
+            <Link key={id} href={`/aktualnosci/${documentId}?page=${page}`} className="block h-full">
+                <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-[0.98] transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
+                    <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500 select-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24"><path fill="currentColor" d="M18.438 4.954H16.5V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408h-7V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408H5.562a2.503 2.503 0 0 0-2.5 2.5v11c0 1.379 1.122 2.5 2.5 2.5h12.875c1.379 0 2.5-1.121 2.5-2.5v-11a2.5 2.5 0 0 0-2.499-2.5m-12.876 1H7.5v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h7v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h1.937c.827 0 1.5.673 1.5 1.5v1.584H4.062V7.454c0-.827.673-1.5 1.5-1.5m12.876 14H5.562c-.827 0-1.5-.673-1.5-1.5v-8.416h15.875v8.416a1.5 1.5 0 0 1-1.499 1.5"></path></svg>
+                            <span>{dateRaw ? formatPLDate(dateRaw) : ''}</span>
+                            {author && <>
+                                <span>•</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8M6 8a6 6 0 1 1 12 0A6 6 0 0 1 6 8m2 10a3 3 0 0 0-3 3a1 1 0 1 1-2 0a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5a1 1 0 1 1-2 0a3 3 0 0 0-3-3z"></path></svg>
+                                <span>{author}</span>
+                            </>}
+                        </div>
+                        <h4 className="font-semibold text-base md:text-lg text-slate-900 leading-tight group-hover:text-slate-700 transition-colors duration-300 line-clamp-2 select-none">{clampText(stripHtml(title), 80)}</h4>
+                        <p className="text-sm text-slate-600 line-clamp-3 grow select-none">{clampText(stripHtml(body), 215)}</p>
+                        <div className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 mt-auto pt-2 group-hover:text-sky-700 transition-colors duration-300 select-none">
+                            <span>Czytaj dalej</span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
                         </div>
                     </div>
