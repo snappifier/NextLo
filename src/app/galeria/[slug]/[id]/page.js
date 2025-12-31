@@ -64,8 +64,8 @@ export default async function Page({ params }) {
 
     return (
         <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
-            <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col gap-5">
-                <div className="w-max h-max flex font-light">
+            <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col gap-8">
+                <div className="absolute w-max flex justify-start">
                     <Link
                         href={`/galeria/${tytulZakladki}`}
                         className="text-blue-600 hover:underline inline-flex items-center gap-2"
@@ -73,12 +73,15 @@ export default async function Page({ params }) {
                         ← Powrót do {tytulZakladki}
                     </Link>
                 </div>
-                <div className="w-full h-max">
-                    <h1 className="w-full text-3xl font-bold whitespace-normal break-words leading-tight">
+                <div className="w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 text-[#3077BA]">
+                    <p className="w-full text-3xl sm:text-4xl lg:text-xl font-medium uppercase text-center">
+                        Galeria
+                    </p>
+                    <p className="w-full text-3xl sm:text-4xl lg:text-6xl font-semibold uppercase text-center uppercase">
                         {wydarzenie?.TytulWydarzenia || `Wydarzenie ${wydarzenie.id}`}
-                    </h1>
+                    </p>
+                    <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
                 </div>
-
                 {wydarzenie?.Zdjecia && wydarzenie.Zdjecia.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
                         {wydarzenie.Zdjecia.map((zdjecie) => (

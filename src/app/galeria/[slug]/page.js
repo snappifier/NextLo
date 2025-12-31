@@ -51,42 +51,52 @@ export default async function Page({ params }) {
 
     const wydarzenia = Array.isArray(zakladka.Wydarzenia) ? zakladka.Wydarzenia : [];
 
-
     return (
         <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%]">
                 {wydarzenia.length === 0 ? (
-									<div>
-		                <Link
-			                href={`/galeria`}
-			                className="text-blue-600 hover:underline inline-flex items-center gap-2 pb-7"
-		                >
-			                ← Powrót
-		                </Link>
-                    <p>Brak wydarzeń dla tego rocznika.</p>
-									</div>
-                ) : (
-                    <div className="flex flex-col gap-8">
+                    <div>
                         <Link
                             href={`/galeria`}
                             className="text-blue-600 hover:underline inline-flex items-center gap-2"
                         >
                             ← Powrót
                         </Link>
-	                    <div className="flex flex-col items-center">
-		                    <div className="w-full  h-max flex flex-col-reverse items-center justify-start gap-2">
+                        <p className="mt-4">Brak wydarzeń dla tego rocznika.</p>
+                    </div>
+                ) : (
+                    <div className="flex flex-col gap-8">
+                        <div className="absolute w-max flex justify-start">
+                            <Link
+                                href={`/galeria`}
+                                className="text-blue-600 hover:text-blue-800 font-medium transition-colors inline-flex items-center gap-2"
+                            >
+                                ← Powrót
+                            </Link>
+                        </div>
+
+                        <div className="w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 text-[#3077BA]">
+                            <p className="w-full text-3xl sm:text-4xl lg:text-xl font-medium uppercase text-center">
+                                Galeria
+                            </p>
+                            <p className="w-full text-3xl sm:text-4xl lg:text-6xl font-semibold uppercase text-center uppercase">
+                                {year}
+                            </p>
+                            <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
                                 {wydarzenia.map((ev) => {
                                     const id = ev.id
                                     return (
-																			<Link key={id} className="w-full md:w-4/5 lg:w-3/5 xl:w-2/5" href={`/galeria/${year}/${id}`}>
-																				{/*{ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}*/}
-																				<ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`}/>
-																			</Link>
+                                        <Link key={id} className="h-full w-full block" href={`/galeria/${year}/${id}`}>
+                                            <ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`} />
+                                        </Link>
                                     );
                                 })}
-
-	                      </div>
-	                    </div>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

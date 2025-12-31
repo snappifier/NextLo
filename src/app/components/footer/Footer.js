@@ -117,7 +117,7 @@ const Footer = ({footer}) => {
 					<div className="max-w-[80%] w-full h-max flex items-center justify-center gap-5 py-2">
 						<Image src={logo} alt="logo" className="select-none h-15 w-15 drop-shadow-lg/20"/>
 						<p
-							className="text-center text-gray-50 font-poppins text-xs sm:text-xs lg:text-md max-w-2/3 font-light whitespace-normal break-words hyphens-auto">I
+							className="text-center text-gray-50 font-poppins text-xs sm:text-sm lg:text-lg max-w-2/3 font-light whitespace-normal break-words hyphens-auto">I
 							Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
 
 						<Image src={godlo} alt="Godło" className=" select-none h-15 w-auto object-contain"/>
@@ -265,9 +265,9 @@ const Footer = ({footer}) => {
 				</div>
 
 				<div className="mt-5 w-full border-t border-gray-300 flex justify-center px-6">
-					<p className="mt-5 text-center text-sm/6 text-white">
+					<p className="mt-5 text-center text-xs/6 text-white">
 						&copy; {new Date().getFullYear()} I Liceum im. Jana Zamoyskiego w Zamościu
-						<br className=""/> Design & Development: Michał Szyszło & Krystian Matwiej
+                        <br className=""/> Design & Development: <Link href={"https://mszyszlo.vercel.app"} target="_blank" >Michał Szyszło</Link> & <Link href={"https://krystianmatwiej.dev"} target="_blank">Krystian Matwiej</Link>
 					</p>
 				</div>
 			</div>

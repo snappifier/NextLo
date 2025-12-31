@@ -1,5 +1,5 @@
 import {strapiFetch} from "@/app/lib/strapi";
-import PrincipalsClient from "@/app/dyrektorzy/PrincipalsClient";
+import PrincipalsClient from "@/app/_dyrektorzy/PrincipalsClient";
 
 async function getDyrektorzy() {
     const json = await strapiFetch("/api/archiwum-dyrekcjas?populate=*&sort[0]=Poczatek:desc");
