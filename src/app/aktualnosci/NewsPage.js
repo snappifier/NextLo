@@ -142,7 +142,7 @@ export default function NewsPage() {
                 </div>
 
                 <div className="w-full h-auto flex gap-5 flex-col items-stretch mt-6">
-                    <div className="w-full grid gap-4 max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto lg:auto-rows-[16rem]">
+                    <div className="w-full grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto lg:auto-rows-[16rem]">
                         {posts.length === 0 && !isLoading && (
                             <div className="col-span-full text-center text-slate-600 py-8">Brak postów.</div>
                         )}

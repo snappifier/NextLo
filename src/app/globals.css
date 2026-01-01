@@ -5,79 +5,131 @@
     --font-meow-script: var(--font-meow-script), cursive;
 }
 
-/* globals.css */
 .rich-content.ck-content {
-    /* podstawy: czcionka, odstępy – możesz użyć prose (plugin typography) */
-    line-height: 1.45;
-    color: #0f172a; /* slate-900 */
+    line-height: 1.6;
+    color: #0f172a;
 }
 
-/* Linki (twoje preferowane kolory) */
+.rich-content.ck-content h1,
+.rich-content.ck-content h2,
+.rich-content.ck-content h3,
+.rich-content.ck-content h4 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    color: #111827;
+}
+
+.rich-content.ck-content h1 { font-size: 2.25rem; }
+.rich-content.ck-content h2 { font-size: 1.875rem; }
+.rich-content.ck-content h3 { font-size: 1.5rem;   }
+.rich-content.ck-content h4 { font-size: 1.25rem;  }
+
+.rich-content.ck-content ul {
+    list-style-type: disc;
+    padding-left: 1.6rem;
+    margin: 1rem 0;
+}
+
+.rich-content.ck-content ol {
+    list-style-type: decimal;
+    padding-left: 1.6rem;
+    margin: 1rem 0;
+}
+
+.rich-content.ck-content li {
+    margin-bottom: 0.25rem;
+}
+
+.rich-content.ck-content p {
+    margin-bottom: 1.25rem;
+}
+
+.rich-content.ck-content strong,
+.rich-content.ck-content b {
+    font-weight: 700;
+}
+
 .rich-content.ck-content a {
     color: #2563eb;
     text-decoration: underline;
+    transition: color 0.2s;
 }
-.rich-content.ck-content a:hover { color: #1e40af; }
+.rich-content.ck-content a:hover {
+    color: #1e40af;
+}
 
-/* Obrazy i figure z CKEditor */
 .rich-content.ck-content figure {
-    margin: 1.25rem 0;
+    margin: 1.5rem 0;
     text-align: center;
 }
 .rich-content.ck-content figure.image {
     display: block;
-    margin: 1rem auto;
+    margin: 1.5rem auto;
 }
 .rich-content.ck-content figure img,
 .rich-content.ck-content img {
     max-width: 100%;
     height: auto;
     display: block;
+    margin: 0 auto;
+    border-radius: 0.5rem;
 }
 
-/* figcaption (podpisy) */
 .rich-content.ck-content figcaption {
     font-size: 0.875rem;
-    color: #6b7280; /* slate-500 */
+    color: #6b7280;
     margin-top: 0.5rem;
+    text-align: center;
 }
 
-/* Tabele */
 .rich-content.ck-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
-}
-.rich-content.ck-content th,
-.rich-content.ck-content td {
-    border: 1px solid #e6e6e6;
-    padding: 0.5rem;
-    text-align: left;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    display: block;
 }
 
-/* Blockquote */
+@media (min-width: 768px) {
+    .rich-content.ck-content table {
+        display: table;
+    }
+}
+
+.rich-content.ck-content th,
+.rich-content.ck-content td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+}
+.rich-content.ck-content th {
+    background-color: #f8fafc;
+    font-weight: 600;
+}
+
 .rich-content.ck-content blockquote {
     border-left: 4px solid #e5e7eb;
     padding-left: 1rem;
-    color: #374151;
-    margin: 1rem 0;
-    background: rgba(229,231,235,0.4);
+    color: #4b5563;
+    margin: 1.5rem 0;
+    font-style: italic;
+    background: transparent;
 }
 
-/* Iframe / video / audio responsywne */
 .rich-content.ck-content iframe,
 .rich-content.ck-content video,
 .rich-content.ck-content audio {
     max-width: 100%;
     height: auto;
+    margin: 1rem 0;
 }
 
-/* Przydatne dla CKEditor classes (np. image_resizer, align-left/right/center) */
-.rich-content.ck-content .align-left { float: left; margin-right: 1rem; max-width: 50%; }
-.rich-content.ck-content .align-right { float: right; margin-left: 1rem; max-width: 50%; }
+.rich-content.ck-content .align-left { float: left; margin-right: 1.5rem; margin-bottom: 1rem; max-width: 50%; }
+.rich-content.ck-content .align-right { float: right; margin-left: 1.5rem; margin-bottom: 1rem; max-width: 50%; }
 .rich-content.ck-content .align-center { margin-left: auto; margin-right: auto; display: block; }
 
-/* Clearfix po floatach */
 .rich-content.ck-content::after {
     content: "";
     display: table;
@@ -87,4 +139,3 @@
 .no-scroll {
     overflow: hidden;
 }
-

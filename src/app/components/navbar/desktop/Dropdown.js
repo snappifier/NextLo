@@ -9,7 +9,6 @@ export default function Dropdown({ menu }) {
     const router = useRouter();
     const categories = menu?.Kategoria ?? [];
 
-    // ✅ Prefetch na hover
     const handleMouseEnter = (href) => {
         router.prefetch(href);
     };

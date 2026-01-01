@@ -57,9 +57,14 @@ async function fetchSingleById(idBase, type) {
 			},
 		};
 	} else {
-		// odpowiada: populate[Sekcja][populate]=*
 		populateObj = {
-			Sekcja: { populate: "*" },
+            Szablon: {
+                populate: {
+                    Sekcja: {
+                        populate: "*",
+                    },
+                },
+            },
 		};
 	}
 
@@ -112,6 +117,7 @@ export async function generateMetadata({ params }) {
 }
 
 const AutomatycznyContent = ({data}) => {
+    data = data["Szablon"]
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
