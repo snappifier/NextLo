@@ -73,11 +73,14 @@ export default function NewsPage() {
         const body = attributes?.Opis || '';
         const dateRaw = attributes?.Data;
         const author = attributes?.Autor || '';
+
+        const slug = attributes?.slug;
         const documentId = news.documentId;
         const id = news.id;
+        const postLink = slug ? `/aktualnosci/${slug}` : `/aktualnosci/${documentId}`;
 
         return (
-            <Link key={id} href={`/aktualnosci/${documentId}?page=${page}`} className="block h-full">
+            <Link key={id} href={`${postLink}?page=${page}`} className="block h-full">
                 <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-[0.98] transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
                     <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
                         <div className="flex items-center gap-1.5 text-xs text-slate-500 select-none">

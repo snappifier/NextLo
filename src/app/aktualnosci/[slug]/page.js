@@ -1,17 +1,30 @@
 import {getStrapiMedia, strapiFetch} from "@/app/lib/strapi";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import NewsHeader from "@/app/aktualnosci/[documentId]/components/NewsHeader";
+import NewsHeader from "@/app/aktualnosci/[slug]/components/NewsHeader";
 import sanitizeHtml from "sanitize-html";
 import Image from "next/image";
 import Photo from "@/app/galeria/[slug]/[id]/photo";
 
 export const revalidate = 120;
 
-async function getPostById(documentId) {
+// async function getPostById(documentId) {
+//     try {
+//         const json = await strapiFetch(`/api/posts/${documentId}?populate=*`);
+//         return json?.data ?? null;
+//     } catch (error) {
+//         console.error('Błąd pobierania posta:', error);
+//         return null;
+//     }
+// }
+
+async function getPostBySlug(slug) {
     try {
-        const json = await strapiFetch(`/api/posts/${documentId}?populate=*`);
-        return json?.data ?? null;
+        // Używamy filtrowania Strapi zamiast bezpośredniego ID
+        const json = await strapiFetch(`/api/posts?filters[slug][$eq]=${slug}&populate=*`);
+
+        // Strapi przy filtrowaniu zwraca tablicę w 'data'. Bierzemy pierwszy element.
+        return json?.data?.[0] ?? null;
     } catch (error) {
         console.error('Błąd pobierania posta:', error);
         return null;
@@ -19,8 +32,8 @@ async function getPostById(documentId) {
 }
 
 export async function generateMetadata({ params }) {
-    const { documentId } = await params;
-    const post = await getPostById(documentId);
+    const { slug } = await params;
+    const post = await getPostBySlug(slug);
 
     if (!post) return { title: 'Post nie znaleziony' };
 
@@ -31,10 +44,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PostDetail({ params, searchParams }) {
-    const { documentId } = await params;
+    const { slug } = await params;
     const resolvedSearchParams = await searchParams;
 
-    const post = await getPostById(documentId);
+    const post = await getPostBySlug(slug);
     const page = resolvedSearchParams?.page || 1;
     const backLink = `/aktualnosci?page=${page}`;
 
@@ -65,7 +78,7 @@ export default async function PostDetail({ params, searchParams }) {
                 <div className="h-max w-full flex flex-col gap-6 sm:gap-10 items-center">
                     <NewsHeader text={post["Tytul"]} isBackground={srcMain ? 1 : 0} />
 
-                    <div className="w-full flex flex-col xl:flex-row gap-5 xl:justify-center items-center">
+                    <div className="w-full flex flex-col xl:flex-row gap-5 xl:justify-center xl:items-start items-center">
                         <div className={`${photos.length > 0 ? "w-full" : "xl:w-[70%] md:w-full"} break-words text-justify text-slate-700 flex flex-col text-wrap p-6 sm:p-8 bg-white rounded-xl shadow-lg gap-5`}>
                             <Link href={backLink} className="w-max">
                                 <p className="text-slate-500 hover:text-slate-800 transition-colors duration-200 flex items-center gap-2 group">
