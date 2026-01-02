@@ -36,6 +36,12 @@ export default function InlineSearch() {
 		currentQueryRef.current = value;
 	}, [value])
 
+	useEffect(() => {
+		if (focused && inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, [focused]);
+
 	const closeSearch = () => {
 		setOpen(false);
 		setValue('');
@@ -64,15 +70,7 @@ export default function InlineSearch() {
 	};
 
 	const handleIconClick = () => {
-		if (!shf) {
-			setFocused(true);
-			setTimeout(() => {
-				inputRef.current?.focus();
-			}, 50);
-		} else {
-			setFocused(true);
-			inputRef.current?.focus();
-		}
+		setFocused(true);
 	};
 
 	const loadMore = useCallback(async () => {
@@ -255,7 +253,7 @@ export default function InlineSearch() {
 					tabIndex={shf ? -1 : 0}
 		>
 			{shf && (
-				<motion.input className={`w-full rounded-md px-3 py-2 outline-none text-slate-700 `}
+				<motion.input className={`w-full rounded-md px-3 py-2 outline-none text-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all`}
 							  ref={inputRef}
 							  type="search"
 							  value={value}
@@ -268,10 +266,9 @@ export default function InlineSearch() {
 							  placeholder="Szukaj…"
 							  aria-label="Szukaj"
 							  animate={shf ? {display: 'block'} : {display: 'none'}}
-							  autoFocus
 				/>
 			)}
-			<button type="button" className={`mr-2 ${shf ? 'text-slate-700' : 'text-white'} transition-colors duration-200`}
+			<button type="button" className={`mr-2 ${shf ? 'text-slate-700' : 'text-white'} transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-sky-300 rounded-full p-1`}
 					onClick={handleIconClick}
 					aria-label="Szukaj"
 					tabIndex={-1}
@@ -309,7 +306,7 @@ export default function InlineSearch() {
 												transition={{ duration: 0.2, delay: initialLoad ? index * 0.05 : 0}}
 												tabIndex={-1}
 									>
-										<Link href={item.path || '/'} className="w-full h-full flex items-center justify-start outline-none focus-visible:bg-slate-50 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500" onClick={() => closeSearch() }>
+										<Link href={item.path || '/'} className="w-full h-full flex items-center justify-start outline-none focus-visible:bg-slate-100 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500 transition-colors" onClick={() => closeSearch() }>
 											<div className={`ml-2 p-2 rounded-md flex items-center justify-center   ${item.type === 'post' ? 'bg-sky-600/50 text-white' : 'bg-slate-400/30 text-zinc-500'}`}>
 												{item.type === 'post' ? <PostIcon /> : <PageIcon />}
 											</div>
