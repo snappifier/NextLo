@@ -1,6 +1,5 @@
-
-import ShieldsClient from "@/app/home/collaborations/ShieldsClient";
 import { strapiFetch } from "@/app/lib/strapi";
+import ShieldsNew from "@/app/home/collaborations/ShieldsNew";
 
 async function getTarcze() {
 	const json = await strapiFetch("/api/strona-glowna-szablon?populate[Kolejnosc][on][home.osiagniecia][populate][Tarcze][populate]=*&populate[Kolejnosc][on][home.osiagniecia][populate][Wspolprace][populate]=*");
@@ -10,6 +9,7 @@ async function getTarcze() {
 export default async function Shields() {
 	const data = await getTarcze()
 	const osiagniecia = data["Kolejnosc"][0]
+    console.log(data)
 
-	return <ShieldsClient data={osiagniecia} />
+	return <ShieldsNew data={osiagniecia} />
 }

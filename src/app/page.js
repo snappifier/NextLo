@@ -36,7 +36,7 @@ export default async function Home() {
     const home = await getHome();
 
     return (
-        <div className="relative w-full min-h-screen flex justify-center items-center">
+        <div className="relative w-full min-h-screen flex justify-center items-center pb-5">
             <div className="w-[94%] sm:w-[90%] lg:w-[80%] h-max flex flex-col gap-5 items-center z-10">
                 <div className="w-full bg-transparent">
                     <Banner baner={home["Baner"]}/>

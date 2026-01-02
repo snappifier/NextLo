@@ -113,13 +113,13 @@ export async function generateMetadata({ params }) {
 	const resolvedParams = await params;
 	const result = await getPageData(resolvedParams.slug);
 
-	if (!result) return {};
+
+    if (!result) return {};
 
 	const [data] = result;
-	const title = data["Naglowek"] || data["Tytul"];
 
 	return {
-		title: title,
+		title: data["Szablon"]["Naglowek"],
 	};
 }
 

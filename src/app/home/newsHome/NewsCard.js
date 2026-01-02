@@ -18,11 +18,11 @@ export const formatPLDate = (d) => new Date(d).toLocaleDateString("pl-PL");
 
 export function NewsCard({ news, featured = false }) {
     const imgSrc = news?.["ZdjecieGlowne"] ? getStrapiMedia(news["ZdjecieGlowne"].url) : "";
-    const documentId = news.documentId;
+    const slug = news.slug;
 
     if (featured) {
         return (
-            <Link href={`/aktualnosci/${documentId}`} prefetch={true} className="block h-full">
+            <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full">
                 <div className="group relative w-full h-full rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2 active:scale-[0.98] transition-transform duration-300">
                     {imgSrc && (
                         <>
@@ -64,7 +64,7 @@ export function NewsCard({ news, featured = false }) {
     }
 
     return (
-        <Link href={`/aktualnosci/${documentId}`} prefetch={true} className="block h-full">
+        <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full">
             <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-[0.98] transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
                 <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
                     <div className="flex items-center gap-1.5 text-xs text-slate-500 select-none">

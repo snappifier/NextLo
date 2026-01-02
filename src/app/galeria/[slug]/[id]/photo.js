@@ -3,6 +3,7 @@
 import {motion, AnimatePresence} from "motion/react"
 import {useState} from "react";
 import Image from "next/image";
+import ImageSkeletonLoader from "@/app/components/animations/ImageSkeletonLoader";
 
 export default function Photo({uid, url, alttext, classStyles}) {
 
@@ -16,10 +17,12 @@ export default function Photo({uid, url, alttext, classStyles}) {
               className={classStyles}
 			  onClick={() => setOpened(true)}
 		  >
-              <Image
+
+              <ImageSkeletonLoader
                   src={url}
                   alt={alttext}
                   fill
+                  rounded="rounded-lg"
                   className="object-cover rounded-lg"
                   sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
               />
