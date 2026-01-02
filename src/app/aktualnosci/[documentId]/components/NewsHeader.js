@@ -1,7 +1,7 @@
 import React from "react";
 
 const NewsHeader = ({text, isBackground}) =>{
-    return (<div className={`w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 ${isBackground ? "text-white" : "text-[#3077BA]"}`}>
+    return (<div className={`w-full sm:max-w-7xl flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 ${isBackground ? "text-white" : "text-[#3077BA]"}`}>
         <p className="w-full text-sm sm:text-xl lg:text-xl font-medium uppercase text-center">
             Aktualności
         </p>

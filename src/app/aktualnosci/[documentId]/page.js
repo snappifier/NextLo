@@ -65,8 +65,8 @@ export default async function PostDetail({ params, searchParams }) {
                 <div className="h-max w-full flex flex-col gap-6 sm:gap-10 items-center">
                     <NewsHeader text={post["Tytul"]} isBackground={srcMain ? 1 : 0} />
 
-                    <div className="w-full flex flex-col xl:flex-row gap-5 justify-center">
-                        <div className={`${photos.length > 0 ? "w-full" : "w-[60%]"} break-words text-justify text-slate-700 flex flex-col text-wrap p-6 sm:p-8 bg-white rounded-xl shadow-lg gap-5`}>
+                    <div className="w-full flex flex-col xl:flex-row gap-5 xl:justify-center items-center">
+                        <div className={`${photos.length > 0 ? "w-full" : "xl:w-[70%] md:w-full"} break-words text-justify text-slate-700 flex flex-col text-wrap p-6 sm:p-8 bg-white rounded-xl shadow-lg gap-5`}>
                             <Link href={backLink} className="w-max">
                                 <p className="text-slate-500 hover:text-slate-800 transition-colors duration-200 flex items-center gap-2 group">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" className="transition-transform group-hover:-translate-x-1">
