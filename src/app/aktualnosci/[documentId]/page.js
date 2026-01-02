@@ -46,9 +46,9 @@ export default async function PostDetail({ params, searchParams }) {
     const photos = post?.["Zdjecia"] ?? [];
 
     return (
-        <div className="w-full pt-36 md:pt-30 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
+        <div className="w-full pt-20 sm:pt-30 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             {srcMain && (
-                <div className="w-full h-[60vh] sm:h-[40vh] md:h-[45vh] lg:h-[50vh] max-h-[600px] absolute top-0 z-0 overflow-hidden">
+                <div className="w-full h-[60vh] sm:h-[50vh] md:h-[65vh] lg:h-[70vh] max-h-[550px] absolute top-0 z-0 overflow-hidden">
                     <Image
                         src={srcMain}
                         alt={post["ZdjecieGlowne"].alternativeText || "Zdjęcie główne"}
@@ -65,7 +65,7 @@ export default async function PostDetail({ params, searchParams }) {
                 <div className="h-max w-full flex flex-col gap-6 sm:gap-10 items-center">
                     <NewsHeader text={post["Tytul"]} isBackground={srcMain ? 1 : 0} />
 
-                    <div className="w-full flex flex-col xl:flex-row gap-5 xl:gap-8 justify-center">
+                    <div className="w-full flex flex-col xl:flex-row gap-5 justify-center">
                         <div className={`${photos.length > 0 ? "w-full" : "w-[60%]"} break-words text-justify text-slate-700 flex flex-col text-wrap p-6 sm:p-8 bg-white rounded-xl shadow-lg gap-5`}>
                             <Link href={backLink} className="w-max">
                                 <p className="text-slate-500 hover:text-slate-800 transition-colors duration-200 flex items-center gap-2 group">
@@ -90,11 +90,6 @@ export default async function PostDetail({ params, searchParams }) {
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pt-4 border-t border-slate-200 text-sm text-slate-600">
                                 <div className="flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8M6 8a6 6 0 1 1 12 0A6 6 0 0 1 6 8m2 10a3 3 0 0 0-3 3a1 1 0 1 1-2 0a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5a1 1 0 1 1-2 0a3 3 0 0 0-3-3z"></path></svg>
-                                    <span>{post["Autor"]}</span>
-                                </div>
-                                <span className="hidden sm:inline text-slate-400">•</span>
-                                <div className="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24"><path fill="currentColor" d="M18.438 4.954H16.5V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408h-7V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408H5.562a2.503 2.503 0 0 0-2.5 2.5v11c0 1.379 1.122 2.5 2.5 2.5h12.875c1.379 0 2.5-1.121 2.5-2.5v-11a2.5 2.5 0 0 0-2.499-2.5m-12.876 1H7.5v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h7v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h1.937c.827 0 1.5.673 1.5 1.5v1.584H4.062V7.454c0-.827.673-1.5 1.5-1.5m12.876 14H5.562c-.827 0-1.5-.673-1.5-1.5v-8.416h15.875v8.416a1.5 1.5 0 0 1-1.499 1.5"></path></svg>
                                     <span>{new Date(post["Data"]).toLocaleDateString('pl-PL', {
                                         year: 'numeric',
@@ -102,12 +97,17 @@ export default async function PostDetail({ params, searchParams }) {
                                         day: 'numeric'
                                     })}</span>
                                 </div>
+                                <span className="hidden sm:inline text-slate-400">•</span>
+                                <div className="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8M6 8a6 6 0 1 1 12 0A6 6 0 0 1 6 8m2 10a3 3 0 0 0-3 3a1 1 0 1 1-2 0a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5a1 1 0 1 1-2 0a3 3 0 0 0-3-3z"></path></svg>
+                                    <span>{post["Autor"]}</span>
+                                </div>
                             </div>
                         </div>
                         {photos.length > 0 && (
-                            <div className="w-full lg:w-[50%] h-max bg-white rounded-xl shadow-lg flex flex-col p-5 lg:top-24">
+                            <div className="w-full lg:w-[50%] h-max bg-white rounded-xl shadow-lg flex flex-col p-5">
                                 <p className="text-xl font-medium text-gray-800 mb-4">Galeria</p>
-                                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 gap-2 w-full">
+                                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 gap-2 w-full select-none">
                                     {photos.map((item, index) => {
                                         const imgUrl = getStrapiMedia(item.url);
                                         if (!imgUrl) return null;
