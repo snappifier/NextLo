@@ -19,7 +19,7 @@ export default function Profile({item}) {
 	}
 
 	return (
-		<Link href="/rekrutacja" className="block w-full">
+		<Link href="/rekrutacja" className="block w-full" tabIndex={-1}>
 			<motion.div className="relative p-5 rounded-2xl cursor-pointer border border-white/50 select-none"
 						style={{backgroundColor: hovered ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)"}}
 						initial={false}
