@@ -61,7 +61,14 @@ async function fetchSingleById(idBase, type) {
             Szablon: {
                 populate: {
                     Sekcja: {
-                        populate: "*",
+                        populate: {
+                            Linki: {
+                                populate: "*"
+                            },
+                            Paragraf:{
+                                populate: "*"
+                            }
+                        },
                     },
                 },
             },
@@ -118,6 +125,7 @@ export async function generateMetadata({ params }) {
 
 const AutomatycznyContent = ({data}) => {
     data = data["Szablon"]
+    console.log(data)
 	const sections = Array.isArray(data["Sekcja"]) ? data["Sekcja"] : [];
 	return (
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
@@ -135,9 +143,9 @@ const AutomatycznyContent = ({data}) => {
 							const hasMedia = media.length > 0;
 
 							return (
-								<div key={section.id} className="w-full h-max flex flex-col gap-10">
-									{hasContent && <MainContent text={content}/>}
-									{hasLinks && <LinkSection linkArray={links}/>}
+								<div key={section.id} className="w-full h-max flex flex-col">
+									{hasContent && <MainContent text={content} hasLinks={hasLinks}/>}
+									{hasLinks && <LinkSection linkArray={links} hasContent={hasContent}/>}
 									{hasMedia && <Media media={media}
                                                         col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
 								</div>

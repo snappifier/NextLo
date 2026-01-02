@@ -16,7 +16,7 @@
 .rich-content.ck-content h4 {
     font-weight: 700;
     line-height: 1.2;
-    margin-top: 1.5em;
+    margin-top: 0.5em;
     margin-bottom: 0.75em;
     color: #111827;
 }
@@ -42,9 +42,6 @@
     margin-bottom: 0.25rem;
 }
 
-.rich-content.ck-content p {
-    margin-bottom: 1.25rem;
-}
 
 .rich-content.ck-content strong,
 .rich-content.ck-content b {

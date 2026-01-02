@@ -4,8 +4,9 @@ import Link from "next/link";
 import {getStrapiMedia} from "@/app/lib/strapi";
 import {motion} from "motion/react";
 
-const LinkSection = ({linkArray}) => {
-    return (<div className="min-w-lg w-full flex flex-col gap-4  text-wrap p-8 bg-white rounded-xl shadow-lg">
+const LinkSection = ({linkArray, hasContent}) => {
+    console.log(linkArray);
+    return (<div className={`min-w-lg w-full flex flex-col gap-4  text-wrap bg-white ${hasContent ? "px-8 py-5 pb-8 rounded-br-xl rounded-bl-xl" : "p-8 rounded-xl"} shadow-lg`}>
         {linkArray.map((link) => (
             <Link
                 key={link.id}

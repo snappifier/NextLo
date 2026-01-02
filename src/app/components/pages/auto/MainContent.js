@@ -1,6 +1,6 @@
 import sanitizeHtml from 'sanitize-html';
 
-const MainContent = ({ text }) => {
+const MainContent = ({ text, hasLinks }) => {
     if (!text || !Array.isArray(text)) return null;
 
     const sanitizeConfig = {
@@ -13,7 +13,7 @@ const MainContent = ({ text }) => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-4 text-wrap p-8 bg-white rounded-xl shadow-lg break-words">
+        <div className={`w-full flex flex-col gap-4 text-wrap bg-white ${hasLinks ? "px-8 pt-8 rounded-tr-xl rounded-tl-xl" : "p-8 rounded-xl"} shadow-lg break-words`}>
             {text.map((item) => {
                 const cleanHtml = sanitizeHtml(item["Paragraf"] || "", sanitizeConfig);
 
