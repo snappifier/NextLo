@@ -27,6 +27,7 @@ export default function Profile({item}) {
 						transition={{duration: 0.3, ease: "easeOut"}}
 						onMouseEnter={() => setHovered(true)}
 						onMouseLeave={() => setHovered(false)}
+						whileTap={{scale: 0.97, boxShadow: "0 2px 8px rgba(0,0,0,0.15)"}}
 			>
 				<div className="flex items-start gap-4">
 					<motion.div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0"
