@@ -253,7 +253,7 @@ export default function InlineSearch() {
 					tabIndex={shf ? -1 : 0}
 		>
 			{shf && (
-				<motion.input className={`w-full rounded-md px-3 py-2 outline-none text-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all`}
+				<motion.input className={`w-full rounded-md px-3 py-2 outline-none text-slate-700 placeholder:text-slate-400 transition-all`}
 							  ref={inputRef}
 							  type="search"
 							  value={value}
