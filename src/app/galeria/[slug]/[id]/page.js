@@ -85,7 +85,7 @@ export default async function Page({ params }) {
                 {wydarzenie?.Zdjecia && wydarzenie.Zdjecia.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
                         {wydarzenie.Zdjecia.map((zdjecie) => (
-                            <Photo key={zdjecie.id} url={getStrapiMedia(zdjecie.url)} alttext={wydarzenie.TytulWydarzenia} />
+                            <Photo key={zdjecie.id} url={getStrapiMedia(zdjecie.url)} alttext={wydarzenie.TytulWydarzenia} classStyles="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100 cursor-pointer"/>
                         ))}
                     </div>
                 )}

@@ -16,8 +16,8 @@
 .rich-content.ck-content h4 {
     font-weight: 700;
     line-height: 1.2;
-    margin-top: 0.5em;
-    margin-bottom: 0.75em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
     color: #111827;
 }
 
@@ -42,7 +42,6 @@
     margin-bottom: 0.25rem;
 }
 
-
 .rich-content.ck-content strong,
 .rich-content.ck-content b {
     font-weight: 700;
@@ -61,10 +60,43 @@
     margin: 1.5rem 0;
     text-align: center;
 }
+
 .rich-content.ck-content figure.image {
     display: block;
     margin: 1.5rem auto;
 }
+
+.rich-content.ck-content figure.image.image-inline {
+    display: inline-block;
+    margin: 0.5rem 1rem 0.5rem 0;
+    vertical-align: top;
+    max-width: calc(50% - 1rem);
+}
+
+.rich-content.ck-content figure.image.image-style-align-left {
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+    max-width: 50%;
+    display: table;
+    clear: initial;
+}
+
+.rich-content.ck-content figure.image.image-style-align-right {
+    float: right;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    max-width: 50%;
+    display: table;
+    clear: initial;
+}
+
+.rich-content.ck-content figure.image.image-style-side {
+    float: right;
+    margin-left: 1.5rem;
+    max-width: 50%;
+}
+
 .rich-content.ck-content figure img,
 .rich-content.ck-content img {
     max-width: 100%;

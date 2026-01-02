@@ -4,7 +4,7 @@ import {motion, AnimatePresence} from "motion/react"
 import {useState} from "react";
 import Image from "next/image";
 
-export default function Photo({uid, url, alttext}) {
+export default function Photo({uid, url, alttext, classStyles}) {
 
 	const [opened, setOpened] = useState(false)
 
@@ -13,16 +13,16 @@ export default function Photo({uid, url, alttext}) {
 		  <motion.div
 			  whileHover={{scale: 1.05}}
 			  transition={{duration: 0.2}}
-			  className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100 cursor-pointer"
+              className={classStyles}
 			  onClick={() => setOpened(true)}
 		  >
-			  <Image
-				  src={url}
-				  alt={alttext}
-				  fill
-				  className="object-cover"
-				  priority
-			  />
+              <Image
+                  src={url}
+                  alt={alttext}
+                  fill
+                  className="object-cover rounded-lg"
+                  sizes="(max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
+              />
 		  </motion.div>
 
 		  <AnimatePresence>

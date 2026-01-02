@@ -4,11 +4,14 @@ const MainContent = ({ text, hasLinks }) => {
     if (!text || !Array.isArray(text)) return null;
 
     const sanitizeConfig = {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'h3', 'h4', 'u', 'span']),
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'h3', 'h4', 'u', 'span', 'figure', 'figcaption', 'iframe']),
         allowedAttributes: {
             ...sanitizeHtml.defaults.allowedAttributes,
-            '*': ['style', 'class'], // Pozwalamy na style i klasy z CKEditora
-            'img': ['src', 'alt', 'width', 'height']
+            'img': ['src', 'alt', 'width', 'height', 'srcset', 'sizes'],
+            'iframe': ['src', 'width', 'height', 'allow', 'allowfullscreen', 'frameborder']
+        },
+        allowedClasses: {
+            '*': ['*']
         }
     };
 
