@@ -9,7 +9,6 @@ async function getTarcze() {
 export default async function Shields() {
 	const data = await getTarcze()
 	const osiagniecia = data["Kolejnosc"][0]
-    console.log(data)
 
 	return <ShieldsNew data={osiagniecia} />
 }
