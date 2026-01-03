@@ -13,7 +13,7 @@ const ProfileSection = ({data, index}) => {
                         <div className="flex flex-col justify-center">
                             <p className="text-5xl md:text-6xl lg:text-6xl font-semibold leading-none text-slate-500">{index}</p>
                         </div>
-                        <div className="flex flex-col w-full gap-1">
+                        <div className="flex flex-col w-full">
                             <p className="text-base md:text-lg lg:text-xl font-semibold text-slate-900 leading-tight">NASZE PROFILE</p>
                             <p className="text-sm md:text-base lg:text-lg font-extralight text-slate-700">Oto nasze profile przygotowane dla ciebie</p>
                         </div>

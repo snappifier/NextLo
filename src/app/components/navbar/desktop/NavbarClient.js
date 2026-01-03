@@ -10,7 +10,7 @@ import DropdownMobile from "../mobile/DropdownMobile.js";
 import {Hamburger} from "@/app/components/icons/Hamburger";
 import InlineSearch from "@/app/components/navbar/search/InlineSearch";
 
-export default function NavbarClient({menu}) {
+export default function NavbarClient({menu, icons}) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	useEffect(() => {
@@ -89,7 +89,7 @@ export default function NavbarClient({menu}) {
 
 				<AnimatePresence mode="wait">
 					{isOpen && (
-						<DropdownMobile menu={menu} isOpen={isOpen} setIsOpen={setIsOpen}/>
+						<DropdownMobile menu={menu} isOpen={isOpen} setIsOpen={setIsOpen} icons={icons}/>
 					)}
 				</AnimatePresence>
 			</header>

@@ -1,5 +1,6 @@
 import { strapiFetch } from "@/app/lib/strapi";
 import NavbarClient from "./NavbarClient";
+import {getFooter} from "@/app/components/footer/FooterServer";
 
 async function getMenu() {
     const json = await strapiFetch({
@@ -15,5 +16,6 @@ async function getMenu() {
 
 export default async function Navbar() {
     const menu = await getMenu();
-    return <NavbarClient menu={menu} />;
+    const icons = await getFooter(); //Z footera bierzemy icony aby użyć ich w navbarze mobile
+    return <NavbarClient menu={menu} icons={icons}/>;
 }

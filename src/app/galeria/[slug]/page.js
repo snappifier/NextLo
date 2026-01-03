@@ -85,17 +85,21 @@ export default async function Page({ params }) {
                             <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
                         </div>
 
-                        <div className="flex flex-col items-center">
-                            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-                                {wydarzenia.map((ev) => {
-                                    const id = ev.id
-                                    return (
-                                        <Link key={id} className="h-full w-full block" href={`/galeria/${year}/${id}`}>
-                                            <ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`} />
-                                        </Link>
-                                    );
-                                })}
-                            </div>
+                        <div className={`w-full gap-5 md:gap-8 ${
+                            wydarzenia.length < 2
+                                ? "flex justify-center"
+                                : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr"
+                        }`}>
+                            {wydarzenia.map((ev) => {
+                                const id = ev.id
+                                return (
+                                    <Link key={id}
+                                          className={`h-full w-full ${wydarzenia.length < 2 ? 'max-w-md sm:max-w-lg' : ''}`}
+                                          href={`/galeria/${year}/${id}`}>
+                                        <ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`} />
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </div>
                 )}
