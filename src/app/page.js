@@ -45,16 +45,16 @@ export default async function Home() {
                 {home["Kolejnosc"]?.map((data, index) => {
                     const componentType = data["__component"];
                     const key = `${componentType}-${data.id ?? index}`;
-
+                    const defaultIndex = index + 1
                     return (
                         <div key={key} className="w-full h-max">
-                            {componentType === "home.krotko-o-szkole" && <About data={data} />}
+                            {componentType === "home.krotko-o-szkole" && <About data={data} index={defaultIndex} />}
 
-                            {componentType === "home.profile" && <ProfileSection data={data} id={data.id ?? index} />}
+                            {componentType === "home.profile" && <ProfileSection data={data} index={defaultIndex} id={data.id ?? index} />}
 
                             {componentType === "home.aktualnosci" && (
                                 <Suspense fallback={<AktualnosciLoading />}>
-                                    <NewsServer />
+                                    <NewsServer index={defaultIndex}/>
                                 </Suspense>
                             )}
 

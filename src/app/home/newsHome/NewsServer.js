@@ -6,7 +6,7 @@ async function getPosts() {
     return json?.data ?? {};
 }
 
-export default async function NewsServer() {
+export default async function NewsServer({index}) {
     const posts = await getPosts();
-    return <NewsHome posts={posts}/>;
+    return <NewsHome index={index} posts={posts}/>;
 }

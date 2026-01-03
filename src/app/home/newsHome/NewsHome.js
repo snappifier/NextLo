@@ -2,7 +2,7 @@
 
 import {NewsCard, SeeMoreCard} from "@/app/home/newsHome/NewsCard";
 
-export const NewsHome = ({posts}) => {
+export const NewsHome = ({posts, index}) => {
 
     const displayPosts = posts.slice(0, 5)
     const featured = displayPosts[0]
@@ -15,10 +15,13 @@ export const NewsHome = ({posts}) => {
             <div className="relative flex justify-center w-full h-max">
                 <div className="relative z-20 flex w-full h-max px-6 py-6 md:px-10 md:py-8 bg-white rounded-2xl ring-1 ring-slate-200 drop-shadow-xl/20">
                     <div className="flex flex-col gap-5 items-start w-full h-max">
-                        <div className="flex items-center gap-4">
-                            <div className="flex flex-col w-max select-none">
-                                <p className="text-base md:text-lg lg:text-xl font-normal text-slate-900">AKTUALNOŚCI</p>
-                                <p className="text-base md:text-lg font-extralight text-slate-700">Bądź na bieżąco</p>
+                        <div className="flex w-full gap-4 items-center">
+                            <div className="flex flex-col justify-center">
+                                <p className="text-5xl md:text-6xl lg:text-6xl font-semibold leading-none text-slate-500">{index}</p>
+                            </div>
+                            <div className="flex flex-col w-full gap-1">
+                                <p className="text-base md:text-lg lg:text-xl font-semibold text-slate-900 leading-tight">AKTUALNOŚCI</p>
+                                <p className="text-sm md:text-base lg:text-lg font-extralight text-slate-700">Bądź na bieżąco</p>
                             </div>
                         </div>
 
