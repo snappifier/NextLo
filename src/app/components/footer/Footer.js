@@ -1,278 +1,103 @@
-"use client";
+'use client'
 
-import {useState} from "react";
-import {motion} from "motion/react";
-import Link from "next/link";
-import Image from "next/image";
+import {useState, useCallback} from "react"
+import Link from "next/link"
+import Image from "next/image"
 import logo from "../../../../public/images/logo.webp"
 import godlo from "../../../../public/images/godlo.webp"
+import Toast from "./Toast"
+import SocialIcon from "./SocialIcon"
 
+export default function Footer({footer}) {
+	const [toast, setToast] = useState({show: false, message: ""})
 
-const Footer = ({footer}) => {
-	const [copied, setCopied] = useState(false);
-	const [emailCopied, setEmailCopied] = useState(false);
+	const PHONE_NUMBER = footer["Telefon"]
+	const EMAIL = footer["Email"]
+	const ADDRESS = footer["Adres"]
+	const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`
 
-	const isMobile =
-		typeof window !== "undefined" &&
-		window.matchMedia &&
-		window.matchMedia("(pointer: coarse)").matches;
+	const showToast = useCallback((message) => {
+		setToast({show: true, message})
+		setTimeout(() => setToast({show: false, message: ""}), 2500)
+	}, [])
 
-	const PHONE_NUMBER = footer["Telefon"];
-	const EMAIL = footer["Email"];
-	const ADDRESS = footer["Adres"];
-	const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
-
-	const TEL_HREF = `tel:${PHONE_NUMBER.replace(/\s+/g, "")}`;
-
-	const navigation = {
-		social: [
-			{
-				name: "Facebook",
-				href: footer["Facebook"],
-				icon: (props) => (
-					<svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-						<path
-							fillRule="evenodd"
-							d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-							clipRule="evenodd"
-						/>
-					</svg>
-				),
-			},
-			{
-				name: "TikTok",
-				href: footer["Tiktok"],
-				icon: (props) => (
-					<svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-						<path
-							fillRule="evenodd"
-							d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"
-							clipRule="evenodd"
-						/>
-					</svg>
-				),
-			},
-			{
-				name: "Telefon",
-				icon: (props) => (
-					<svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-						<path
-							d="m16.556 12.906l-.455.453s-1.083 1.076-4.038-1.862s-1.872-4.014-1.872-4.014l.286-.286c.707-.702.774-1.83.157-2.654L9.374 2.86C8.61 1.84 7.135 1.705 6.26 2.575l-1.57 1.56c-.433.432-.723.99-.688 1.61c.09 1.587.808 5 4.812 8.982c4.247 4.222 8.232 4.39 9.861 4.238c.516-.048.964-.31 1.325-.67l1.42-1.412c.96-.953.69-2.588-.538-3.255l-1.91-1.039c-.806-.437-1.787-.309-2.417.317"/>
-					</svg>
-				),
-			},
-			{
-				name: "E-mail",
-				href: `mailto:${EMAIL}?subject=${encodeURIComponent("Zapytanie ze strony")}`,
-				icon: (props) => (
-					<svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-						<path
-							d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/>
-					</svg>
-				),
-			},
-			{
-				name: "Lokalizacja",
-				href: MAPS_URL,
-				icon: (props) => (
-					<svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-						<path
-							d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5"/>
-					</svg>
-				),
-			},
-		],
-	};
-
-	const handlePhoneClick = async (e) => {
+	const handleCopy = useCallback(async (text, message) => {
 		try {
-
-			if (!isMobile) {
-				e.preventDefault();
-			}
-			await navigator.clipboard.writeText(PHONE_NUMBER);
-			setCopied(true);
-			setTimeout(() => setCopied(false), 1500);
-
+			await navigator.clipboard.writeText(text)
+			showToast(message)
 		} catch (err) {
-			console.error("Nie udało się skopiować numeru:", err);
+			console.error("Nie udało się skopiować:", err)
 		}
-	};
+	}, [showToast])
 
-	const handleEmailClick = async () => {
-		try {
-			await navigator.clipboard.writeText(EMAIL);
-			setEmailCopied(true);
-			setTimeout(() => setEmailCopied(false), 1500);
-		} catch (e) {
-			console.error("Nie udało się skopiować e-maila:", e);
+	const socialLinks = [
+		{
+			name: "Facebook @1lozamosc",
+			href: footer["Facebook"],
+			icon: (<svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 16 16"><path fill="currentColor" d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131c.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>)
+		},
+		{
+			name: "TikTok @1lozamosc",
+			href: footer["Tiktok"],
+			icon: (<svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"/></svg>)
 		}
-	};
+	]
 
 	return (
-		<footer className={"bg-[#3077BA] w-full h-max font-poppins overflow-x-clip"}>
-			<div className="mx-auto max-w-[98%] overflow-visible  py-6 sm:py-6 lg:px-8 flex flex-col">
+		<>
+			<Toast message={toast.message} show={toast.show}/>
+			<footer className="relative w-full bg-linear-to-b from-[#3077BA] to-[#245d94] overflow-hidden">
+				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-5 sm:pb-7">
+					<div className="flex items-center justify-center gap-4 sm:gap-6 mb-8">
+						<Image src={logo} alt="Logo szkoły" className="size-14 sm:size-16 select-none pointer-events-none"/>
+						<p className="text-center text-white/90 text-sm sm:text-base lg:text-lg max-w-md font-light leading-relaxed">
+							I Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu
+						</p>
+						<Image src={godlo} alt="Godło Polski" className="h-14 sm:h-16 w-auto select-none pointer-events-none"/>
+					</div>
+					<nav className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10 select-none" aria-label="Stopka">
+						{footer["Przyciski"]?.map((item) => (
+							<Link href={item["Link"]} key={item.id} className="text-white/70 hover:text-white text-sm font-light transition-colors">
+								{item["Nazwa"]}
+							</Link>
+						))}
+					</nav>
 
-				<div className="w-full h-max flex items-center justify-center py-2">
-					<div className="max-w-[80%] w-full h-max flex items-center justify-center gap-5 py-2">
-						<Image src={logo} alt="logo" className="select-none h-15 w-15 drop-shadow-lg/20"/>
-						<p
-							className="text-center text-gray-50 font-poppins text-xs sm:text-sm lg:text-lg max-w-2/3 font-light whitespace-normal break-words hyphens-auto">I
-							Liceum Ogólnokształcące im. Jana Zamoyskiego w Zamościu </p>
+					<div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
+						{socialLinks.map((item) => (
+							<SocialIcon key={item.name} href={item.href} label={item.name} tooltipText={item.name}>
+								{item.icon}
+							</SocialIcon>
+						))}
 
-						<Image src={godlo} alt="Godło" className=" select-none h-15 w-auto object-contain"/>
+						<SocialIcon onClick={() => handleCopy(PHONE_NUMBER, "Numer skopiowany!")} label={`Zadzwoń: ${PHONE_NUMBER}`} tooltipText={PHONE_NUMBER}>
+							<svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} viewBox="0 0 56 56"><path fill="currentColor" d="M18.156 37.762c6.774 6.773 15.024 12 21.75 12c3.024 0 5.672-1.055 7.805-3.399c1.242-1.383 2.016-3 2.016-4.593c0-1.172-.446-2.297-1.57-3.094l-7.173-5.11c-1.101-.75-2.015-1.125-2.859-1.125c-1.078 0-2.016.61-3.094 1.664l-1.664 1.641a1.26 1.26 0 0 1-.89.375c-.375 0-.704-.14-.961-.258c-1.43-.773-3.914-2.906-6.235-5.203c-2.297-2.297-4.43-4.781-5.18-6.234a2 2 0 0 1-.257-.938c0-.304.093-.61.351-.867l1.64-1.71c1.056-1.079 1.665-2.017 1.665-3.095c0-.843-.375-1.757-1.148-2.859l-5.04-7.102c-.82-1.125-1.968-1.617-3.234-1.617c-1.547 0-3.164.703-4.523 2.04c-2.274 2.18-3.282 4.874-3.282 7.85c0 6.727 5.133 14.884 11.883 21.634"/></svg>
+						</SocialIcon>
+
+						<SocialIcon onClick={() => handleCopy(EMAIL, "Email skopiowany!")} label={`Skopiuj email: ${EMAIL}`} tooltipText={EMAIL}>
+							<svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
+						</SocialIcon>
+
+						<SocialIcon href={MAPS_URL} label={`Lokalizacja: ${ADDRESS}`} tooltipText={ADDRESS}>
+							<svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} viewBox="0 0 24 24"><path fill="currentColor" d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 7.35q3.05-2.8 4.525-5.087T18 10.2q0-2.725-1.737-4.462T12 4T7.738 5.738T6 10.2q0 1.775 1.475 4.063T12 19.35M12 22q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22m0-12"/></svg>
+						</SocialIcon>
+					</div>
+
+					<div className="w-full max-w-md mx-auto h-px bg-white/20 mb-6"/>
+					<div className="text-center text-white/60 text-xs sm:text-sm">
+						<p className="leading-relaxed">&copy; {new Date().getFullYear()} I Liceum im. Jana Zamoyskiego w Zamościu</p>
+						<p className="mt-2">Design & Development:{" "}
+							<Link href="https://mszyszlo.vercel.app" className="hover:text-white transition-colors duration-300" target="_blank">
+								Michał Szyszło
+							</Link>
+							{" & "}
+							<Link href="https://krystianmatwiej.pl" className="hover:text-white transition-colors duration-300" target="_blank">
+								Krystian Matwiej
+							</Link>
+						</p>
 					</div>
 				</div>
-
-
-				<nav
-					aria-label="Footer"
-					className="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-1 pt-6 text-sm/6 px-6"
-				>
-					{footer["Przyciski"].map((item) => {
-						return <Link
-							key={item.id}
-							href={item["Link"]}
-							className="text-gray-200 hover:text-white select-none"
-						>
-							{item["Nazwa"]}
-						</Link>
-					})}
-				</nav>
-
-				<div className="mt-16 flex justify-center gap-x-10">
-					{navigation.social.map((item) => {
-						if (item.name === "Telefon") {
-							return (
-								<div key="Telefon" className="relative group">
-									<div
-										className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 z-10">
-                                        <span
-	                                        className="rounded-md bg-white/90 px-3 py-1.5 text-xs font-medium text-[#3077BA] shadow whitespace-nowrap">
-                                          {PHONE_NUMBER}
-                                        </span>
-									</div>
-
-									{copied && (
-										<motion.div
-											initial={{opacity: 0, y: 6}}
-											animate={{opacity: 1, y: 0}}
-											exit={{opacity: 0, y: -6}}
-											className="pointer-events-none absolute -top-18 left-1/2 -translate-x-1/2"
-										>
-                                          <span
-	                                          className="rounded-md bg-green-500/90 px-2 py-1 text-xs font-semibold text-white shadow">
-                                            Skopiowano!
-                                          </span>
-										</motion.div>
-									)}
-
-									<motion.a
-										href={TEL_HREF}
-										onClick={handlePhoneClick}
-										whileTap={{scale: 0.9}}
-										className="text-gray-300 hover:text-white focus:outline-none"
-										aria-label={`Zadzwoń lub skopiuj: ${PHONE_NUMBER}`}
-										title={`Skopiuj numer: ${PHONE_NUMBER}`}
-									>
-										<item.icon aria-hidden="true" className="size-6"/>
-									</motion.a>
-								</div>
-							);
-						}
-						if (item.name === "E-mail") {
-							return (
-								<div key="E-mail" className="relative group">
-									{/* tooltip z adresem */}
-									<div
-										className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 z-10">
-                                        <span
-	                                        className="rounded-md bg-white/90 px-3 py-1.5 text-xs font-medium text-[#3077BA] shadow whitespace-nowrap">
-                                          {EMAIL}
-                                        </span>
-									</div>
-
-									{/* „Skopiowano!” dla e-maila */}
-									{emailCopied && (
-										<motion.div
-											initial={{opacity: 0, y: 6}}
-											animate={{opacity: 1, y: 0}}
-											exit={{opacity: 0, y: -6}}
-											className="pointer-events-none absolute -top-18 left-1/2 -translate-x-1/2"
-										>
-                                          <span
-	                                          className="rounded-md bg-green-500/90 px-2 py-1 text-xs font-semibold text-white shadow">
-                                            Skopiowano!
-                                          </span>
-										</motion.div>
-									)}
-
-
-									<a
-										href={`mailto:${EMAIL}`}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="text-gray-300 hover:text-white"
-										aria-label={`Napisz e-mail: ${EMAIL}`}
-										title={`Napisz maila: ${EMAIL}`}
-										onClick={handleEmailClick}
-									>
-										<item.icon aria-hidden="true" className="size-6"/>
-									</a>
-								</div>
-							);
-						}
-						if (item.name === "Lokalizacja") {
-							return (
-								<div key="Lokalizacja" className="relative group">
-									{/* tooltip z adresem */}
-									<div
-										className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 z-10">
-                                        <span
-	                                        className="rounded-md bg-white/90 px-3 py-1.5 text-xs font-medium text-[#3077BA] shadow whitespace-nowrap">
-                                          {ADDRESS}
-                                        </span>
-									</div>
-
-									<a
-										href={MAPS_URL}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="text-gray-300 hover:text-white"
-										aria-label={`Pokaż lokalizację: ${ADDRESS}`}
-										title={`Pokaż lokalizację: ${ADDRESS}`}
-									>
-										<item.icon aria-hidden="true" className="size-6"/>
-									</a>
-								</div>
-							);
-						}
-
-
-						return (
-							<a
-								key={item.name}
-								href={item.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-gray-300 hover:text-white"
-							>
-								<span className="sr-only">{item.name}</span>
-								<item.icon aria-hidden="true" className="size-6"/>
-							</a>
-						);
-					})}
-				</div>
-
-				<div className="mt-5 w-full border-t border-gray-300 flex justify-center px-6">
-					<p className="mt-5 text-center text-xs/6 text-white">
-						&copy; {new Date().getFullYear()} I Liceum im. Jana Zamoyskiego w Zamościu
-                        <br className=""/> Design & Development: <Link href={"https://mszyszlo.vercel.app"} target="_blank" >Michał Szyszło</Link> & <Link href={"https://krystianmatwiej.dev"} target="_blank">Krystian Matwiej</Link>
-					</p>
-				</div>
-			</div>
-		</footer>
-	);
-};
-
-export default Footer;
+			</footer>
+		</>
+	)
+}
