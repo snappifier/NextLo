@@ -26,13 +26,13 @@ export default function ShieldsNew({data}) {
         <div className="w-full h-auto bg-white rounded-2xl shadow-lg/20 overflow-hidden">
             <div className="w-full h-full flex flex-col lg:flex-row gap-3 lg:gap-4">
                 <div className="w-full flex flex-col justify-center text-center items-center gap-3 px-4 py-6 sm:px-6 sm:py-8">
-                    <div className="relative w-full max-w-[200px] h-48 sm:h-56">
+                    <div className="relative w-full max-w-50 h-48 sm:h-56 select-none">
                         <ImageSkeletonLoader
                             src={shieldImages[0]}
                             alt={"Tarcza Persektywy"}
                             fill
                             rounded="rounded-lg"
-                            className="object-contain rounded-lg"
+                            className="object-contain rounded-lg pointer-events-none"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                     </div>
@@ -53,12 +53,12 @@ export default function ShieldsNew({data}) {
                                         alt={`Logo współpracy ${index + 1}`}
                                         fill
                                         rounded="rounded-md"
-                                        className="object-contain p-0.5"
+                                        className="object-contain p-0.5 pointer-events-none"
                                         sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"
                                     />
                                 </div>
                             ))}
-                            <div className="col-span-3 flex justify-center gap-2 w-full">
+                            <div className="col-span-3 flex justify-center gap-2 w-full select-none ">
                                 {logoImages.slice(4,6).map((item, index) => (
                                     <div key={`logo-extra-${index}`} className="relative w-[32%] aspect-square bg-white rounded-lg border border-gray-100 shadow-sm p-1.5 scale-95 hover:scale-102 duration-400 ">
                                         <ImageSkeletonLoader
@@ -66,7 +66,7 @@ export default function ShieldsNew({data}) {
                                             alt={`Logo współpracy ${index + 1}`}
                                             fill
                                             rounded="rounded-md"
-                                            className="object-contain p-0.5"
+                                            className="object-contain p-0.5 pointer-events-none"
                                             sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"
                                         />
                                     </div>
