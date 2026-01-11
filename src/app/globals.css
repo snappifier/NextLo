@@ -21,6 +21,11 @@
     color: #111827;
 }
 
+.rich-content.ck-content p {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
 .rich-content.ck-content h1 { font-size: 2.25rem; }
 .rich-content.ck-content h2 { font-size: 1.875rem; }
 .rich-content.ck-content h3 { font-size: 1.5rem;   }

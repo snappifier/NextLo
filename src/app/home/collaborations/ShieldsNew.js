@@ -4,15 +4,6 @@ import {getStrapiMedia} from "@/app/lib/strapi";
 import ImageSkeletonLoader from "@/app/components/animations/ImageSkeletonLoader";
 
 export default function ShieldsNew({data}) {
-    const shieldImages = useMemo(() =>
-            Array.isArray(data["Tarcze"])
-                ? data["Tarcze"]
-                    .map((item) => item["Zdjecie"]?.url ? getStrapiMedia(item["Zdjecie"].url) : null)
-                    .filter(Boolean)
-                : [],
-        [data["Tarcze"]]
-    );
-
     const logoImages = useMemo(() =>
             Array.isArray(data["Wspolprace"])
                 ? data["Wspolprace"]
@@ -22,23 +13,25 @@ export default function ShieldsNew({data}) {
         [data["Wspolprace"]]
     );
 
+    const shieldImg = data["Tarcza"]?.["Zdjecie"] ? getStrapiMedia(data["Tarcza"]["Zdjecie"].url) : null
+
     return (
         <div className="w-full h-auto bg-white rounded-2xl shadow-lg/20 overflow-hidden">
             <div className="w-full h-full flex flex-col lg:flex-row gap-3 lg:gap-4">
                 <div className="w-full flex flex-col justify-center text-center items-center gap-3 px-4 py-6 sm:px-6 sm:py-8">
                     <div className="relative w-full max-w-50 h-48 sm:h-56 select-none">
-                        <ImageSkeletonLoader
-                            src={shieldImages[0]}
+                        {shieldImg && <ImageSkeletonLoader
+                            src={shieldImg}
                             alt={"Tarcza Persektywy"}
                             fill
                             rounded="rounded-lg"
                             className="object-contain rounded-lg pointer-events-none"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
+                        />}
                     </div>
                     <div className="w-full max-w-md flex flex-col gap-1.5">
-                        <p className="font-bold uppercase text-base sm:text-lg md:text-xl lg:text-2xl">NAJLEPSZE LICEUM W ZAMOŚCIU</p>
-                        <p className="font-normal text-xs sm:text-sm lg:text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed tempor orci, nec aliquam sem.</p>
+                        <p className="font-bold uppercase text-base sm:text-lg md:text-xl lg:text-2xl">{data["Tarcza"]["Naglowek"]}</p>
+                        <p className="font-normal text-xs sm:text-sm lg:text-base">{data["Tarcza"]["Opis"]}</p>
                     </div>
                 </div>
 
