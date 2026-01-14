@@ -4,8 +4,6 @@ import { getStrapiMedia } from "@/app/lib/strapi";
 import Image from "next/image";
 import Link from "next/link";
 
-
-
 export const clampText = (txt, n = 215) =>
     typeof txt === "string" && txt.length > n ? txt.substring(0, n) + "…" : txt;
 
