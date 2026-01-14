@@ -46,7 +46,25 @@ async function getMenuItems() {
 
 async function fetchSingleById(idBase, type) {
 	let populateObj;
-	if (type === "Tiles") {
+	if (idBase === "kadra") {
+		populateObj = {
+			Szablon: {
+				populate: {
+					Grupy: {
+						populate: {
+							ElementGrupy: {
+								populate: {
+									Kafelki: {
+										populate: "przypinki"
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+	} else if (type === "Tiles") {
 		populateObj = {
 			Sekcja: {
 				populate: {
@@ -185,7 +203,7 @@ export default async function Page({ params }) {
         return (
             <Suspense fallback={<LoadingFallback />}>
                 {typ === "Automatyczny" && <AutomatycznyContent data={data} />}
-                {typ === "Tiles" && <Tiles dataKafelki={data} />}
+	              {(typ === "Tiles" || typ === "Kafelki") && <Tiles dataKafelki={data} />}
             </Suspense>
         );
     } catch (e){
