@@ -6,7 +6,7 @@ import sanitizeHtml from "sanitize-html";
 import Image from "next/image";
 import Photo from "@/app/galeria/[slug]/[id]/photo";
 
-export const revalidate = 120;
+export const revalidate = 60;
 
 // async function getPostById(documentId) {
 //     try {

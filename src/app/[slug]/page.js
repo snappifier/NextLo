@@ -8,7 +8,7 @@ import LinkSection from "@/app/components/pages/auto/Link";
 import Tiles from "@/app/components/pages/tiles/Tiles";
 
 
-export const revalidate = 120;
+export const revalidate = 60;
 
 const attrs = (x) => (x?.attributes ?? x ?? {});
 

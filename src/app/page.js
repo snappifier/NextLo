@@ -1,19 +1,12 @@
 import {strapiFetch} from "@/app/lib/strapi";
 import { Suspense } from "react";
-import dynamic from 'next/dynamic';
 import Banner from "@/app/home/banner/Banner";
 import ProfileSection from "@/app/home/profiles/ProfileSection";
 import NewsServer from "@/app/home/newsHome/NewsServer";
 import About from "@/app/home/about/About";
 import Shields from "@/app/home/collaborations/Shields";
 
-const Tarcze = dynamic(() => import('@/app/home/collaborations/Shields'), {
-    loading: () => <div className="w-full h-64 bg-slate-100 animate-pulse rounded-2xl" />,
-    ssr: true
-});
-
-export const revalidate = 90;
-
+export const revalidate = 60;
 
 async function getHome() {
     const json = await strapiFetch({

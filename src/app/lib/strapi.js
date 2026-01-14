@@ -44,7 +44,7 @@ export async function strapiFetch(path, opts = {}) {
     const res = await fetch(url, {
         // Domyślnie Next.js cache'uje, chyba że `cache: 'no-store'` przekazane w opts
         next: {
-            revalidate: fetchOptions.revalidate ?? 120, // 1h domyślnie
+            revalidate: 60, // 1h domyślnie
             tags: fetchOptions.tags ?? [endpoint.split('/')[2] || 'strapi'] // np. 'posts', 'menu'
         },
         ...fetchOptions,
