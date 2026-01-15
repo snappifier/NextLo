@@ -3,16 +3,21 @@
 import {useMemo} from "react"
 import Section from "./Section"
 import MobileNavigation from "./MobileNavigation"
-import {DesktopNavAccordion} from "./DesktopNavigation"
+import {DesktopNavAccordion, DesktopNavOthers} from "./DesktopNavigation"
 import ActiveSectionScroll from "./ActiveSectionScroll"
-import {slug} from "./Utils"
+import {slug, sortPL} from "./Utils"
 
 const Tiles = ({dataKafelki}) => {
-    const groupedData = useMemo(() => {
-        return dataKafelki?.Szablon?.Grupy || []
-    }, [dataKafelki])
+    const hasGroups = Boolean(dataKafelki?.Szablon?.Grupy?.length)
 
-    const allSections = useMemo(() => {
+    const groupedData = useMemo(() => {
+        if (!hasGroups) return []
+
+        return dataKafelki?.Szablon?.Grupy || []
+    }, [dataKafelki, hasGroups])
+
+    const allSectionsFromGroups = useMemo(() => {
+        if (!hasGroups) return []
         const sections = []
         groupedData.forEach((group) => {
             group.ElementGrupy?.forEach((element) => {
@@ -24,11 +29,33 @@ const Tiles = ({dataKafelki}) => {
             })
         })
         return sections
-    }, [groupedData])
+    }, [groupedData, hasGroups])
+
+    const legacyGroups = useMemo(() => {
+        if (hasGroups) return {}
+        const templates = dataKafelki?.Sekcja?.Szablon || []
+        const acc = {}
+        for (const p of templates) {
+            const raw = (p["Naglowek"] ?? "").trim()
+            const subjects = raw ? raw.split(/[;,/]/).map((s) => s.trim()).filter(Boolean) : ["Inne"]
+            for (const k of subjects) {
+                (acc[k] ??= []).push(p)
+            }
+        }
+        return acc
+    }, [dataKafelki, hasGroups])
+
+    const legacySectionOrder = useMemo(() => {
+        if (hasGroups) return []
+        return Object.keys(legacyGroups).sort(sortPL)
+    }, [legacyGroups, hasGroups])
 
     const sectionIds = useMemo(() => {
-        return allSections.map(({title, id}) => ({title, id}))
-    }, [allSections])
+        if (hasGroups) {
+            return allSectionsFromGroups.map(({title, id}) => ({title, id}))
+        }
+        return legacySectionOrder.map((title) => ({title, id: slug(title)}))
+    }, [hasGroups, allSectionsFromGroups, legacySectionOrder])
 
     const active = ActiveSectionScroll(sectionIds)
 
@@ -38,7 +65,7 @@ const Tiles = ({dataKafelki}) => {
         el.scrollIntoView({behavior: "smooth", block: "start"})
     }
 
-    const pageTitle = dataKafelki?.Szablon?.Tytul || "Tiles"
+    const pageTitle = hasGroups ? dataKafelki?.Szablon?.Tytul || "Tiles" : dataKafelki?.Sekcja?.Tytul || "Tiles"
 
     if (sectionIds.length === 0) {
         return (
@@ -58,12 +85,28 @@ const Tiles = ({dataKafelki}) => {
                       </p>
                   </div>
 
-                    <MobileNavigation items={sectionIds} activeId={active} onJump={handleJump} />
+                  <MobileNavigation items={sectionIds} active={active} onJump={handleJump}/>
 
-                    {allSections.map((section) => (<Section key={section.id} title={section.title} items={section.kafelki} />))}
+                  {hasGroups ? (
+                    allSectionsFromGroups.map((section) => (
+                      <Section key={section.id} title={section.title} items={section.kafelki}/>
+                    ))
+                  ) : (
+                    legacySectionOrder.map((title) => {
+                        const items = legacyGroups[title] || []
+                        const flatItems = items.flatMap((item) => item["Kafelki"] || [item])
+
+                        return (
+                          <Section key={title} title={title} items={flatItems} />
+                        )
+                    })
+                  )}
               </main>
 
-                <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump} />
+              {hasGroups ? ( <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump}/>
+              ) : (
+                <DesktopNavOthers items={sectionIds} activeId={active} onJump={handleJump}/>
+              )}
           </div>
       </div>
     )
