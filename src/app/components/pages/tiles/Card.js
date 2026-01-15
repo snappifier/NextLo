@@ -22,12 +22,16 @@ const Card =({profil, sectionTitle}) => {
 				{description && (
 					<p className="text-slate-600 text-xs mt-1 line-clamp-2">{description}</p>
 				)}
-				{profil["przypinki"]?.[0] && (
-					<span className="mt-2 inline-flex items-center rounded-md px-2 py-1 text-[11px] sm:text-xs font-medium"
-					      style={{color: profil["przypinki"][0]["KolorTekstu"] || "#334155", backgroundColor: profil["przypinki"][0]["Kolor"] || "#f1f5f9"}}
-					>
-						{profil["przypinki"][0]["Funkcja"]}
-					</span>
+				{profil["przypinki"]?.length > 0 && (
+					<div className="flex flex-col mt-2">
+						{profil["przypinki"].map((e) => (
+							<span key={e.id} className="mt-1 inline-flex items-center rounded-md px-2 py-1 text-[11px] sm:text-xs font-medium"
+								  style={{color: e["KolorTekstu"] || "#334155", backgroundColor: e["Kolor"] || "#f1f5f9"}}
+							>
+								{e["Funkcja"]}
+							</span>
+						))}
+					</div>
 				)}
 			</div>
 		</motion.div>
