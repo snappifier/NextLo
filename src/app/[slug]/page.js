@@ -46,7 +46,7 @@ async function getMenuItems() {
 
 async function fetchSingleById(idBase, type) {
 	let populateObj;
-	if (idBase === "kadra") {
+	if (type === "Kafelki") {
 		populateObj = {
 			Szablon: {
 				populate: {
@@ -64,16 +64,6 @@ async function fetchSingleById(idBase, type) {
 				},
 			},
 		}
-	} else if (type === "Tiles") {
-		populateObj = {
-			Sekcja: {
-				populate: {
-					Szablon: {
-						populate: "Kafeleki",
-					},
-				},
-			},
-		};
 	} else {
 		populateObj = {
             Szablon: {
