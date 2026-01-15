@@ -3,21 +3,16 @@
 import {useMemo} from "react"
 import Section from "./Section"
 import MobileNavigation from "./MobileNavigation"
-import {DesktopNavAccordion, DesktopNavOthers} from "./DesktopNavigation"
+import {DesktopNavAccordion} from "./DesktopNavigation"
 import ActiveSectionScroll from "./ActiveSectionScroll"
-import {slug, sortPL} from "./Utils"
+import {slug} from "./Utils"
 
 const Tiles = ({dataKafelki}) => {
-    const hasGroups = Boolean(dataKafelki?.Szablon?.Grupy?.length)
-
     const groupedData = useMemo(() => {
-        if (!hasGroups) return []
-
         return dataKafelki?.Szablon?.Grupy || []
-    }, [dataKafelki, hasGroups])
+    }, [dataKafelki])
 
-    const allSectionsFromGroups = useMemo(() => {
-        if (!hasGroups) return []
+    const allSections = useMemo(() => {
         const sections = []
         groupedData.forEach((group) => {
             group.ElementGrupy?.forEach((element) => {
@@ -29,33 +24,11 @@ const Tiles = ({dataKafelki}) => {
             })
         })
         return sections
-    }, [groupedData, hasGroups])
-
-    const legacyGroups = useMemo(() => {
-        if (hasGroups) return {}
-        const templates = dataKafelki?.Sekcja?.Szablon || []
-        const acc = {}
-        for (const p of templates) {
-            const raw = (p["Naglowek"] ?? "").trim()
-            const subjects = raw ? raw.split(/[;,/]/).map((s) => s.trim()).filter(Boolean) : ["Inne"]
-            for (const k of subjects) {
-                (acc[k] ??= []).push(p)
-            }
-        }
-        return acc
-    }, [dataKafelki, hasGroups])
-
-    const legacySectionOrder = useMemo(() => {
-        if (hasGroups) return []
-        return Object.keys(legacyGroups).sort(sortPL)
-    }, [legacyGroups, hasGroups])
+    }, [groupedData])
 
     const sectionIds = useMemo(() => {
-        if (hasGroups) {
-            return allSectionsFromGroups.map(({title, id}) => ({title, id}))
-        }
-        return legacySectionOrder.map((title) => ({title, id: slug(title)}))
-    }, [hasGroups, allSectionsFromGroups, legacySectionOrder])
+        return allSections.map(({title, id}) => ({title, id}))
+    }, [allSections])
 
     const active = ActiveSectionScroll(sectionIds)
 
@@ -65,7 +38,7 @@ const Tiles = ({dataKafelki}) => {
         el.scrollIntoView({behavior: "smooth", block: "start"})
     }
 
-    const pageTitle = hasGroups ? dataKafelki?.Szablon?.Tytul || "Tiles" : dataKafelki?.Sekcja?.Tytul || "Tiles"
+    const pageTitle = dataKafelki?.Szablon?.Tytul || "Tiles"
 
     if (sectionIds.length === 0) {
         return (
@@ -85,28 +58,12 @@ const Tiles = ({dataKafelki}) => {
                       </p>
                   </div>
 
-                  <MobileNavigation items={sectionIds} active={active} onJump={handleJump}/>
+                    <MobileNavigation items={sectionIds} activeId={active} onJump={handleJump} />
 
-                  {hasGroups ? (
-                    allSectionsFromGroups.map((section) => (
-                      <Section key={section.id} title={section.title} items={section.kafelki}/>
-                    ))
-                  ) : (
-                    legacySectionOrder.map((title) => {
-                        const items = legacyGroups[title] || []
-                        const flatItems = items.flatMap((item) => item["Kafelki"] || [item])
-
-                        return (
-                          <Section key={title} title={title} items={flatItems} />
-                        )
-                    })
-                  )}
+                    {allSections.map((section) => (<Section key={section.id} title={section.title} items={section.kafelki} />))}
               </main>
 
-              {hasGroups ? ( <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump}/>
-              ) : (
-                <DesktopNavOthers items={sectionIds} activeId={active} onJump={handleJump}/>
-              )}
+                <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump} />
           </div>
       </div>
     )
