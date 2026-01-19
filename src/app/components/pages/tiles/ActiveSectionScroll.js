@@ -17,15 +17,19 @@ const ActiveSectionScroll = (sectionIds) => {
 			if (chips && getComputedStyle(chips).position === 'sticky') {
 				offset += chips.getBoundingClientRect().height
 			}
-			return Math.round(offset + 8)
+			const vh = window.innerHeight || 0;
+			return Math.round(offset + (vh * 0.2));
 		}
 
-		const sections = sectionIds.map(({id}) => document.getElementById(id)).filter(Boolean)
 		let frame = 0
 
 		const updateActive = () => {
-			const offset = getTopOffset()
+			const sections = sectionIds
+				.map(({id}) => document.getElementById(id))
+				.filter(Boolean)
+
 			const vh = window.innerHeight || 0
+			const offset = getTopOffset()
 			const scrollBottom = window.scrollY + vh
 			const docHeight = document.documentElement.scrollHeight
 			const isAtBottom = scrollBottom >= docHeight - 50
@@ -71,13 +75,21 @@ const ActiveSectionScroll = (sectionIds) => {
 			frame = requestAnimationFrame(updateActive)
 		}
 
+		const onClick = () => {
+			setTimeout(() => requestAnimationFrame(updateActive), 100)
+			setTimeout(() => requestAnimationFrame(updateActive), 300)
+		}
+
 		updateActive()
 		window.addEventListener("scroll", onScroll, {passive: true})
 		window.addEventListener("resize", onScroll)
+		window.addEventListener("click", onClick)
+
 		return () => {
 			if (frame) cancelAnimationFrame(frame)
 			window.removeEventListener("scroll", onScroll)
 			window.removeEventListener("resize", onScroll)
+			window.removeEventListener("click", onClick)
 		}
 	}, [sectionIds])
 
