@@ -6,6 +6,7 @@ import MobileNavigation from "./MobileNavigation"
 import {DesktopNavAccordion, DesktopNavOthers} from "./DesktopNavigation"
 import ActiveSectionScroll from "./ActiveSectionScroll"
 import {slug, sortPL} from "./Utils"
+import GroupHeader from "@/app/components/pages/tiles/GroupHeader";
 
 const Tiles = ({dataKafelki}) => {
     const hasGroups = Boolean(dataKafelki?.Szablon?.Grupy?.length)
@@ -18,17 +19,18 @@ const Tiles = ({dataKafelki}) => {
 
     const allSectionsFromGroups = useMemo(() => {
         if (!hasGroups) return []
-        const sections = []
-        groupedData.forEach((group) => {
-            group.ElementGrupy?.forEach((element) => {
-                sections.push({
-                    title: element.Naglowek,
-                    id: slug(element.Naglowek),
-                    kafelki: element.Kafelki || [],
-                })
-            })
-        })
-        return sections
+        const showGroup = dataKafelki?.Szablon?.NazwaGrup;
+        return groupedData.reduce((acc, group) => {
+            const groupName = group.NaglowekGrupy;
+            acc[groupName] = group.ElementGrupy?.map((element) => ({
+                title: element.Naglowek,
+                id: slug(`${groupName} ${element.Naglowek}`),
+                kafelki: element.Kafelki || [],
+                showGroup: showGroup,
+            })) || [];
+
+            return acc; // To mapa z ("Nazwa grupy") -> Elementy
+        }, {});
     }, [groupedData, hasGroups])
 
     const legacyGroups = useMemo(() => {
@@ -52,7 +54,9 @@ const Tiles = ({dataKafelki}) => {
 
     const sectionIds = useMemo(() => {
         if (hasGroups) {
-            return allSectionsFromGroups.map(({title, id}) => ({title, id}))
+            return Object.values(allSectionsFromGroups)
+                .flat()
+                .map(({title, id}) => ({title, id}));
         }
         return legacySectionOrder.map((title) => ({title, id: slug(title)}))
     }, [hasGroups, allSectionsFromGroups, legacySectionOrder])
@@ -88,9 +92,24 @@ const Tiles = ({dataKafelki}) => {
                   <MobileNavigation items={sectionIds} active={active} onJump={handleJump}/>
 
                   {hasGroups ? (
-                    allSectionsFromGroups.map((section) => (
-                      <Section key={section.id} title={section.title} items={section.kafelki}/>
-                    ))
+                      Object.entries(allSectionsFromGroups).map(([groupName, sections]) => {
+                          const shouldShowHeader = sections[0]?.showGroup;
+                          console.log(sections)
+                          return (<div key={groupName} className="flex flex-col gap-5 pb-10">
+                              {shouldShowHeader && (
+                                  <GroupHeader groupTitle={groupName} />
+                              )}
+
+                              {sections.map((section) => (
+                                  <Section
+                                      key={section.id}
+                                      title={section.title}
+                                      items={section.kafelki}
+                                      shouldShowHeader={shouldShowHeader}
+                                  />
+                              ))}
+                          </div>)
+                      })
                   ) : (
                     legacySectionOrder.map((title) => {
                         const items = legacyGroups[title] || []
