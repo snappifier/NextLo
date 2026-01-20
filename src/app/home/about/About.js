@@ -17,7 +17,7 @@ export default function About({data, index}) {
                     </div>
 
                     <div className="mt-6 md:mt-8 flex flex-col gap-6 md:gap-8 w-full">
-                        <p className="font-[meow_script] text-6xl md:text-5xl lg:text-7xl leading-tight">
+                        <p className="font-[meow_script] text-5xl md:text-5xl lg:text-7xl leading-tight">
                             {data["Naglowek"]}
                         </p>
                         <p className="max-w-sm sm:max-w-md md:max-w-2xl font-light text-balance text-base md:text-lg lg:text-xl text-slate-800">

@@ -67,7 +67,7 @@ export const DesktopNavAccordion = ({groupedData, activeId, onJump}) => {
 										   onClick={() => toggleGroup(group.id)}
 										   type="button"
 							>
-                         <span className={`text-sm font-medium ${hasActive ? "text-[#3077BA]" : "text-slate-700"}`}>
+                         <span className={`text-sm font-medium text-left ${hasActive ? "text-[#3077BA]" : "text-slate-700"}`}>
                             {group.NaglowekGrupy}
                          </span>
 								<div className="flex items-center gap-2">

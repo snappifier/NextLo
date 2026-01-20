@@ -6,6 +6,7 @@ import MainContent from "@/app/components/pages/auto/MainContent";
 import Media from "@/app/components/pages/auto/Media";
 import LinkSection from "@/app/components/pages/auto/Link";
 import Tiles from "@/app/components/pages/tiles/Tiles";
+import PrincipalsClient from "@/app/components/pages/principals/PrincipalsClient";
 
 
 export const revalidate = 60;
@@ -64,6 +65,16 @@ async function fetchSingleById(idBase, type) {
 				},
 			},
 		}
+	} else if (idBase === "dyrektorzy") {
+		populateObj = {
+			Szablon: {
+				populate: {
+					Dyrektorzy: {
+						populate: "*"
+					},
+				},
+			},
+		};
 	} else {
 		populateObj = {
             Szablon: {
@@ -189,11 +200,16 @@ export default async function Page({ params }) {
         const result = await getPageData(slug);
         if (!result) return notFound();
         const [data, typ] = result;
-
+		const hasPrincipalsData = Array.isArray(data["Dyrektorzy"]) || Array.isArray(data["Szablon"]?.["Dyrektorzy"]);
         return (
             <Suspense fallback={<LoadingFallback />}>
-                {typ === "Automatyczny" && <AutomatycznyContent data={data} />}
-	              {(typ === "Tiles" || typ === "Kafelki") && <Tiles dataKafelki={data} />}
+				{hasPrincipalsData ? (
+					<PrincipalsClient data={data} />
+				) : typ === "Kafelki" ? (
+					<Tiles dataKafelki={data} />
+				) : (
+					<AutomatycznyContent data={data} />
+				)}
             </Suspense>
         );
     } catch (e){
