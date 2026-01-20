@@ -86,7 +86,10 @@ async function fetchSingleById(idBase, type) {
                             },
                             Paragraf:{
                                 populate: "*"
-                            }
+                            },
+							Zdjecia:{
+								populate: "*"
+							}
                         },
                     },
                 },
@@ -153,19 +156,17 @@ const AutomatycznyContent = ({data}) => {
 						<Header text={data["Naglowek"]} />
 						{sections.map((section) => {
 							const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];
-							const media = Array.isArray(section["Media"]) ? section["Media"] : [];
+							const media = Array.isArray(section["Zdjecia"]) ? section["Zdjecia"] : [];
 							const content = section?.["Paragraf"] ? section["Paragraf"] : [];
 
 							const hasContent = content && content.length > 0;
 							const hasLinks = links.length > 0;
 							const hasMedia = media.length > 0;
-
 							return (
 								<div key={section.id} className="w-full h-max flex flex-col">
 									{hasContent && <MainContent text={content} hasLinks={hasLinks}/>}
 									{hasLinks && <LinkSection linkArray={links} hasContent={hasContent}/>}
-									{hasMedia && <Media media={media}
-                                                        col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
+									{hasMedia && <Media media={media}/>}
 								</div>
 							);
 						})}

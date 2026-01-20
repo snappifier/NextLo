@@ -1,6 +1,7 @@
 "use client"
 import {motion} from "motion/react";
 import {getStrapiMedia} from "@/app/lib/strapi";
+import ImageSkeletonLoader from "@/app/components/animations/ImageSkeletonLoader";
 
 const Principals = ({data}) => {
 
@@ -30,7 +31,7 @@ const Principals = ({data}) => {
                                 transition={{ type: "spring", stiffness: 260, damping: 24 }}
                             >
                                 <div className="w-full aspect-square">
-                                    <img
+                                    <ImageSkeletonLoader
                                         src={principal?.["Zdjecie"] ? getStrapiMedia(principal["Zdjecie"].url) : FALLBACK_IMG}
                                         alt={`Zdjecie-${principal["ImieNazwisko"]}`}
                                         className="w-full h-full object-cover object-top"
