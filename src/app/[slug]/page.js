@@ -6,6 +6,7 @@ import MainContent from "@/app/components/pages/auto/MainContent";
 import Media from "@/app/components/pages/auto/Media";
 import LinkSection from "@/app/components/pages/auto/Link";
 import Tiles from "@/app/components/pages/tiles/Tiles";
+import PrincipalsClient from "@/app/components/pages/principals/PrincipalsClient";
 
 
 export const revalidate = 60;
@@ -46,7 +47,7 @@ async function getMenuItems() {
 
 async function fetchSingleById(idBase, type) {
 	let populateObj;
-	if (idBase === "kadra") {
+	if (type === "Kafelki") {
 		populateObj = {
 			Szablon: {
 				populate: {
@@ -64,12 +65,12 @@ async function fetchSingleById(idBase, type) {
 				},
 			},
 		}
-	} else if (type === "Tiles") {
+	} else if (idBase === "dyrektorzy") {
 		populateObj = {
-			Sekcja: {
+			Szablon: {
 				populate: {
-					Szablon: {
-						populate: "Kafeleki",
+					Dyrektorzy: {
+						populate: "*"
 					},
 				},
 			},
@@ -85,7 +86,10 @@ async function fetchSingleById(idBase, type) {
                             },
                             Paragraf:{
                                 populate: "*"
-                            }
+                            },
+							Zdjecia:{
+								populate: "*"
+							}
                         },
                     },
                 },
@@ -152,19 +156,17 @@ const AutomatycznyContent = ({data}) => {
 						<Header text={data["Naglowek"]} />
 						{sections.map((section) => {
 							const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];
-							const media = Array.isArray(section["Media"]) ? section["Media"] : [];
+							const media = Array.isArray(section["Zdjecia"]) ? section["Zdjecia"] : [];
 							const content = section?.["Paragraf"] ? section["Paragraf"] : [];
 
 							const hasContent = content && content.length > 0;
 							const hasLinks = links.length > 0;
 							const hasMedia = media.length > 0;
-
 							return (
 								<div key={section.id} className="w-full h-max flex flex-col">
 									{hasContent && <MainContent text={content} hasLinks={hasLinks}/>}
 									{hasLinks && <LinkSection linkArray={links} hasContent={hasContent}/>}
-									{hasMedia && <Media media={media}
-                                                        col={section?.["IloscKolumn"] ? section["IloscKolumn"] : 1}/>}
+									{hasMedia && <Media media={media}/>}
 								</div>
 							);
 						})}
@@ -199,11 +201,16 @@ export default async function Page({ params }) {
         const result = await getPageData(slug);
         if (!result) return notFound();
         const [data, typ] = result;
-
+		const hasPrincipalsData = Array.isArray(data["Dyrektorzy"]) || Array.isArray(data["Szablon"]?.["Dyrektorzy"]);
         return (
             <Suspense fallback={<LoadingFallback />}>
-                {typ === "Automatyczny" && <AutomatycznyContent data={data} />}
-	              {(typ === "Tiles" || typ === "Kafelki") && <Tiles dataKafelki={data} />}
+				{hasPrincipalsData ? (
+					<PrincipalsClient data={data} />
+				) : typ === "Kafelki" ? (
+					<Tiles dataKafelki={data} />
+				) : (
+					<AutomatycznyContent data={data} />
+				)}
             </Suspense>
         );
     } catch (e){
