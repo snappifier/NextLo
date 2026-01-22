@@ -20,7 +20,7 @@ export default function Profile({item}) {
 
 	return (
 		<Link href="/rekrutacja" className="block w-full" tabIndex={-1}>
-			<motion.div className="relative p-5 rounded-2xl cursor-pointer border border-white/50 select-none"
+			<motion.div className="group relative p-5 rounded-2xl cursor-pointer border border-white/50 select-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:-translate-y-2 transition-transform duration-300 ease-out"
 						style={{backgroundColor: hovered ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)"}}
 						initial={false}
 						animate={{y: hovered ? -4 : 0, boxShadow: hovered ? "0 20px 40px rgba(0,0,0,0.1)" : "0 4px 16px rgba(0,0,0,0.04)"}}
@@ -51,7 +51,7 @@ export default function Profile({item}) {
 					</div>
 				</div>
 
-				<motion.div className="mt-4 pt-3 border-t flex items-center justify-between text-sm"
+				<motion.div className="mt-4 pt-3 border-t flex items-center justify-between text-sm group-focus-visible:opacity-100 "
 							style={{borderColor: `${currentColor}25`}}
 							animate={{opacity: hovered ? 1 : 0.7}}
 							transition={{duration: 0.2}}

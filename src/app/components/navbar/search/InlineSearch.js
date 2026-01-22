@@ -306,7 +306,7 @@ export default function InlineSearch() {
 												transition={{ duration: 0.2, delay: initialLoad ? index * 0.05 : 0}}
 												tabIndex={-1}
 									>
-										<Link href={item.path || '/'} className="w-full h-full flex items-center justify-start outline-none focus-visible:bg-slate-100 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500 transition-colors" onClick={() => closeSearch() }>
+										<Link href={item.path || '/'} className="w-full h-full flex items-center justify-start focus-visible:bg-slate-100 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-800 transition-colors" onClick={() => closeSearch() }>
 											<div className={`ml-2 p-2 rounded-md flex items-center justify-center   ${item.type === 'post' ? 'bg-sky-600/50 text-white' : 'bg-slate-400/30 text-zinc-500'}`}>
 												{item.type === 'post' ? <PostIcon /> : <PageIcon />}
 											</div>

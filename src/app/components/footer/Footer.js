@@ -72,7 +72,7 @@ export default function Footer({footer}) {
 					</div>
 					<nav className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10 select-none" aria-label="Stopka">
 						{footer["Przyciski"]?.map((item) => (
-							<Link href={item["Link"]} key={item.id} className="text-white/70 hover:text-white text-sm font-light transition-colors">
+							<Link href={item["Link"]} key={item.id} className="text-white/70 hover:text-white text-sm font-light transition-colors focus-visible:text-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2">
 								{item["Nazwa"]}
 							</Link>
 						))}
@@ -114,11 +114,11 @@ export default function Footer({footer}) {
 					<div className="text-center text-white/60 text-xs sm:text-sm">
 						<p className="leading-relaxed">&copy; {new Date().getFullYear()} I Liceum im. Jana Zamoyskiego w Zamościu</p>
 						<p className="mt-2">Design & Development:{" "}
-							<Link href="https://mszyszlo.vercel.app" className="hover:text-white transition-colors duration-300" target="_blank">
+							<Link href="https://mszyszlo.vercel.app" className="hover:text-white focus-visible:text-white transition-colors duration-300" target="_blank">
 								Michał Szyszło
 							</Link>
 							{" & "}
-							<Link href="https://krystianmatwiej.pl" className="hover:text-white transition-colors duration-300" target="_blank">
+							<Link href="https://krystianmatwiej.pl" className="hover:text-white focus-visible:text-white transition-colors duration-300" target="_blank">
 								Krystian Matwiej
 							</Link>
 						</p>

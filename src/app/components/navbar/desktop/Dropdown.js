@@ -13,7 +13,7 @@ export default function Dropdown({ menu }) {
         router.prefetch(href);
     };
     return (
-        <NavigationMenu.Root className="font-poppins min-w-max rounded-lg bg-transparent p-1 text-white">
+        <NavigationMenu.Root className="min-w-max rounded-lg bg-transparent p-1 text-white">
             <NavigationMenu.List
                 className="relative flex"
                 role="menubar"
@@ -37,7 +37,7 @@ export default function Dropdown({ menu }) {
                         </NavigationMenu.Trigger>
 
                         <NavigationMenu.Content className={contentClassName} role="menu">
-                            <ul className={(gridTable[index] ?? gridTable[0]) + " list-none font-poppins"}>
+                            <ul className={(gridTable[index] ?? gridTable[0]) + " list-none"}>
                                 {(cat?.Podstrona ?? []).map((page, i) => (
                                     <li
                                         key={page?.Link ?? page?.id ?? `${index}-${i}`}
@@ -127,7 +127,7 @@ const gridTable = [
 ];
 
 const triggerClassName =
-    "box-border flex items-center justify-center gap-1.5 h-10 px-5 xs:px-3.5 m-0 rounded-md bg-transparent text-gray-50 font-normal text-[0.925rem] xs:text-base leading-6 select-none no-underline hover:bg-sky-800 active:bg-sky-800 data-[popup-open]:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 focus-visible:relative";
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#3077BA] box-border flex items-center justify-center gap-1.5 h-10 px-5 xs:px-3.5 m-0 rounded-md bg-transparent text-gray-50 font-normal text-[0.925rem] xs:text-base leading-6 select-none no-underline hover:bg-sky-800 active:bg-sky-800 data-[popup-open]:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 focus-visible:relative";
 
 const contentClassName =
     "md:w-[calc(80vw_-_40px)] lg:w-[calc(70vw_-_40px)] xl:w-[calc(50vw_-_40px)] h-full p-6 xs:w-max xs:min-w-[400px] transition-[opacity,transform,translate] duration-[var(--duration)] ease-[var(--easing)] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%] data-[starting-style]:data-[activation-direction=right]:translate-x-[50%] data-[ending-style]:data-[activation-direction=left]:translate-x-[50%] data-[ending-style]:data-[activation-direction=right]:translate-x-[-50%]";

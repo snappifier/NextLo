@@ -20,8 +20,8 @@ export function NewsCard({ news, featured = false }) {
 
     if (featured) {
         return (
-            <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full">
-                <div className="group relative w-full h-full rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2 active:scale-[0.98] transition-transform duration-300">
+            <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full select-none" tabIndex={-1}>
+                <div className="group relative w-full h-full rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2 active:scale-98 transition-transform duration-300 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:-translate-y-2 ease-out" tabIndex={0}>
                     {imgSrc && (
                         <>
                         <div className="absolute inset-0">
@@ -50,9 +50,9 @@ export function NewsCard({ news, featured = false }) {
                             </div>
                             <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white leading-tight select-none">{clampText(stripHtml(news["Tytul"]), 120)}</h3>
                             <p className="text-sm md:text-base text-gray-300 line-clamp-2 select-none">{clampText(stripHtml(news["Opis"]), 150)}</p>
-                            <div className="inline-flex items-center gap-2 text-sm font-medium text-sky-400 pt-2 select-none px-4 py-2 -ml-4 rounded-lg group-hover:bg-white/10 transition-all duration-300">
+                            <div className="inline-flex items-center gap-2 text-sm font-medium text-sky-400 pt-2 select-none px-4 py-2 -ml-4 rounded-lg group-hover:bg-white/10 group-focus-visible:bg-white/10 transition-all duration-300">
                                 <span>Czytaj dalej</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
                             </div>
                         </div>
                     </div>
@@ -62,8 +62,8 @@ export function NewsCard({ news, featured = false }) {
     }
 
     return (
-        <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full">
-            <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-[0.98] transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
+        <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full" tabIndex={-1}>
+            <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-98 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:-translate-y-2 ease-out transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}} tabIndex={0}>
                 <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
                     <div className="flex items-center gap-1.5 text-xs text-slate-500 select-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24"><path fill="currentColor" d="M18.438 4.954H16.5V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408h-7V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408H5.562a2.503 2.503 0 0 0-2.5 2.5v11c0 1.379 1.122 2.5 2.5 2.5h12.875c1.379 0 2.5-1.121 2.5-2.5v-11a2.5 2.5 0 0 0-2.499-2.5m-12.876 1H7.5v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h7v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h1.937c.827 0 1.5.673 1.5 1.5v1.584H4.062V7.454c0-.827.673-1.5 1.5-1.5m12.876 14H5.562c-.827 0-1.5-.673-1.5-1.5v-8.416h15.875v8.416a1.5 1.5 0 0 1-1.499 1.5"></path></svg>

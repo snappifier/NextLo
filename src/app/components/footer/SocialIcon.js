@@ -27,6 +27,7 @@ export default function SocialIcon({children, href, label, onClick, tooltipText}
                         whileHover={{scale: 1.1}}
                         whileTap={{scale: 0.95}}
                         transition={{type: "spring", stiffness: 400, damping: 17}}
+                        tabIndex={-1}
             >
                 {children}
             </motion.div>
@@ -35,14 +36,14 @@ export default function SocialIcon({children, href, label, onClick, tooltipText}
 
     if (onClick) {
         return (
-            <button className="outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-xl" type="button" onClick={onClick} aria-label={label}>
+            <button className="outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:scale-110 transition-all ease-out rounded-xl" type="button" onClick={onClick} aria-label={label}>
                 {content}
             </button>
         )
     }
 
     return (
-        <a href={href} className="outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-xl" target="_blank" rel="noopener noreferrer" aria-label={label}>
+        <a href={href} className="outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:scale-110 transition-transform ease-out rounded-xl" target="_blank" rel="noopener noreferrer" aria-label={label}>
             {content}
         </a>
     )

@@ -60,10 +60,10 @@ export default function NavbarClient({menu, icons}) {
 					isOpen ? "h-dvh backdrop-blur-md bg-black/70 transition-colors duration-400" : ""}`}
 			>
 				<div className="text-white w-[94%] sm:w-[90%] lg:w-[80%] h-15 bg-[#3077BA] lg:bg-[#3077BA]/90 rounded-lg flex items-center justify-between px-3 sm:px-5 shadow-lg">
-					<Link href="/" className="z-60">
-						<motion.div className="flex items-center justify-between w-13 h-13" whileHover={{scale: 1.05}} whileTap={{scale: 1}}>
-							<Image src={logo} alt="Logo szkoły" className="w-auto h-[85%] select-none pointer-events-none"/>
-						</motion.div>
+					<Link href="/" className="z-60 hover:scale-105 active:scale-95 transition-transform ease-out" tabIndex={-1}>
+						<div className="flex items-center justify-between w-13 h-13"  tabIndex={-1}>
+							<Image src={logo} alt="Logo szkoły" className="w-auto h-[85%] select-none pointer-events-none rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#3077BA]  focus-visible:scale-105 active:scale-95 transition-transform ease-out" tabIndex={0}/>
+						</div>
 					</Link>
 
 					<div className="hidden lg:flex">
