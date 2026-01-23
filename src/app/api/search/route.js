@@ -64,6 +64,7 @@ export async function GET(req) {
 					const documentId = post.documentId;
 					const author = post.Autor || '';
 					const date = post.Data || '';
+					const slug = post?.slug;
 
 					if (!documentId) continue;
 
@@ -71,7 +72,7 @@ export async function GET(req) {
 						id: `post::${post.id}`,
 						title,
 						excerpt,
-						path: `/aktualnosci/${documentId}`,
+						path: `/aktualnosci/${slug}`,
 						type: 'post',
 						author,
 						date

@@ -133,6 +133,8 @@ const Tiles = ({dataKafelki}) => {
         )
     }
 
+    const showGroup = dataKafelki?.Szablon?.NazwaGrup;
+
     return (
       <div className="w-full min-h-screen pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center">
           <div className="w-[92%] sm:w-[90%] lg:w-[80%] grid grid-cols-1 xl:grid-cols-[1fr_18rem] gap-6 md:gap-8">
@@ -166,10 +168,11 @@ const Tiles = ({dataKafelki}) => {
                     })
                   )}
               </main>
-
-              {hasGroups ? ( <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump}/>
+              {!showGroup && (
+              (hasGroups) ? ( <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump}/>
               ) : (
                 <DesktopNavOthers items={sectionIds} activeId={active} onJump={handleJump}/>
+              )
               )}
           </div>
       </div>
