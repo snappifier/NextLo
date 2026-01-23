@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { strapiFetch } from "@/app/lib/strapi";
-import ButtonAnimation from "@/app/galeria/ButtonAnimation";
+import ButtonInYear from "@/app/galeria/[slug]/ButtonInYear";
 
 async function getZakladkaByYear(year) {
     const json = await strapiFetch({
@@ -32,6 +32,8 @@ async function getZakladkaByYear(year) {
     return zakladki[0];
 }
 
+export const revalidate = 300;
+
 export default async function Page({ params }) {
     const resolvedParams = await params;
 
@@ -41,7 +43,8 @@ export default async function Page({ params }) {
 
     if (!slug) return notFound();
 
-    const year = slug;
+    const year = slug.replace('-', '/');
+    const dbYear = slug;
 
     const zakladka = await getZakladkaByYear(year);
 
@@ -75,14 +78,14 @@ export default async function Page({ params }) {
                             </Link>
                         </div>
 
-                        <div className="w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-2 text-[#3077BA]">
+                        <div className="w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-4 text-[#3077BA]">
                             <p className="w-full text-md sm:text-lg lg:text-xl font-medium uppercase text-center">
                                 Galeria
                             </p>
-                            <p className="w-full text-5xl sm:text-5xl lg:text-6xl font-semibold text-center uppercase">
+                            <p className="w-full text-3xl sm:text-4xl lg:text-5xl  font-semibold text-center uppercase">
                                 {year}
                             </p>
-                            <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
+                            <div className="pt-1 w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
                         </div>
 
                         <div className={`w-full gap-5 md:gap-8 ${
@@ -95,8 +98,8 @@ export default async function Page({ params }) {
                                 return (
                                     <Link key={id}
                                           className={`h-full w-full ${wydarzenia.length < 2 ? 'max-w-md sm:max-w-lg' : ''}`}
-                                          href={`/galeria/${year}/${id}`}>
-                                        <ButtonAnimation title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`} />
+                                          href={`/galeria/${dbYear}/${id}`}>
+                                        <ButtonInYear title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`} />
                                     </Link>
                                 );
                             })}

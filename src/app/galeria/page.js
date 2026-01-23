@@ -16,6 +16,8 @@ export const metadata = {
     title: 'Galeria',
 };
 
+export const revalidate = 300;
+
 export default async function Page(){
     const data = await getGalerry();
     const pages = data["Zakladki"];
@@ -28,12 +30,12 @@ export default async function Page(){
                 <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
             </div>
             <div className={`w-full gap-5 md:gap-8 ${
-                pages.length < 2
+                pages.length < 3
                     ? "flex justify-center"
                     : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr"
             }`}>
                 {pages.map((item) => {
-                    const slug = item["Tytul"];
+                    const slug = item["Tytul"].replace('/', '-');
                     return (
                         <Link
                             key={item.id}
