@@ -3,6 +3,7 @@ import {Meow_Script, Poppins} from 'next/font/google'
 import Script from "next/script";
 import FooterServer from "@/app/components/footer/FooterServer";
 import Navbar from "@/app/components/navbar/desktop/Navbar";
+import Bip from "@/app/components/bip/bip";
 
 const meow_script = Meow_Script({
     subsets: ['latin'],
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
             {children}
             <FooterServer />
             <Script src={"https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"} strategy="lazyOnload" defer></Script>
+            <Bip />
         </body>
         </html>
     );
