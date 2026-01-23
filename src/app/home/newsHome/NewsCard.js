@@ -86,12 +86,12 @@ export function NewsCard({ news, featured = false }) {
 
 export function SeeMoreCard() {
     return(
-        <Link href="/aktualnosci" className="block h-full" prefetch={true}>
-            <div className="group w-full h-full min-h-45 bg-linear-to-br from-sky-50 to-slate-50 rounded-xl overflow-hidden cursor-pointer border border-slate-200 flex flex-col items-center justify-center gap-4 hover:border-sky-300 hover:shadow-xl hover:-translate-y-2 active:scale-[0.98] transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}}>
-                <div className="w-16 h-16 rounded-full bg-white shadow-md border border-slate-200 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500 group-hover:scale-110 transition-all duration-300">
+        <Link href="/aktualnosci" className="block h-full" prefetch={true} tabIndex={-1}>
+            <div className="group w-full h-full min-h-45 bg-linear-to-br from-sky-50 to-slate-50 rounded-xl overflow-hidden cursor-pointer border border-slate-200 flex flex-col items-center justify-center gap-4 hover:border-sky-300 hover:shadow-xl hover:-translate-y-2 active:scale-[0.98] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:-translate-y-2 ease-out transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}} tabIndex={0}>
+                <div className="w-16 h-16 rounded-full bg-white shadow-md border border-slate-200 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500 group-hover:scale-110 group-focus-visible:bg-sky-500 group-focus-visible:text-white group-focus-visible:border-sky-500 group-focus-visible:scale-110 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" width={13.08} height={20} viewBox="0 0 1088 1664"><g transform="translate(1088 0) scale(-1 1)"><path fill="currentColor" d="M1043 301L512 832l531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19L45 877q-19-19-19-45t19-45L787 45q19-19 45-19t45 19l166 166q19 19 19 45t-19 45"></path></g></svg>                </div>
                 <div className="flex flex-col items-center gap-1 text-center px-4 select-none">
-                    <span className="text-lg font-semibold text-slate-800 group-hover:text-sky-600 transition-colors duration-300">Zobacz wszystkie</span>
+                    <span className="text-lg font-semibold text-slate-800 group-hover:text-sky-600 group-focus-visible:text-sky-600 transition-colors duration-300">Zobacz wszystkie</span>
                 </div>
             </div>
         </Link>
