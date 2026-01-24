@@ -5,9 +5,11 @@ import {motion, AnimatePresence} from "motion/react"
 
 export default function SocialIcon({children, href, label, onClick, tooltipText}) {
     const [hovered, setHovered] = useState(false)
+    const handleOpen = () => setHovered(true)
+    const handleClose = () => setHovered(false)
 
     const content = (
-        <motion.div className="relative" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+        <motion.div className="relative" onMouseEnter={handleOpen} onMouseLeave={handleClose}>
             <AnimatePresence>
                 {hovered && tooltipText && (
                     <motion.div className="absolute -top-12 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none"
@@ -36,14 +38,14 @@ export default function SocialIcon({children, href, label, onClick, tooltipText}
 
     if (onClick) {
         return (
-            <button className="outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:scale-110 transition-all ease-out rounded-xl" type="button" onClick={onClick} aria-label={label}>
+            <button className="outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:scale-110 transition-all ease-out rounded-xl" type="button" onClick={onClick} aria-label={label}  onFocus={handleOpen} onBlur={handleClose}>
                 {content}
             </button>
         )
     }
 
     return (
-        <a href={href} className="outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:scale-110 transition-transform ease-out rounded-xl" target="_blank" rel="noopener noreferrer" aria-label={label}>
+        <a href={href} className="outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:scale-110 transition-transform ease-out rounded-xl" target="_blank" rel="noopener noreferrer" aria-label={label} onFocus={handleOpen} onBlur={handleClose} >
             {content}
         </a>
     )
