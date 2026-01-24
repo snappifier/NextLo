@@ -63,7 +63,7 @@ export const DesktopNavAccordion = ({groupedData, activeId, onJump}) => {
 
 					return (
 						<div key={group.id}>
-							<motion.button className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors ${hasActive ? "bg-[#3077BA]/10" : "hover:bg-slate-50"}`}
+							<motion.button className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-900 ${hasActive ? "bg-[#3077BA]/10" : "hover:bg-slate-50 focus-visible:bg-slate-50"}`}
 										   onClick={() => toggleGroup(group.id)}
 										   type="button"
 							>
@@ -92,13 +92,13 @@ export const DesktopNavAccordion = ({groupedData, activeId, onJump}) => {
 												const isActive = activeId === elementId
 
 												return (
-													<button className={`group relative flex items-center gap-3 w-full text-left px-4 py-1.5 rounded-lg outline-none transition-all duration-200 ${isActive ? "bg-[#3077BA]/5" : "hover:bg-slate-50"}`}
+													<button className={`group relative flex items-center gap-3 w-full text-left px-4 py-1.5 rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-900 ${isActive ? "bg-[#3077BA]/5" : "hover:bg-slate-50 focus-visible:bg-slate-50"}`}
 															key={e.id}
 															onClick={() => onJump(elementId)}
 															type="button"
 													>
 														<DotIndicator isActive={isActive} />
-														<span className={`text-sm transition-colors ${isActive ? "text-[#3077BA] font-bold" : "text-slate-500 group-hover:text-slate-800"}`}
+														<span className={`text-sm transition-colors ${isActive ? "text-[#3077BA] font-bold" : "text-slate-500 group-hover:text-slate-800 group-focus-visible:text-slate-800"}`}
 														>
                                               {e.Naglowek}
                                            </span>
