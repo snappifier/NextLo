@@ -21,6 +21,7 @@ export default function NewsPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const loadingRef = useRef(false);
+    const headerRef = useRef(null);
 
     const fetchPosts = useCallback(async (pageNum) => {
         if (loadingRef.current) return;
@@ -76,6 +77,12 @@ export default function NewsPage() {
         fetchPosts(page);
     }, [page, fetchPosts]);
 
+  useEffect(() => {
+    if (headerRef.current && !isLoading) {
+      headerRef.current.focus({preventScroll: true});
+    }
+  }, [posts, isLoading]);
+
     const renderCard = (news) => {
         const attributes = news.attributes || news;
         const title = attributes?.Tytul || 'Brak tytułu';
@@ -91,11 +98,11 @@ export default function NewsPage() {
         const imgSrc = imageObj?.url ? getStrapiMedia(imageObj.url) : null;
 
         return (
-            <Link key={id} href={`${postLink}?page=${page}`} className="block h-full">
-                <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-[0.98] transition-all duration-300 will-change-transform flex flex-col" style={{transform: 'translateZ(0)'}}>
+            <Link key={id} href={`${postLink}?page=${page}`} className="block h-full" tabIndex={-1}>
+                <div className="group w-full h-full bg-white rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:shadow-xl focus-visible:-translate-y-2 focus-visible:border-slate-300 active:scale-[0.98] transition-all duration-300 will-change-transform flex flex-col" style={{transform: 'translateZ(0)'}} tabIndex={0}>
                     {imgSrc ? (
                         <div className="relative w-full h-44 shrink-0 overflow-hidden bg-slate-100">
-                            <ImageSkeletonLoader src={imgSrc} alt={title ?? "Zdjęcie aktualności"} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-300" priority rounded="rounded-none"/>
+                            <ImageSkeletonLoader src={imgSrc} alt={title ?? "Zdjęcie aktualności"} fill className="object-cover object-center transition-transform duration-300" priority rounded="rounded-none"/>
                         </div>
                     ) : (
                         <div className="relative w-full h-44 shrink-0 bg-linear-to-br from-sky-100 to-slate-100 flex items-center justify-center">
@@ -112,15 +119,15 @@ export default function NewsPage() {
                                 <span>{author}</span>
                             </>}
                         </div>
-                        <h4 className="line-clamp-2 font-semibold text-base md:text-lg leading-tight text-slate-900 group-hover:text-sky-700 transition-colors duration-300 select-none">
+                        <h4 className="line-clamp-2 font-semibold text-base md:text-lg leading-tight text-slate-900 group-hover:text-sky-700 group-focus-visible:text-sky-700 transition-colors duration-300 select-none">
                             {stripHtml(title)}
                         </h4>
                         <p className="text-sm text-slate-600 line-clamp-3 select-none flex-1">
                             {stripHtml(body)}
                         </p>
-                        <div className="inline-flex items-center gap-2 text-sm font-semibold mt-auto pt-2 text-sky-600 group-hover:text-sky-700 transition-colors duration-300 select-none">
+                        <div className="inline-flex items-center gap-2 text-sm font-semibold mt-auto pt-2 text-sky-600 group-hover:text-sky-700 group-focus-visible:text-sky-700 transition-colors duration-300 select-none">
                             <span>Czytaj dalej</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
                         </div>
                     </div>
                 </div>
@@ -163,7 +170,7 @@ export default function NewsPage() {
         <div className="w-full pt-36 md:pt-35 pb-16 md:pb-20 flex flex-col min-h-[80vh] items-center">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col">
                 <div className="w-max flex flex-col text-wrap">
-                    <p className="w-full text-3xl sm:text-4xl lg:text-5xl font-light">
+                    <p ref={headerRef} className="w-full text-3xl sm:text-4xl lg:text-5xl font-light outline-none" tabIndex={-1}>
                         Aktualności
                     </p>
                 </div>

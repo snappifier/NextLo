@@ -22,7 +22,7 @@ const ExpandableGroup = ({ groupName, sections, isOpen, onToggle }) => {
                     animate={{boxShadow: isOpen ? "0 4px 20px rgba(0, 0, 0, 0.08)" : "0 1px 3px rgba(0, 0, 0, 0.05)"}}
                     transition={{duration: 0.2}}
         >
-          <button className="w-full flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 text-left outline-none hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500 transition-colors duration-200"
+          <button className="w-full flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 text-left rounded-xl hover:bg-slate-50 focus-visible:bg-slate-50 focus-visible:outline-3 focus-visible:-outline-offset-4 focus-visible:outline-sky-900 transition-colors duration-200"
                   onClick={onToggle}
                   type="button"
                   aria-expanded={isOpen}
