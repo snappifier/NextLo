@@ -87,10 +87,10 @@ export default function CookieConsent() {
 							<p>Używamy plików cookies, aby analizować ruch na stronie i poprawiać jej wydajność. Czy zgadzasz się na ich wykorzystanie?</p>
 						</div>
 						<div className="flex gap-3 shrink-0">
-							<button className="px-4 py-2 text-base font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors" onClick={handleDecline}>
+							<button className="px-4 py-2 text-base font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer" onClick={handleDecline}>
 								Odrzuć
 							</button>
-							<button className="px-4 py-2 text-base font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors" onClick={handleAccept}>
+							<button className="px-4 py-2 text-base font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors cursor-pointer" onClick={handleAccept}>
 								Akceptuj
 							</button>
 						</div>
