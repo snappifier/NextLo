@@ -146,7 +146,7 @@ const Tiles = ({dataKafelki}) => {
           <div className={`w-[92%] sm:w-[90%] lg:w-[80%]  ${!showGroup ? 'grid grid-cols-1 xl:grid-cols-[1fr_18rem]' : 'flex flex-col items-center justify-center' } gap-6 md:gap-8`}>
               <main className={`${showGroup ? 'lg:w-[80%]' : ''} w-full `}>
                   {!showGroup && (
-                    <MobileNavigation items={mobileNavItems} active={activeMobileId} onJump={handleJump}/>
+                    <MobileNavigation items={mobileNavItems} activeId={active} onJump={handleJump}/>
                   )}
                   {hasGroups ? (
                       Object.entries(allSectionsFromGroups).map(([groupName, sections]) => (
