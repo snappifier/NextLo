@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 
 export default function ButtonInYear({ title }) {
     const date = title.substring(0, 10)
-    const name = title.substring(11, title.length-10)
+    const name = title.substring(11, title.length)
     return (
         <motion.div
             whileHover={{ scale: 1.03 }}
