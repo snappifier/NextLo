@@ -5,6 +5,35 @@
     --font-meow-script: var(--font-meow-script), cursive;
 }
 
+:root {
+    --cookie-banner-height: 0px;
+    --widget-base: 40px;
+}
+
+.asw-menu-btn {
+    bottom: calc(var(--widget-base) + var(--cookie-banner-height, 0px)) !important;
+    right: 20px !important;
+    left: auto !important;
+    z-index: 999 !important;
+    transition: all 0.3s ease-out !important;
+}
+
+.asw-menu {
+    right: 0 !important;
+    left: auto !important;
+}
+
+.bip-widget {
+    bottom: calc(var(--widget-base) + var(--cookie-banner-height)) !important;
+    left: 1.125rem;
+}
+
+@media (min-width: 768px) {
+    .bip-widget {
+        left: 1.25rem;
+    }
+}
+
 .rich-content.ck-content {
     line-height: 1.6;
     color: #0f172a;
@@ -186,3 +215,4 @@
 .animate-shimmer {
     animation: shimmer 1.5s infinite;
 }
+

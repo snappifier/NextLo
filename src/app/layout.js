@@ -4,6 +4,7 @@ import Script from "next/script";
 import FooterServer from "@/app/components/footer/FooterServer";
 import Navbar from "@/app/components/navbar/desktop/Navbar";
 import Bip from "@/app/components/bip/bip";
+import CookieConsent from "@/app/components/consent/CookieConsent";
 
 const meow_script = Meow_Script({
     subsets: ['latin'],
@@ -42,6 +43,8 @@ export default function RootLayout({ children }) {
             <FooterServer />
             <Script src={"https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"} strategy="lazyOnload" defer></Script>
             <Bip />
+            <CookieConsent />
+
         </body>
         </html>
     );
