@@ -97,7 +97,7 @@ export default async function Page({ params }) {
                                 const id = ev.id
                                 return (
                                     <Link key={id}
-                                          className={`h-full w-full ${wydarzenia.length < 2 ? 'max-w-md sm:max-w-lg' : ''}`}
+                                          className={`h-full w-full rounded-lg focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:scale-103 transition-transform duration-200 ease-out ${wydarzenia.length < 2 ? 'max-w-md sm:max-w-lg' : ''}`}
                                           href={`/galeria/${dbYear}/${id}`}>
                                         <ButtonInYear title={ev?.TytulWydarzenia || `Wydarzenie ${ev.id}`} />
                                     </Link>

@@ -39,7 +39,7 @@ export default async function Page(){
                     return (
                         <Link
                             key={item.id}
-                            className={`h-full w-full ${pages.length < 2 ? 'max-w-md sm:max-w-lg' : ''}`}
+                            className={`h-full w-full ${pages.length < 2 ? 'max-w-md sm:max-w-lg rounded-lg focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:scale-103 transition-transform duration-200 ease-out' : ''}`}
                             href={`/galeria/${slug}`}
                         >
                             <ButtonAnimation title={item["Tytul"]}/>

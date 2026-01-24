@@ -7,9 +7,9 @@ export default function ButtonAnimation({ title }) {
         <motion.div
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="h-full min-h-[80px] w-full bg-[#3077BA]/90 hover:bg-[#3077BA] rounded-lg flex items-center justify-center gap-2 text-white overflow-hidden p-4"
+            className="h-full min-h-20 w-full bg-[#3077BA]/90 hover:bg-[#3077BA] rounded-lg flex items-center justify-center gap-2 text-white overflow-hidden p-4"
         >
-            <p className="text-xl text-wrap text-center hyphens-auto font-semibold break-words w-full">
+            <p className="text-xl text-wrap text-center hyphens-auto font-semibold wrap-break-word w-full">
                 {title}
             </p>
         </motion.div>

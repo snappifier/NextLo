@@ -24,7 +24,11 @@ export default function PhotosClient({ photos }) {
                             <div
                                 ref={ref}
                                 onClick={open}
-                                className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100 cursor-pointer hover:opacity-90 transition-opacity"
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {open(e)}
+                                }}
+                                className="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100 cursor-pointer hover:opacity-90 transition-opacity focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900"
+                                tabIndex={0}
                             >
                                 <ImageSkeletonLoader
                                     src={src}
