@@ -87,9 +87,9 @@ export default function Dropdown({ menu }) {
     );
 }
 
-// wrapper Next.js Link dla Base UI
 function LinkCard(props) {
-    return <NavigationMenu.Link render={<NextLink href={props.href} />} {...props} />;
+  const isExternal = props.href?.startsWith("http")
+    return <NavigationMenu.Link render={<NextLink href={props.href} {...(isExternal ? {target: "_blank", rel: "noopener noreferrer"} : {} )}  />} {...props} />;
 }
 
 function ChevronDownIcon(props) {

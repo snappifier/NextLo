@@ -26,9 +26,10 @@ export default function CategoryGrid({items, onNavigate}) {
 				{items?.length ? (
 					items.map((el, i) => {
 							const href = el?.Link || '#'
+						const isExternal = href.startsWith("http")
 							return (
 								<motion.div key={`${href}-${i}`} variants={cardVariants}>
-									<Link href={href} className="block h-full" onClick={onNavigate}>
+									<Link href={href} className="block h-full" onClick={onNavigate} {...(isExternal ? {target: "_blank", rel: "noopener noreferrer"} : {})}>
 										<motion.div className="h-full min-h-18 rounded-xl bg-slate-50 hover:bg-white hover:shadow-lg p-4 border border-slate-200 hover:border-slate-300 flex items-center justify-center transition-all duration-200"
 										            whileHover={{scale: 1.02, y: -2}}
 										            whileTap={{scale: 0.98}}
