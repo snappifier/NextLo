@@ -5,7 +5,9 @@ import Link from "next/link";
 export default function BannerButtons({przyciski}){
     return (<div className="relative grid grid-cols-2 grid-rows-2 md:flex w-full gap-3 md:gap-5 h-max drop-shadow-lg/10">
         {przyciski.map((item, index) => {
-            return <Link key={item.id} href={item["Link"]} className={`w-full ${index !== 4 ? "flex" : "hidden"} lg:block`} tabIndex={-1}>
+            const href = item["Link"] || "#"
+            const isExternal = href.startsWith("http")
+            return <Link key={item.id} href={href} className={`w-full ${index !== 4 ? "flex" : "hidden"} lg:block`} tabIndex={-1} {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                 <motion.div
                     key={item.id}
                     whileHover={{scale: 1.05}}
