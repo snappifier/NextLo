@@ -18,7 +18,7 @@ const ActiveSectionScroll = (sectionIds) => {
 				offset += chips.getBoundingClientRect().height
 			}
 			const vh = window.innerHeight || 0;
-			return Math.round(offset + (vh * 0.2));
+			return Math.round(offset + (vh * 0.3));
 		}
 
 		let frame = 0

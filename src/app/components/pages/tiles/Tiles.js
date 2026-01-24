@@ -68,9 +68,9 @@ const Tiles = ({dataKafelki}) => {
     const mobileNavItems = useMemo(() => {
         if (!hasGroups) return sectionIds;
 
-        return Object.entries(allSectionsFromGroups).map(([groupName, sections]) => ({
-            title: groupName,
-            id: sections[0]?.id
+        return sectionIds.map((sections) => ({
+            title: sections.title,
+            id: sections?.id
         }));
     }, [hasGroups, sectionIds, allSectionsFromGroups]);
 
@@ -136,17 +136,18 @@ const Tiles = ({dataKafelki}) => {
     const showGroup = dataKafelki?.Szablon?.NazwaGrup;
 
     return (
-      <div className="w-full min-h-screen pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center">
-          <div className="w-[92%] sm:w-[90%] lg:w-[80%] grid grid-cols-1 xl:grid-cols-[1fr_18rem] gap-6 md:gap-8">
-              <main>
-                  <div className="w-full flex flex-col mb-4 sm:mb-6">
-                      <p className="text-3xl sm:text-4xl lg:text-5xl font-extralight w-max">
-                          {pageTitle}
-                      </p>
-                  </div>
-
-                  <MobileNavigation items={mobileNavItems} active={activeMobileId} onJump={handleJump}/>
-
+      <div className="w-full min-h-screen pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center ">
+          <div className="w-full flex flex-col items-center mb-4 sm:mb-8 text-wrap gap-5 text-[#3077BA]">
+              <p className="w-full text-3xl sm:text-4xl lg:text-6xl/15 font-semibold uppercase text-center">
+                  {pageTitle}
+              </p>
+              <div className="w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
+          </div>
+          <div className={`w-[92%] sm:w-[90%] lg:w-[80%]  ${!showGroup ? 'grid grid-cols-1 xl:grid-cols-[1fr_18rem]' : 'flex flex-col items-center justify-center' } gap-6 md:gap-8`}>
+              <main className={`${showGroup ? 'lg:w-[80%]' : ''} w-full `}>
+                  {!showGroup && (
+                    <MobileNavigation items={mobileNavItems} active={activeMobileId} onJump={handleJump}/>
+                  )}
                   {hasGroups ? (
                       Object.entries(allSectionsFromGroups).map(([groupName, sections]) => (
                           <ExpandableGroup
