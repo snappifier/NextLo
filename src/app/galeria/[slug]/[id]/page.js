@@ -1,8 +1,8 @@
-import { getStrapiMedia, strapiFetch } from "@/app/lib/strapi";
+import { strapiFetch } from "@/app/lib/strapi";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import React from "react";
-import Photo from "@/app/galeria/[slug]/[id]/photo";
+import React from "react"
+import PhotosClient from "@/app/galeria/[slug]/[id]/PhotosClient";
 
 async function getWydarzenieById(id) {
     const json = await strapiFetch({
@@ -95,11 +95,7 @@ export default async function Page({ params }) {
                     <div className="pt-1 w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
                 </div>
                 {wydarzenie?.Zdjecia && wydarzenie.Zdjecia.length > 0 && (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
-                        {wydarzenie.Zdjecia.map((zdjecie) => (
-                            <Photo key={zdjecie.id} url={getStrapiMedia(zdjecie.url)} alttext={wydarzenie.TytulWydarzenia} classStyles="relative w-full aspect-square overflow-hidden rounded-lg bg-slate-100 cursor-pointer"/>
-                        ))}
-                    </div>
+                    <PhotosClient photos={wydarzenie.Zdjecia} />
                 )}
             </div>
         </div>
