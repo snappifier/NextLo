@@ -1,6 +1,6 @@
 'use client'
 
-import {useMemo, useState} from "react"
+import {useMemo, useState, useEffect, useRef} from "react"
 import Section from "./Section"
 import MobileNavigation from "./MobileNavigation"
 import {DesktopNavAccordion, DesktopNavOthers} from "./DesktopNavigation"
@@ -63,7 +63,15 @@ const Tiles = ({dataKafelki}) => {
         return legacySectionOrder.map((title) => ({title, id: slug(title)}))
     }, [hasGroups, allSectionsFromGroups, legacySectionOrder])
 
-    const active = ActiveSectionScroll(sectionIds)
+    const activeFromHook = ActiveSectionScroll(sectionIds)
+    const [activeId, setActiveId] = useState(null)
+    const isScrollingRef = useRef(false)
+
+    useEffect(() => {
+        if (!isScrollingRef.current) {
+            setActiveId(activeFromHook)
+        }
+    }, [activeFromHook])
 
     const mobileNavItems = useMemo(() => {
         if (!hasGroups) return sectionIds;
@@ -72,21 +80,21 @@ const Tiles = ({dataKafelki}) => {
             title: sections.title,
             id: sections?.id
         }));
-    }, [hasGroups, sectionIds, allSectionsFromGroups]);
+    }, [hasGroups, sectionIds]);
 
-    const activeMobileId = useMemo(() => {
-        if (!hasGroups) return active;
-        if (!active) return null;
-
-        for (const sections of Object.values(allSectionsFromGroups)) {
-            const isElementInThisGroup = sections.some(s => s.id === active);
-
-            if (isElementInThisGroup) {
-                return sections[0]?.id;
-            }
-        }
-        return null;
-    }, [active, hasGroups, allSectionsFromGroups]);
+    // const activeMobileId = useMemo(() => {
+    //     if (!hasGroups) return active;
+    //     if (!active) return null;
+    //
+    //     for (const sections of Object.values(allSectionsFromGroups)) {
+    //         const isElementInThisGroup = sections.some(s => s.id === active);
+    //
+    //         if (isElementInThisGroup) {
+    //             return sections[0]?.id;
+    //         }
+    //     }
+    //     return null;
+    // }, [active, hasGroups, allSectionsFromGroups]);
 
     const toggleGroup = (groupName) => {
         setOpenGroups(prev => ({
@@ -95,6 +103,10 @@ const Tiles = ({dataKafelki}) => {
         }))
     }
     const handleJump = (id) => {
+        isScrollingRef.current = true;
+
+        setActiveId(id)
+
         let targetGroupName = null;
 
         if (hasGroups) {
@@ -105,15 +117,25 @@ const Tiles = ({dataKafelki}) => {
                 }
             }
         }
+
+        const executeScroll = () => {
+            const el = document.getElementById(id)
+            if (el) {
+                el.scrollIntoView({behavior: "smooth", block: "start"})
+            }
+
+            setTimeout(() => {
+                isScrollingRef.current = false
+            }, 1000)
+        }
+
         if (targetGroupName && !openGroups[targetGroupName]) {
             setOpenGroups(prev => ({ ...prev, [targetGroupName]: true }));
             setTimeout(() => {
-                const el = document.getElementById(id)
-                if (el) el.scrollIntoView({behavior: "smooth", block: "start"})
+                executeScroll()
             }, 100)
         } else {
-            const el = document.getElementById(id)
-            if (el) el.scrollIntoView({behavior: "smooth", block: "start"})
+            executeScroll()
         }
     }
 
@@ -146,7 +168,7 @@ const Tiles = ({dataKafelki}) => {
           <div className={`w-[92%] sm:w-[90%] lg:w-[80%]  ${!showGroup ? 'grid grid-cols-1 xl:grid-cols-[1fr_18rem]' : 'flex flex-col items-center justify-center' } gap-6 md:gap-8`}>
               <main className={`${showGroup ? 'lg:w-[80%]' : ''} w-full `}>
                   {!showGroup && (
-                    <MobileNavigation items={mobileNavItems} activeId={active} onJump={handleJump}/>
+                    <MobileNavigation items={mobileNavItems} activeId={activeId} onJump={handleJump}/>
                   )}
                   {hasGroups ? (
                       Object.entries(allSectionsFromGroups).map(([groupName, sections]) => (
@@ -170,9 +192,9 @@ const Tiles = ({dataKafelki}) => {
                   )}
               </main>
               {!showGroup && (
-              (hasGroups) ? ( <DesktopNavAccordion groupedData={groupedData} activeId={active} onJump={handleJump}/>
+              (hasGroups) ? ( <DesktopNavAccordion groupedData={groupedData} activeId={activeId} onJump={handleJump}/>
               ) : (
-                <DesktopNavOthers items={sectionIds} activeId={active} onJump={handleJump}/>
+                <DesktopNavOthers items={sectionIds} activeId={activeId} onJump={handleJump}/>
               )
               )}
           </div>
