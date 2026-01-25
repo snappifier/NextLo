@@ -51,20 +51,20 @@ export default function ShieldsNew({data}) {
                                     />
                                 </div>
                             ))}
-                            <div className="col-span-3 flex justify-center gap-2 w-full select-none ">
-                                {logoImages.slice(4,6).map((item, index) => (
-                                    <div key={`logo-extra-${index}`} className="relative w-[32%] aspect-square bg-white rounded-lg border border-gray-100 shadow-sm p-1.5 scale-95 hover:scale-102 duration-400 ">
-                                        <ImageSkeletonLoader
-                                            src={item}
-                                            alt={`Logo współpracy ${index + 1}`}
-                                            fill
-                                            rounded="rounded-md"
-                                            className="object-contain p-0.5 pointer-events-none"
-                                            sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"
-                                        />
-                                    </div>
-                                ))}
-                            </div>
+                            {/*<div className="col-span-3 flex justify-center gap-2 w-full select-none ">*/}
+                            {/*    {logoImages.slice(4,6).map((item, index) => (*/}
+                            {/*        <div key={`logo-extra-${index}`} className="relative w-[32%] aspect-square bg-white rounded-lg border border-gray-100 shadow-sm p-1.5 scale-95 hover:scale-102 duration-400 ">*/}
+                            {/*            <ImageSkeletonLoader*/}
+                            {/*                src={item}*/}
+                            {/*                alt={`Logo współpracy ${index + 1}`}*/}
+                            {/*                fill*/}
+                            {/*                rounded="rounded-md"*/}
+                            {/*                className="object-contain p-0.5 pointer-events-none"*/}
+                            {/*                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"*/}
+                            {/*            />*/}
+                            {/*        </div>*/}
+                            {/*    ))}*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
