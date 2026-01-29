@@ -14,7 +14,7 @@ const nextConfig = {
 
     compress: true,
     output: "standalone",
-    reactCompiler: true,
+    reactCompiler: false,
 
     modularizeImports: {
         'lucide-react': {

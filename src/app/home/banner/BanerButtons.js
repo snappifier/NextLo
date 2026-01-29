@@ -3,7 +3,7 @@ import {motion} from "motion/react";
 import Link from "next/link";
 
 export default function BannerButtons({przyciski}){
-    return (<div className="relative grid grid-cols-2 grid-rows-2 md:flex w-full gap-3 md:gap-5 h-max drop-shadow-lg/10">
+    return (<div className="relative grid grid-cols-2 grid-rows-2 md:flex w-full gap-3 md:gap-3 h-max drop-shadow-lg/10">
         {przyciski.map((item, index) => {
             const href = item["Link"] || "#"
             const isExternal = href.startsWith("http")

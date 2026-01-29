@@ -26,7 +26,6 @@ export default function ImageSkeletonLoader({src, alt, className, sizes, rounded
                    alt={alt}
                    fill
                    priority
-                   quality={85}
                    sizes={sizes}
                    onLoad={() => setIsLoading(false)}
             />

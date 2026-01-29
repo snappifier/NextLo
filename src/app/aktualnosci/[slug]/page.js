@@ -4,19 +4,9 @@ import Link from "next/link";
 import NewsHeader from "@/app/aktualnosci/[slug]/components/NewsHeader";
 import sanitizeHtml from "sanitize-html";
 import Image from "next/image";
-import Photo from "@/app/galeria/[slug]/[id]/photo";
+import NewsPhotoClient from "@/app/aktualnosci/[slug]/components/NewsPhotoClient";
 
 export const revalidate = 60;
-
-// async function getPostById(documentId) {
-//     try {
-//         const json = await strapiFetch(`/api/posts/${documentId}?populate=*`);
-//         return json?.data ?? null;
-//     } catch (error) {
-//         console.error('Błąd pobierania posta:', error);
-//         return null;
-//     }
-// }
 
 async function getPostBySlug(slug) {
     try {
@@ -79,7 +69,7 @@ export default async function PostDetail({ params, searchParams }) {
                     <NewsHeader text={post["Tytul"]} isBackground={srcMain ? 1 : 0} />
 
                     <div className="w-full flex flex-col xl:flex-row gap-5 xl:justify-center xl:items-start items-center">
-                        <div className={`${photos.length > 0 ? "w-full" : "xl:w-[70%] md:w-full"} break-words text-justify text-slate-700 flex flex-col text-wrap p-6 sm:p-8 bg-white rounded-xl shadow-lg gap-5`}>
+                        <div className={`${photos.length > 0 ? "w-full" : "xl:w-[70%] md:w-full"} break-words text-slate-700 flex flex-col text-wrap p-6 sm:p-8 bg-white rounded-xl shadow-lg gap-5`}>
                             <Link href={backLink} className="w-max">
                                 <p className="text-slate-500 hover:text-slate-800 transition-colors duration-200 flex items-center gap-2 group">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" className="transition-transform group-hover:-translate-x-1">
@@ -89,7 +79,7 @@ export default async function PostDetail({ params, searchParams }) {
                                 </p>
                             </Link>
 
-                            <div className="rich-content ck-content font-poppins text-justify leading-relaxed"
+                            <div className="rich-content ck-content font-poppins leading-relaxed"
                                  dangerouslySetInnerHTML={{
                                      __html: sanitizeHtml(post["Opis"], {
                                          allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'p', 'a']),
@@ -120,23 +110,7 @@ export default async function PostDetail({ params, searchParams }) {
                         {photos.length > 0 && (
                             <div className="w-full lg:w-[50%] h-max bg-white rounded-xl shadow-lg flex flex-col p-5">
                                 <p className="text-xl font-medium text-gray-800 mb-4">Galeria</p>
-                                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 gap-2 w-full select-none">
-                                    {photos.map((item, index) => {
-                                        const imgUrl = getStrapiMedia(item.url);
-                                        if (!imgUrl) return null;
-
-                                        return (
-                                            <div key={item.id || index} className="w-full aspect-square">
-                                                <Photo
-                                                    uid={item.id || index}
-                                                    url={imgUrl}
-                                                    alttext={item.alternativeText || `Zdjęcie ${index + 1}`}
-                                                    classStyles="relative w-full h-full cursor-pointer"
-                                                />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                <NewsPhotoClient photos={photos} />
                             </div>
                         )}
                     </div>

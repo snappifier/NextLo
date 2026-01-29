@@ -152,7 +152,7 @@ const AutomatycznyContent = ({data}) => {
 		<div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
 			<div className="w-full flex items-center justify-center md:w-[90%] lg:w-[80%]">
 				{sections.length ? (
-					<div className="max-w-[80%] h-max flex flex-col gap-4 sm:gap-5 text-wrap">
+					<div className="max-w-[94%] sm:max-w-[90%] md:max-w-[85%] h-max flex flex-col gap-4 sm:gap-5 text-wrap">
 						<Header text={data["Naglowek"]} />
 						{sections.map((section) => {
 							const links = Array.isArray(section["Linki"]) ? section["Linki"] : [];

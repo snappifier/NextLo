@@ -67,8 +67,7 @@ export default async function Page({ params }) {
     const dbTitle = tytulZakladki.replace('/', '-');
 
     const date = wydarzenie?.TytulWydarzenia.substring(0, 10) || ``
-    const title = wydarzenie?.TytulWydarzenia.substring(11, wydarzenie.TytulWydarzenia.length-10) || `Wydarzenie ${wydarzenie.id}`
-    console.log(dbTitle);
+    const title = wydarzenie?.TytulWydarzenia.substring(11, wydarzenie.TytulWydarzenia.length) || `Wydarzenie ${wydarzenie.id}`
     return (
         <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%] flex flex-col gap-5 md:gap-8">
