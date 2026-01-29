@@ -58,34 +58,32 @@ export default async function Page({ params }) {
         <div className="w-full pt-36 md:pt-40 pb-16 md:pb-20 flex flex-col items-center min-h-[80vh]">
             <div className="w-[92%] sm:w-[90%] lg:w-[80%]">
                 {wydarzenia.length === 0 ? (
-                    <div>
-                        <Link
-                            href={`/galeria`}
-                            className="text-blue-600 hover:underline inline-flex items-center gap-2"
-                        >
-                            ← Powrót
-                        </Link>
-                        <p className="mt-4">Brak wydarzeń dla tego rocznika.</p>
-                    </div>
+	                <div className="flex flex-col gap-4">
+		                <Link href="/galeria" className="w-max group">
+			                <p className="text-slate-500 hover:text-slate-800 transition-colors duration-200 flex items-center gap-2">
+				                <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform group-hover:-translate-x-1" width={16} height={16} viewBox="0 0 24 24"><path fill="currentColor" d="m10.8 12l3.9 3.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-4.6-4.6q-.15-.15-.212-.325T8.425 12t.063-.375t.212-.325l4.6-4.6q.275-.275.7-.275t.7.275t.275.7t-.275.7z"></path></svg>
+				                Wróć do galerii
+			                </p>
+		                </Link>
+		                <p className="text-slate-600">Brak wydarzeń dla tego rocznika.</p>
+	                </div>
                 ) : (
-                    <div className="flex flex-col gap-5 md:gap-8">
-                        <div className="absolute w-max flex justify-start">
-                            <Link
-                                href={`/galeria`}
-                                className="text-blue-600 hover:text-blue-800 font-medium transition-colors inline-flex items-center gap-2"
-                            >
-                                ← Powrót
-                            </Link>
-                        </div>
+	                <div className="flex flex-col gap-6 md:gap-8">
+		                <Link href="/galeria" className="w-max group">
+			                <p className="text-slate-500 hover:text-slate-800 transition-colors duration-200 flex items-center gap-2">
+				                <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform group-hover:-translate-x-1" width={16} height={16} viewBox="0 0 24 24"><path fill="currentColor" d="m10.8 12l3.9 3.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-4.6-4.6q-.15-.15-.212-.325T8.425 12t.063-.375t.212-.325l4.6-4.6q.275-.275.7-.275t.7.275t.275.7t-.275.7z"></path></svg>
+				                Wróć do galerii
+			                </p>
+		                </Link>
 
-                        <div className="w-full flex flex-col items-center mb-4 sm:mb-2 text-wrap gap-4 text-[#3077BA]">
-                            <p className="w-full text-md sm:text-lg lg:text-xl font-medium uppercase text-center">
+                        <div className="w-full flex flex-col items-center text-wrap gap-3 text-[#3077BA]">
+                            <p className="w-full text-sm sm:text-base lg:text-lg font-medium uppercase text-center tracking-wide">
                                 Galeria
                             </p>
                             <p className="w-full text-3xl sm:text-4xl lg:text-5xl  font-semibold text-center uppercase">
                                 {year}
                             </p>
-                            <div className="pt-1 w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
+                            <div className="pt-1 w-1/3 h-1 bg-[#3077BA] rounded-2xl"/>
                         </div>
 
                         <div className={`w-full gap-5 md:gap-8 grid auto-rows-fr ${
