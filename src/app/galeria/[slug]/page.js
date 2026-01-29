@@ -88,12 +88,14 @@ export default async function Page({ params }) {
                             <div className="pt-1 w-1/3 h-1 bg-[#3077BA] rounded-2xl"></div>
                         </div>
 
-                        <div className={`w-full gap-5 md:gap-8 ${
-                            wydarzenia.length < 2
-                                ? "flex justify-center"
-                                : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr"
+                        <div className={`w-full gap-5 md:gap-8 grid auto-rows-fr ${
+                            wydarzenia.length === 1
+                                ? "grid-cols-1 max-w-md mx-auto"
+                                : wydarzenia.length === 2
+                                    ? "grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto"
+                                    : "w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                         }`}>
-                            {wydarzenia.map((ev) => {
+                            {wydarzenia.toReversed().map((ev) => {
                                 const id = ev.id
                                 return (
                                     <Link key={id}
