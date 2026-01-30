@@ -30,6 +30,9 @@ export async function generateMetadata({ params }) {
     return {
         title: post["Tytul"] || 'Aktualność',
         description: post["Opis"]?.slice(0, 160) || '',
+        alternates: {
+            canonical: `/aktualnosci/${slug}`,
+        },
     };
 }
 

@@ -22,6 +22,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
+    metadataBase: new URL("https://1lo.com.pl"),
     title: {
         template: '%s - I Liceum Ogólnokształcące w Zamościu',
         default: 'I Liceum Ogólnokształcące w Zamościu'
