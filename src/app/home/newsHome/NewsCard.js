@@ -14,7 +14,7 @@ export const stripHtml = (html) => {
 
 export const formatPLDate = (d) => new Date(d).toLocaleDateString("pl-PL");
 
-export function NewsCard({ news, featured = false }) {
+export function NewsCard({ news, featured = false, pinned = false }) {
     const imgSrc = news?.["ZdjecieGlowne"] ? getStrapiMedia(news["ZdjecieGlowne"].url) : "";
     const slug = news.slug;
 
@@ -59,6 +59,36 @@ export function NewsCard({ news, featured = false }) {
                 </div>
             </Link>
         )
+    }
+
+    if (pinned){
+        return (
+            <Link href={`/aktualnosci/${slug}`} prefetch={true} className="block h-full" tabIndex={-1}>
+                <div className="group w-full h-full bg-indigo-100 rounded-xl overflow-hidden cursor-pointer border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-slate-300 active:scale-98 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-sky-900 focus-visible:-translate-y-2 ease-out transition-all duration-300 will-change-transform" style={{transform: 'translateZ(0)'}} tabIndex={0}>
+                    <div className="w-full h-full flex flex-col px-5 py-4 gap-2">
+                        <div className="absolute top-2 right-2">
+                            <span className="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white shadow-lg shadow-indigo-500/30 select-none">
+                                <span className="size-1.5 rounded-full bg-white animate-pulse"/>
+                                Przypięte
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500 select-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24"><path fill="currentColor" d="M18.438 4.954H16.5V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408h-7V3.546c0-.262-.23-.512-.5-.5a.51.51 0 0 0-.5.5v1.408H5.562a2.503 2.503 0 0 0-2.5 2.5v11c0 1.379 1.122 2.5 2.5 2.5h12.875c1.379 0 2.5-1.121 2.5-2.5v-11a2.5 2.5 0 0 0-2.499-2.5m-12.876 1H7.5v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h7v.592c0 .262.23.512.5.5c.271-.012.5-.22.5-.5v-.592h1.937c.827 0 1.5.673 1.5 1.5v1.584H4.062V7.454c0-.827.673-1.5 1.5-1.5m12.876 14H5.562c-.827 0-1.5-.673-1.5-1.5v-8.416h15.875v8.416a1.5 1.5 0 0 1-1.499 1.5"></path></svg>
+                            <span>{formatPLDate(news["Data"])}</span>
+                            <span>•</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8M6 8a6 6 0 1 1 12 0A6 6 0 0 1 6 8m2 10a3 3 0 0 0-3 3a1 1 0 1 1-2 0a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5a1 1 0 1 1-2 0a3 3 0 0 0-3-3z"></path></svg>
+                            <span>{news["Autor"]}</span>
+                        </div>
+                        <h4 className="font-semibold text-base md:text-lg text-slate-900 leading-tight group-hover:text-slate-700 transition-colors duration-300 line-clamp-2 select-none">{clampText(stripHtml(news["Tytul"]), 80)}</h4>
+                        <p className="text-sm text-slate-600 line-clamp-2 grow select-none">{clampText(stripHtml(news["Opis"]), 100)}</p>
+                        <div className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 mt-auto pt-2 group-hover:text-sky-700 transition-colors duration-300 select-none">
+                            <span>Czytaj dalej</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-1" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M13.292 12L9.046 7.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16l4.388 4.389q.131.13.184.267t.053.298t-.053.298t-.184.268l-4.388 4.388q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </Link>
+        );
     }
 
     return (

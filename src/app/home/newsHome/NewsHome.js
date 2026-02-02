@@ -2,13 +2,17 @@
 
 import {NewsCard, SeeMoreCard} from "@/app/home/newsHome/NewsCard";
 
-export const NewsHome = ({posts, index}) => {
+export const NewsHome = ({posts, index, pinnedPosts}) => {
+    const pinnedIds = pinnedPosts.map(p => p.id);
 
-    const displayPosts = posts.slice(0, 5)
-    const featured = displayPosts[0]
-    const rightColumn = displayPosts.slice(1, 3)
-    const bottomRow = displayPosts.slice(3, 5)
+    const availablePosts = posts.filter(post => !pinnedIds.includes(post.id));
+    const featured = availablePosts[0];
 
+    const neededForRight = Math.max(0, 2 - pinnedPosts.length);
+    const rightColumn = availablePosts.slice(1, 1 + neededForRight);
+
+    const bottomRowStart = 1 + neededForRight;
+    const bottomRow = availablePosts.slice(bottomRowStart, bottomRowStart + 2);
 
     return (
         <>
@@ -32,9 +36,14 @@ export const NewsHome = ({posts, index}) => {
                                         <NewsCard news={featured} featured={true}/>
                                     </div>
                                 )}
+                                {pinnedPosts.map((news) => (
+                                    <div key={news.id} className="min-h-50">
+                                        <NewsCard news={news} pinned={true} />
+                                    </div>
+                                ))}
                                 {rightColumn.map((news) => (
                                     <div key={news.id} className="min-h-50">
-                                        <NewsCard news={news}/>
+                                        <NewsCard news={news} />
                                     </div>
                                     ))}
                                 <div className="min-h-45 lg:hidden">

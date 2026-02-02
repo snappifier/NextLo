@@ -1,6 +1,7 @@
 "use client"
 import {useMemo} from "react";
 import {getStrapiMedia} from "@/app/lib/strapi";
+import Link from "next/link";
 import ImageSkeletonLoader from "@/app/components/animations/ImageSkeletonLoader";
 
 export default function ShieldsNew({data}) {
@@ -13,21 +14,33 @@ export default function ShieldsNew({data}) {
         [data["Wspolprace"]]
     );
 
+    const linkImages = useMemo(() =>
+            Array.isArray(data["Wspolprace"])
+                ? data["Wspolprace"]
+                    .map((item) => item?.["Link"] ? item["Link"] : "")
+                    .filter(Boolean)
+                : [],
+        [data["Wspolprace"]]
+    );
+
     const shieldImg = data["Tarcza"]?.["Zdjecie"] ? getStrapiMedia(data["Tarcza"]["Zdjecie"].url) : null
+    const shieldLink = data["Tarcza"]?.["Link"] ? data["Tarcza"]["Link"] : null
 
     return (
         <div className="w-full h-auto bg-white rounded-2xl shadow-lg/20 overflow-hidden">
             <div className="w-full h-full flex flex-col lg:flex-row gap-3 lg:gap-4">
                 <div className="w-full flex flex-col justify-center text-center items-center gap-3 px-4 py-6 sm:px-6 sm:py-8">
                     <div className="relative w-full max-w-50 h-48 sm:h-56 select-none">
-                        {shieldImg && <ImageSkeletonLoader
-                            src={shieldImg}
-                            alt={"Tarcza Persektywy"}
-                            fill
-                            rounded="rounded-lg"
-                            className="object-contain rounded-lg pointer-events-none"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />}
+                        <Link href={shieldLink ? shieldLink : ""} target={"_blank"} key={`Tarcza-Perspektyw`}>
+                            {shieldImg && <ImageSkeletonLoader
+                                src={shieldImg}
+                                alt={"Tarcza Persektywy"}
+                                fill
+                                rounded="rounded-lg"
+                                className="object-contain rounded-lg pointer-events-none"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />}
+                        </Link>
                     </div>
                     <div className="w-full max-w-md flex flex-col gap-1.5">
                         <p className="font-bold uppercase text-base sm:text-lg md:text-xl lg:text-2xl">{data["Tarcza"]["Naglowek"]}</p>
@@ -40,31 +53,19 @@ export default function ShieldsNew({data}) {
                         <p className="font-normal uppercase text-sm sm:text-base">WSPÓŁPRACUJEMY Z NAJLEPSZYMI</p>
                         <div className="grid grid-cols-3 gap-2 w-full max-w-lg mx-auto select-none ">
                             {logoImages.slice(0, 6).map((item, index) => (
-                                <div key={`logo-${index}`} className="relative w-full aspect-square bg-white rounded-lg border border-gray-100 shadow-sm p-1.5 scale-95 hover:scale-102 duration-400 ">
-                                    <ImageSkeletonLoader
-                                        src={item}
-                                        alt={`Logo współpracy ${index + 1}`}
-                                        fill
-                                        rounded="rounded-md"
-                                        className="object-contain p-0.5 pointer-events-none"
-                                        sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"
-                                    />
-                                </div>
+                                <Link href={linkImages[index] ? linkImages[index] : ""} target={linkImages[index] ? "_blank" : ""} key={`logo-${index}`}>
+                                    <div className="relative w-full aspect-square bg-white rounded-lg border border-gray-100 shadow-sm p-1.5 scale-95 hover:scale-102 duration-400 ">
+                                        <ImageSkeletonLoader
+                                            src={item}
+                                            alt={`Logo współpracy ${index + 1}`}
+                                            fill
+                                            rounded="rounded-md"
+                                            className="object-contain p-0.5 pointer-events-none"
+                                            sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"
+                                        />
+                                    </div>
+                                </Link>
                             ))}
-                            {/*<div className="col-span-3 flex justify-center gap-2 w-full select-none ">*/}
-                            {/*    {logoImages.slice(4,6).map((item, index) => (*/}
-                            {/*        <div key={`logo-extra-${index}`} className="relative w-[32%] aspect-square bg-white rounded-lg border border-gray-100 shadow-sm p-1.5 scale-95 hover:scale-102 duration-400 ">*/}
-                            {/*            <ImageSkeletonLoader*/}
-                            {/*                src={item}*/}
-                            {/*                alt={`Logo współpracy ${index + 1}`}*/}
-                            {/*                fill*/}
-                            {/*                rounded="rounded-md"*/}
-                            {/*                className="object-contain p-0.5 pointer-events-none"*/}
-                            {/*                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 15vw"*/}
-                            {/*            />*/}
-                            {/*        </div>*/}
-                            {/*    ))}*/}
-                            {/*</div>*/}
                         </div>
                     </div>
                 </div>

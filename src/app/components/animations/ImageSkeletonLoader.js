@@ -4,7 +4,7 @@ import {useState} from "react"
 import Image from "next/image"
 import {motion, AnimatePresence} from "motion/react"
 
-export default function ImageSkeletonLoader({src, alt, className, sizes, rounded}) {
+export default function ImageSkeletonLoader({src, alt, className, sizes, rounded, isPriority}) {
     const [isLoading, setIsLoading] = useState(true)
 
     return (
@@ -25,7 +25,7 @@ export default function ImageSkeletonLoader({src, alt, className, sizes, rounded
                    src={src}
                    alt={alt}
                    fill
-                   priority
+                   priority={isPriority}
                    sizes={sizes}
                    onLoad={() => setIsLoading(false)}
             />
