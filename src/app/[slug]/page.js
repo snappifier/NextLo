@@ -125,8 +125,8 @@ async function getPageData(slugParam) {
 	const bases = Array.from(new Set([ last, slugify(item?.title || "") ].filter(Boolean)));
 
 	for (const base of bases) {
-		const data = await fetchSingleById(base, item.type);
-		if (data) return [data, item.type];
+		const data = await fetchSingleById(base, item?.type);
+		if (data) return [data, item?.type];
 	}
 	return null;
 }
@@ -139,6 +139,12 @@ export async function generateMetadata({ params }) {
     if (!result) return {};
 
 	const [data] = result;
+
+	if (!data?.["Szablon"]) {
+		return {
+			title: "Strona nie istnieje"
+		};
+	}
 
 	return {
 		title: data["Szablon"]["Naglowek"],
@@ -201,6 +207,11 @@ export default async function Page({ params }) {
         const result = await getPageData(slug);
         if (!result) return notFound();
         const [data, typ] = result;
+
+		if (!data["Szablon"]) {
+			return notFound();
+		}
+
 		const hasPrincipalsData = Array.isArray(data["Dyrektorzy"]) || Array.isArray(data["Szablon"]?.["Dyrektorzy"]);
         return (
             <Suspense fallback={<LoadingFallback />}>

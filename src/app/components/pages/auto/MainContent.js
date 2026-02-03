@@ -4,14 +4,40 @@ const MainContent = ({ text, hasLinks }) => {
     if (!text || !Array.isArray(text)) return null;
 
     const sanitizeConfig = {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'h3', 'h4', 'u', 'span', 'figure', 'figcaption', 'iframe']),
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+            'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+            'u', 's', 'del', 'sub', 'sup',
+            'span', 'figure', 'figcaption',
+            'iframe', 'div',
+            'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th'
+        ]),
+
         allowedAttributes: {
             ...sanitizeHtml.defaults.allowedAttributes,
-            'img': ['src', 'alt', 'width', 'height', 'srcset', 'sizes'],
-            'iframe': ['src', 'width', 'height', 'allow', 'allowfullscreen', 'frameborder']
+            'img': ['src', 'alt', 'width', 'height', 'srcset', 'sizes', 'title', 'style'],
+            'a': ['href', 'name', 'target', 'rel'],
+            'iframe': ['src', 'width', 'height', 'allow', 'allowfullscreen', 'frameborder', 'title'],
+            '*': ['data-*', 'class', 'style']
         },
+
+        allowedStyles: {
+            '*': {
+                'color': [/^#(0x)?[0-9a-f]+$/i, /^rgb\(/, /^rgba\(/, /^[a-z]+$/i],
+                'background-color': [/^#(0x)?[0-9a-f]+$/i, /^rgb\(/, /^rgba\(/, /^[a-z]+$/i],
+                'font-size': [/^\d+(?:px|em|rem|%|pt)$/],
+                'font-family': [/.+/],
+                'text-align': [/^left$/, /^right$/, /^center$/, /^justify$/],
+                'width': [/^\d+(?:px|em|rem|%)$/],
+                'height': [/^\d+(?:px|em|rem|%)$/]
+            }
+        },
+
         allowedClasses: {
             '*': ['*']
+        },
+
+        transformTags: {
+            'a': sanitizeHtml.simpleTransform('a', { rel: 'noopener noreferrer' }),
         }
     };
 
